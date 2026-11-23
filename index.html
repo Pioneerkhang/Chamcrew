@@ -1,340 +1,2231 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chạm Crew | Portfolio & Giải Pháp Nhân Sự Sự Kiện</title>
-    <!-- KHAI BÁO ICON CHO TAB TRÌNH DUYỆT (FAVICON) -->
-<link rel="icon" type="image/png" href="logochamcrew.png.png">
-    <style>
-        :root {
-            --bg-main: #0a0a0a;
-            --bg-card: #141414;
-            --primary-yellow: #ffcc00;
-            --yellow-glow: rgba(255, 204, 0, 0.3);
-            --text-light: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --border-color: #262626;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHẠM CREW | Hồ Sơ Năng Lực & Giải Pháp Vận Hành Sự Kiện</title>
+  <meta name="description" content="Chạm Crew – Đơn vị Giải pháp Vận hành Hiện trường, Quản trị Hậu cần Số & Sản xuất Sự kiện Cộng đồng tại TP.HCM." />
+  <link rel="icon" type="image/png" href="logochamcrew.png.png" />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+  <!-- Google Fonts: Playfair Display (Editorial Serif) + Plus Jakarta Sans (Tiếng Việt sắc nét) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  <style>
+    :root {
+      --bg-void: #070709;
+      --bg-surface: rgba(16, 16, 20, 0.86);
+      --bg-card: rgba(20, 20, 25, 0.92);
+      --gold-bright: #F5C518;
+      --gold-burnished: #D4AF37;
+      --gold-dim: rgba(212, 175, 55, 0.28);
+      --gold-glow: rgba(245, 197, 24, 0.22);
+      --ivory: #F5EFE6;
+      --ivory-dark: #E8DFD1;
+      --ink-dark: #1C1917;
+      --text-main: #F4F1EA;
+      --text-muted: #A6A095;
+      --emerald-deep: #0F5C40;
+      --emerald-btn: #147A55;
+      --teal-deep: #0F4C5C;
+      --crimson-deep: #6E1423;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
 
-        /* HEADER */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-yellow);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-void);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+    }
 
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 0.95rem;
-            transition: 0.3s;
-        }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: var(--bg-void);
+      line-height: 1.6;
+    }
 
-        nav a:hover {
-            color: var(--primary-yellow);
-        }
+    /* =========================================================================
+       LỚP NỀN CỐ ĐỊNH 2 MẶT (MẶT 1: WEBGL HERO -> MẶT 2: NỀN TĨNH MỜ KHI CUỘN)
+       ========================================================================= */
+    #backdrop-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-color: var(--bg-void);
+      overflow: hidden;
+    }
 
-        .btn-cta {
-            background: var(--primary-yellow);
-            color: #000;
-            padding: 8px 20px;
-            font-weight: 700;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: 0.3s;
-            box-shadow: 0 0 15px var(--yellow-glow);
-        }
+    #webgl-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: opacity 0.6s ease;
+    }
 
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.6);
-        }
+    #static-backdrop {
+      position: absolute;
+      inset: -24px;
+      background-image: url('banner.webp');
+      background-size: contain;
+      background-position: center 38%;
+      background-repeat: no-repeat;
+      opacity: 0;
+      filter: blur(0px) brightness(1);
+      transform: scale(1.02);
+      transition: opacity 0.65s ease, filter 0.65s ease, transform 0.65s ease;
+      will-change: opacity, filter;
+    }
 
-        /* HERO SECTION */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, #1a1a00 0%, var(--bg-main) 70%);
-            margin-top: 60px;
-        }
+    /* Trạng thái fallback nếu thiết bị không hỗ trợ WebGL */
+    body.webgl-fallback #webgl-canvas {
+      display: none;
+    }
+    body.webgl-fallback #static-backdrop {
+      opacity: 1;
+      filter: blur(0px) brightness(0.95);
+    }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--primary-yellow);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px var(--yellow-glow);
-        }
+    /* Trạng thái Mặt 2: Khi cuộn xuống khu vực Dự án & Dịch vụ */
+    body.scrolled-face2 #webgl-canvas {
+      opacity: 0;
+    }
+    body.scrolled-face2 #static-backdrop {
+      opacity: 1;
+      filter: blur(18px) brightness(0.28) saturate(1.15);
+      transform: scale(1.08);
+    }
 
-        .hero p.tagline {
-            font-size: 1.3rem;
-            font-style: italic;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
+    /* Lớp phủ vignette làm tối viền và chân màn hình */
+    .backdrop-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 42%, transparent 25%, rgba(7, 7, 9, 0.72) 85%),
+        linear-gradient(180deg, rgba(7, 7, 9, 0.55) 0%, transparent 22%, transparent 65%, rgba(7, 7, 9, 0.96) 100%);
+    }
 
-        .hero p.desc {
-            max-width: 650px;
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-        }
+    /* =========================================================================
+       THANH ĐIỀU HƯỚNG CỐ ĐỊNH (HEADER)
+       ========================================================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      padding: 14px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 7, 9, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+    }
 
-        /* SECTION COMMON */
-        section {
-            padding: 80px 5%;
-        }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
 
-        .section-title {
-            font-size: 2rem;
-            color: var(--primary-yellow);
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            text-align: center;
-            letter-spacing: 1px;
-        }
+    .brand-logo-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-burnished);
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 14px var(--gold-glow);
+      flex-shrink: 0;
+    }
 
-        /* PORTFOLIO GRID (HOVER UX) */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
+    .brand-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
+    .brand-fallback-crest {
+      font-family: var(--font-serif);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.5px;
+    }
 
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-yellow);
-            box-shadow: 0 10px 30px var(--yellow-glow);
-        }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .card-img {
-            width: 100%;
-            height: 200px;
-            background-color: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-yellow);
-            font-weight: bold;
-            font-size: 1.2rem;
-            border-bottom: 1px solid var(--border-color);
-        }
+    .brand-title {
+      font-family: var(--font-serif);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      color: var(--gold-bright);
+      line-height: 1.1;
+    }
 
-        .card-body {
-            padding: 20px;
-        }
+    .brand-sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
 
-        .card-body h3 {
-            color: var(--text-light);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
 
-        .card-body p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.25s ease;
+    }
 
-        .badge {
-            display: inline-block;
-            background: rgba(255, 204, 0, 0.1);
-            color: var(--primary-yellow);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-top: 10px;
-            border: 1px solid var(--primary-yellow);
-        }
+    .nav-links a:hover {
+      color: var(--gold-bright);
+    }
 
-        /* SERVICES */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
+    .btn-zalo-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      color: #0B0B0D;
+      font-weight: 800;
+      font-size: 0.84rem;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 18px rgba(245, 197, 24, 0.28);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
 
-        .service-box {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-yellow);
-        }
+    .btn-zalo-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(245, 197, 24, 0.48);
+    }
 
-        .service-box h3 {
-            color: var(--primary-yellow);
-            margin-bottom: 15px;
-        }
+    /* =========================================================================
+       KHUNG NỘI DUNG CHÍNH
+       ========================================================================= */
+    main {
+      position: relative;
+      z-index: 10;
+    }
 
-        /* FOOTER */
-        footer {
-            background: #050505;
-            border-top: 1px solid var(--border-color);
-            padding: 50px 5% 30px;
-            text-align: center;
-        }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        footer p {
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
+    /* =========================================================================
+       MẶT 1: HERO SECTION (GIỮ THOÁNG TÂM CHO LOGO WEBGL)
+       ========================================================================= */
+    .hero-section {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 96px 20px 36px;
+    }
 
-        footer a {
-            color: var(--primary-yellow);
-            text-decoration: none;
-        }
+    .hero-top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(15, 15, 20, 0.72);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      backdrop-filter: blur(8px);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+    }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.3rem; }
-            nav { display: none; }
-        }
-    </style>
+    /* Vùng trống trung tâm nhường sân khấu cho hiệu ứng WebGL trên banner.webp */
+    .hero-webgl-window {
+      flex: 1;
+      min-height: 240px;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .hero-bottom-anchor {
+      max-width: 780px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(7, 7, 9, 0.45) 0%, rgba(7, 7, 9, 0.88) 100%);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.16);
+    }
+
+    .hero-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      color: var(--gold-bright);
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.85);
+    }
+
+    .hero-positioning {
+      font-size: clamp(0.9rem, 1.5vw, 1.02rem);
+      color: #E2DDD5;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: 1px solid var(--gold-burnished);
+      background: rgba(20, 20, 24, 0.75);
+      color: var(--gold-bright);
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-outline-gold:hover {
+      background: rgba(212, 175, 55, 0.16);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================================
+       DẢI 4 CHỈ SỐ NĂNG LỰC (BẤM VÀO MỞ THẺ NỔI THU GỌN AFK - HÌNH 1)
+       ========================================================================= */
+    .metrics-section {
+      padding: 24px 0 64px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .metric-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-bright);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 18px var(--gold-glow);
+    }
+
+    .metric-num {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--gold-bright);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .metric-hint {
+      font-size: 0.74rem;
+      color: var(--gold-burnished);
+      opacity: 0.85;
+    }
+
+    /* =========================================================================
+       HIỆU ỨNG PHẢN XẠ ÁNH SÁNG KIM LOẠI CHUNG (METALLIC FOIL SHEEN)
+       ========================================================================= */
+    .metallic-sheen {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metallic-sheen::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -120%;
+      width: 65%;
+      height: 200%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 244, 194, 0.04) 35%,
+        rgba(255, 236, 153, 0.22) 50%,
+        rgba(255, 244, 194, 0.04) 65%,
+        transparent 100%
+      );
+      transform: rotate(22deg);
+      transition: left 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .metallic-sheen:hover::after {
+      left: 155%;
+    }
+
+    /* =========================================================================
+       KHU VỰC DỰ ÁN: THANH TRƯỢT NĂM (2026 <-> 2027) & TIÊU ĐỀ EDITORIAL
+       ========================================================================= */
+    .projects-section {
+      padding: 40px 0 80px;
+    }
+
+    .section-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      margin-bottom: 42px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--gold-bright);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.15;
+    }
+
+    /* Thanh trượt chuyển năm 2026 <-> 2027 */
+    .year-switcher {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(14, 14, 18, 0.95);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      border-radius: 999px;
+      padding: 4px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .year-slider-pill {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc(50% - 4px);
+      height: calc(100% - 8px);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #F5C518 0%, #C99A1E 100%);
+      box-shadow: 0 2px 12px rgba(245, 197, 24, 0.4);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1;
+    }
+
+    .year-switcher[data-active-year="2027"] .year-slider-pill {
+      transform: translateX(100%);
+    }
+
+    .year-btn {
+      position: relative;
+      z-index: 2;
+      border: none;
+      background: transparent;
+      padding: 8px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.25s ease;
+    }
+
+    .year-btn.active {
+      color: #09090B;
+    }
+
+    /* =========================================================================
+       KHỐI GÓI SỰ KIỆN (3 GÓI GIỚI HẠN KIỂU AFK JOURNEY)
+       ========================================================================= */
+    .campaign-group {
+      margin-bottom: 68px;
+    }
+
+    .group-banner-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding: 12px 18px;
+      border-left: 3px solid var(--gold-bright);
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, transparent 100%);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .group-banner-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+    }
+
+    .group-banner-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* =========================================================================
+       HỆ THỐNG 4 TAG CỐ ĐỊNH GÁC NGHIÊNG GÓC TRÊN TRÁI
+       ========================================================================= */
+    .skew-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transform: rotate(-4deg);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      z-index: 6;
+      user-select: none;
+    }
+
+    .tag-emerald {
+      background: linear-gradient(135deg, #13704E 0%, #093D2A 100%);
+      color: #ECFDF5;
+      border-color: rgba(110, 231, 183, 0.35);
+    }
+
+    .tag-teal {
+      background: linear-gradient(135deg, #156075 0%, #0A3440 100%);
+      color: #ECFEFF;
+      border-color: rgba(103, 232, 249, 0.35);
+    }
+
+    .tag-crimson {
+      background: linear-gradient(135deg, #8C192C 0%, #4D0B16 100%);
+      color: #FFF1F2;
+      border-color: rgba(253, 164, 175, 0.35);
+    }
+
+    .tag-gold {
+      background: linear-gradient(135deg, #F5C518 0%, #B8860B 100%);
+      color: #0B0B0D;
+      border-color: #FFF3B0;
+      box-shadow: 0 6px 20px rgba(245, 197, 24, 0.42);
+    }
+
+    .scale-pill-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      background: rgba(15, 92, 64, 0.92);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #F5C518;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* =========================================================================
+       TẦNG 1: WIDGET LỚN (KIỂU 1: 50/50 KHUNG VÒM + 3 Ô CHỈ SỐ + NÚT XEM CHI TIẾT)
+       ========================================================================= */
+    .large-widget-wrapper {
+      position: relative;
+      margin-top: 18px;
+      margin-bottom: 34px;
+    }
+
+    .large-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(24, 24, 30, 0.96) 0%, rgba(12, 12, 16, 0.98) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.42);
+      border-radius: 16px;
+      padding: 34px 28px 36px;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    .large-card.is-gold-tier {
+      border-color: var(--gold-bright);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.75), 0 0 26px rgba(245, 197, 24, 0.16);
+    }
+
+    /* Cặp tag góc trên trái */
+    .large-tag-cluster {
+      position: absolute;
+      top: -15px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 8;
+      flex-wrap: wrap;
+    }
+
+    /* Nửa trái: Khung ảnh vòm Art Nouveau (Kiểu 1 - 1 ảnh duy nhất) */
+    .arch-media-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 28px 28px 10px 10px;
+      border: 1.5px solid rgba(212, 175, 55, 0.55);
+      overflow: hidden;
+      background: #111116;
+      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.8);
+    }
+
+    .arch-media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Nền nghệ thuật tự động khi bạn chưa upload file ảnh bìa sự kiện */
+    .arch-art-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .arch-art-placeholder.gold-royal {
+      background: radial-gradient(circle at 30% 25%, rgba(245, 197, 24, 0.32), transparent 60%),
+                  linear-gradient(135deg, #1E180B 0%, #0D0C10 60%, #2C210B 100%);
+    }
+
+    .arch-art-placeholder.emerald-gold {
+      background: radial-gradient(circle at 70% 25%, rgba(19, 112, 78, 0.38), transparent 60%),
+                  linear-gradient(135deg, #0B1F18 0%, #0D0E12 65%, #241D0D 100%);
+    }
+
+    .arch-art-placeholder.teal-dawn {
+      background: radial-gradient(circle at 30% 30%, rgba(21, 96, 117, 0.42), transparent 60%),
+                  linear-gradient(135deg, #0B1D24 0%, #0D0E12 65%, #1E2414 100%);
+    }
+
+    .arch-art-placeholder.crimson-ember {
+      background: radial-gradient(circle at 70% 25%, rgba(140, 25, 44, 0.45), transparent 60%),
+                  linear-gradient(135deg, #240A10 0%, #0D0D11 65%, #2B170A 100%);
+    }
+
+    .arch-emblem-ring {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(245, 197, 24, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      background: rgba(0, 0, 0, 0.45);
+      box-shadow: 0 0 20px rgba(245, 197, 24, 0.18);
+    }
+
+    .arch-emblem-ring svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--gold-bright);
+      fill: none;
+      stroke-width: 1.75;
+    }
+
+    .arch-placeholder-caption {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold-burnished);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Nửa phải: 4 tầng thông tin khít nhau */
+    .large-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .large-partner-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .large-event-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    /* Dải 3 Ô Vật Phẩm / Chỉ Số */
+    .three-stat-boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 4px 0;
+    }
+
+    .stat-item-box {
+      background: rgba(10, 10, 14, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 10px 10px 6px 6px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .stat-item-val {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--gold-bright);
+      line-height: 1.15;
+    }
+
+    .stat-item-lbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .large-short-desc {
+      font-size: 0.88rem;
+      color: #CFC9BE;
+      line-height: 1.55;
+    }
+
+    /* Nút Xem Chi Tiết tràn nhẹ mép dưới bên phải (Chống bấm nhầm cả thẻ) */
+    .btn-open-detail-large {
+      position: absolute;
+      bottom: -16px;
+      right: 24px;
+      z-index: 8;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      border: 1.5px solid var(--gold-bright);
+      background: linear-gradient(135deg, #1E1C16 0%, #0E0D0B 100%);
+      color: var(--gold-bright);
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.84rem;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
+      transition: all 0.25s ease;
+    }
+
+    .btn-open-detail-large:hover {
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      color: #09090B;
+      transform: translateY(-2px);
+    }
+
+    /* Điều hướng Widget Kép (< 1 / 3 >) */
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      margin-top: 22px;
+      padding-left: 8px;
+    }
+
+    .carousel-arrow-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      background: rgba(18, 18, 22, 0.9);
+      color: var(--gold-bright);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .carousel-arrow-btn:hover {
+      background: var(--gold-bright);
+      color: #09090B;
+    }
+
+    .carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.28);
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .carousel-dot.active {
+      width: 24px;
+      background: var(--gold-bright);
+    }
+
+    /* =========================================================================
+       TẦNG 2: THẺ NHỎ NỀN GRADIENT BÌNH MINH / HOÀNG HÔN (KHÔNG CẦN ẢNH)
+       ========================================================================= */
+    .small-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px 20px;
+      margin-top: 18px;
+    }
+
+    .small-card {
+      position: relative;
+      border-radius: 14px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 255px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .small-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-bright);
+    }
+
+    /* 3 Dải màu Gradient Bình minh / Hoàng hôn theo từng nhóm */
+    .grad-dawn-gold {
+      background: linear-gradient(180deg, #111014 0%, #241B0D 58%, #593E14 100%);
+    }
+
+    .grad-teal-sunset {
+      background: linear-gradient(180deg, #0D1318 0%, #12333D 58%, #3B5238 100%);
+    }
+
+    .grad-sunset-ember {
+      background: linear-gradient(180deg, #140B0E 0%, #3D141C 58%, #7A3518 100%);
+    }
+
+    .small-card-tag {
+      position: absolute;
+      top: -13px;
+      left: 12px;
+    }
+
+    .small-card-body {
+      padding: 34px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .small-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .small-card-specs {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: #EAE4D7;
+      background: rgba(7, 7, 9, 0.36);
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .small-card-specs strong {
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    /* Đáy thẻ bo cong (Vùng kích hoạt duy nhất để mở Pop-up) */
+    .small-card-footer-btn {
+      width: 100%;
+      border: none;
+      border-top: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 22px 0 13px 13px;
+      background: rgba(245, 239, 230, 0.94);
+      color: var(--ink-dark);
+      padding: 13px 16px;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.84rem;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .small-card-footer-btn:hover {
+      background: var(--gold-bright);
+      color: #09090B;
+    }
+
+    /* Giao diện trạng thái Năm 2027 khi chưa có sự kiện */
+    .year-2027-empty-card {
+      background: linear-gradient(145deg, rgba(22, 22, 28, 0.92), rgba(10, 10, 14, 0.96));
+      border: 1.5px dashed rgba(212, 175, 55, 0.48);
+      border-radius: 16px;
+      padding: 56px 24px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .year-2027-empty-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      color: var(--gold-bright);
+      margin-bottom: 12px;
+    }
+
+    .year-2027-empty-card p {
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 24px;
+      font-size: 0.95rem;
+    }
+
+    /* =========================================================================
+       KHU VỰC DỊCH VỤ (3 GÓI GIẢI PHÁP)
+       ========================================================================= */
+    .services-section {
+      padding: 30px 0 90px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 14px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-bright);
+    }
+
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      letter-spacing: 1px;
+    }
+
+    .service-title {
+      font-family: var(--font-serif);
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 8px 0 10px;
+      line-height: 1.3;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .service-link-btn {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: var(--gold-bright);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .service-link-btn:hover {
+      background: var(--gold-bright);
+      color: #09090B;
+    }
+
+    /* =========================================================================
+       FOOTER (CHÂN TRANG)
+       ========================================================================= */
+    .site-footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(6, 6, 8, 0.95);
+      border-top: 1px solid rgba(212, 175, 55, 0.25);
+      padding: 56px 20px 32px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--gold-bright);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .footer-tagline {
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.92rem;
+    }
+
+    .footer-contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px 28px;
+      margin-bottom: 26px;
+      font-size: 0.9rem;
+    }
+
+    .footer-contact-row a {
+      color: var(--gold-bright);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-contact-row a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: #6E6A63;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 20px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* =========================================================================
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM (AFK JOURNEY BUNDLE POPUP - HÌNH 2)
+       ========================================================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(4, 4, 6, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      opacity: 0;
+      transition: opacity 0.28s ease;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .wavy-modal-shell {
+      position: relative;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .modal-backdrop.is-open .wavy-modal-shell {
+      transform: translateY(0) scale(1);
+    }
+
+    .wave-svg-top,
+    .wave-svg-bottom {
+      display: block;
+      width: 100%;
+      height: 26px;
+    }
+
+    .wavy-modal-body {
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dark) 100%);
+      color: var(--ink-dark);
+      padding: 16px 32px 24px;
+      max-height: 74vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .wavy-modal-header {
+      text-align: center;
+      border-bottom: 1px solid rgba(28, 25, 23, 0.14);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .wavy-modal-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      font-weight: 800;
+      color: #1C1917;
+      line-height: 1.25;
+    }
+
+    .wavy-modal-meta {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #6B5E4C;
+      margin-top: 6px;
+    }
+
+    /* 3 Ô Hạng mục cốt lõi bên trong Pop-up */
+    .popup-three-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .popup-mini-box {
+      background: #FFFDF9;
+      border: 1.5px solid #D6C7B2;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(28, 25, 23, 0.06);
+    }
+
+    .popup-mini-box h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #8C6218;
+      margin-bottom: 4px;
+    }
+
+    .popup-mini-box p {
+      font-size: 0.82rem;
+      color: #292524;
+      line-height: 1.45;
+    }
+
+    .popup-ops-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #574B3A;
+      margin-bottom: 8px;
+    }
+
+    .popup-ops-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .popup-ops-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      color: #292524;
+      line-height: 1.55;
+    }
+
+    .popup-ops-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #B8860B;
+      font-size: 0.8rem;
+    }
+
+    /* Cặp nút hành động ở đáy Bảng Pop-up (Trái: Đóng | Phải: Xanh lá đậm Recap) */
+    .wavy-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 14px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .btn-popup-close {
+      padding: 13px 20px;
+      border-radius: 12px 4px 12px 12px;
+      border: 1.5px solid #C7B9A5;
+      background: #FFFFFF;
+      color: #3F3A34;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .btn-popup-close:hover {
+      background: #F0E8DC;
+    }
+
+    .btn-popup-recap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 4px 12px 12px 12px;
+      border: 1.5px solid #0B4631;
+      background: linear-gradient(135deg, #17855D 0%, #0F5C40 100%);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(15, 92, 64, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-popup-recap:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .modal-dismiss-hint {
+      text-align: center;
+      color: rgba(244, 241, 234, 0.72);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      margin-top: 14px;
+    }
+
+    /* =========================================================================
+       POP-UP 2: THẺ NỔI THU GỌN (AFK ITEM TOOLTIP - HÌNH 1)
+       ========================================================================= */
+    .compact-modal-card {
+      width: 92%;
+      max-width: 420px;
+      background: linear-gradient(180deg, #F6F0E6 0%, #EAE0D0 100%);
+      color: var(--ink-dark);
+      border-radius: 14px;
+      border: 2px solid var(--gold-burnished);
+      padding: 22px 22px 18px;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85);
+    }
+
+    .compact-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1C1917;
+      margin-bottom: 6px;
+    }
+
+    .compact-badge {
+      display: inline-block;
+      background: #4A433B;
+      color: #F5EFE6;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .compact-desc {
+      font-size: 0.88rem;
+      color: #292524;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .compact-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(28, 25, 23, 0.08);
+      border: 1px solid rgba(28, 25, 23, 0.14);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-decoration: none;
+      color: #1C1917;
+      font-weight: 800;
+      font-size: 0.88rem;
+      transition: background 0.2s ease;
+    }
+
+    .compact-action-bar:hover {
+      background: rgba(212, 175, 55, 0.28);
+    }
+
+    .compact-arrow-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #4A433B;
+      color: #F5EFE6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    /* =========================================================================
+       RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE)
+       ========================================================================= */
+    @media (max-width: 960px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .large-card {
+        grid-template-columns: 1fr;
+        padding: 32px 20px 36px;
+      }
+      .small-cards-grid,
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links {
+        display: none;
+      }
+      .hero-section {
+        min-height: 84vh;
+        padding-top: 84px;
+      }
+      .hero-webgl-window {
+        min-height: 180px;
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .metric-num {
+        font-size: 1.75rem;
+      }
+      .small-cards-grid,
+      .services-grid,
+      .popup-three-cards {
+        grid-template-columns: 1fr;
+      }
+      .wavy-modal-body {
+        padding: 14px 18px 20px;
+      }
+      .wavy-modal-actions {
+        grid-template-columns: 1fr;
+      }
+      .btn-open-detail-large {
+        right: 16px;
+        padding: 9px 16px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo">Chạm Crew</div>
-        <nav>
-            <a href="#projects">Dự Án</a>
-            <a href="#services">Dịch Vụ</a>
-            <a href="#contact">Liên Hệ</a>
-        </nav>
-        <a href="https://zalo.me/0965052847" target="_blank" class="btn-cta">Tư Vấn Zalo</a>
-    </header>
+  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: WEBGL GRAVITATIONAL LENSING -> NỀN TĨNH MỜ KHI CUỘN -->
+  <div id="backdrop-stage" aria-hidden="true">
+    <canvas id="webgl-canvas"></canvas>
+    <div id="static-backdrop"></div>
+    <div class="backdrop-vignette"></div>
+  </div>
 
-    <!-- HERO -->
-    <section class="hero">
-        <h1>CHẠM CREW</h1>
-        <p class="tagline">Chạm cảm xúc – Chạm trái tim</p>
-        <p class="desc">Cung cấp giải pháp nhân sự tổ chức sự kiện & Quản trị vận hành hậu cần chuyên nghiệp tại TP. Hồ Chí Minh.</p>
-        <a href="#projects" class="btn-cta">Khám Phá Dự Án</a>
-    </section>
+  <!-- THANH ĐIỀU HƯỚNG -->
+  <header class="site-header">
+    <a href="#" class="brand-box">
+      <div class="brand-logo-wrap" id="header-logo-wrap">
+        <img src="logochamcrew.png.png" alt="Logo Chạm Crew" onerror="this.remove(); document.getElementById('header-logo-wrap').innerHTML='<span class=\'brand-fallback-crest\'>CC</span>';" />
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">CHẠM CREW</span>
+        <span class="brand-sub">Event &amp; Ops Solutions</span>
+      </div>
+    </a>
 
-    <!-- PORTFOLIO GRID -->
-    <section id="projects">
-        <h2 class="section-title">Dự Án Tiêu Biểu</h2>
-        <div class="grid">
-            
-            <div class="card">
-                <div class="card-img">VIETRAVEL EVENT</div>
-                <div class="card-body">
-                    <h3>Thưởng Nguyệt Á Đông</h3>
-                    <p><strong>Đối tác:</strong> Beevent - Vietravel</p>
-                    <p><strong>Quy mô:</strong> Sự kiện Văn hóa & Media</p>
-                    <span class="badge">Vận hành & Media</span>
-                </div>
-            </div>
+    <nav class="nav-links">
+      <a href="#metrics">Năng Lực</a>
+      <a href="#projects">Dự Án</a>
+      <a href="#services">Dịch Vụ</a>
+      <a href="#contact">Liên Hệ</a>
+    </nav>
 
-            <div class="card">
-                <div class="card-img">ESPORTS EVENT</div>
-                <div class="card-body">
-                    <h3>Giải LQ - 10 Năm Gắn Kết</h3>
-                    <p><strong>Địa điểm:</strong> B52Hub Café 24h</p>
-                    <p><strong>Hạng mục:</strong> Điều phối giải đấu & Trọng tài</p>
-                    <span class="badge">Giải đấu eSports</span>
-                </div>
-            </div>
+    <a id="header-zalo-btn" href="https://zalo.me/0965052847" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
+      Gửi Brief / Tư Vấn Zalo ↗
+    </a>
+  </header>
 
-            <div class="card">
-                <div class="card-img">VIEWING PARTY</div>
-                <div class="card-body">
-                    <h3>Chung Kết MLBB VMC Fall</h3>
-                    <p><strong>Địa điểm:</strong> B52Hub Café 24h</p>
-                    <p><strong>Hạng mục:</strong> Check-in, Phát quà & FOH</p>
-                    <span class="badge">Viewing Party</span>
-                </div>
-            </div>
+  <main>
+    <!-- MẶT 1: HERO BANNER -->
+    <section class="hero-section" id="hero-sentinel">
+      <div class="hero-top-pill">✦ Agency Portfolio • TP. Hồ Chí Minh</div>
 
-            <div class="card">
-                <div class="card-img">PRUDENTIAL</div>
-                <div class="card-body">
-                    <h3>Huấn Luyện Champion Prudential</h3>
-                    <p><strong>Hạng mục:</strong> Check-in đại biểu & Backstage</p>
-                    <p><strong>Đối tượng:</strong> Doanh nghiệp</p>
-                    <span class="badge">Nhân sự Sự kiện</span>
-                </div>
-            </div>
+      <!-- Khoảng trống trung tâm để lộ rõ logo CC CHAM CREW và hiệu ứng bẻ cong ánh sáng WebGL -->
+      <div class="hero-webgl-window"></div>
 
+      <div class="hero-bottom-anchor">
+        <p class="hero-tagline" id="hero-tagline">“Chạm cảm xúc – Chạm trái tim”</p>
+        <p class="hero-positioning">
+          Đơn vị Giải pháp Vận hành Hiện trường, Quản trị Hậu cần Số &amp; Sản xuất Sự kiện Cộng đồng chuyên nghiệp tại TP. Hồ Chí Minh và các tỉnh lân cận.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-zalo-cta">Khám Phá Hồ Sơ Dự Án ↓</a>
+          <a href="https://www.facebook.com/chamcrewne?locale=vi_VN" target="_blank" rel="noopener noreferrer" class="btn-outline-gold">
+            Fanpage Chạm Crew ↗
+          </a>
         </div>
+      </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services">
-        <h2 class="section-title">Dịch Vụ Cung Cấp</h2>
-        <div class="services-grid">
-            <div class="service-box">
-                <h3>01. Cung Cấp Nhân Sự</h3>
-                <p>Đội ngũ PG/PB, Staff hiện trường, Điều phối viên, MC và CTV vận hành sự kiện chuyên nghiệp.</p>
-            </div>
-            <div class="service-box">
-                <h3>02. Quản Trị Hậu Cần</h3>
-                <p>Lập Runsheet, thiết lập sơ đồ BOH, quản lý vật tư thiết bị và kiểm soát rủi ro thực chiến.</p>
-            </div>
-            <div class="service-box">
-                <h3>03. Sự Kiện & eSports</h3>
-                <p>Tổ chức trọn gói Ngày hội học sinh, Teambuilding, Giải đấu Game và các sự kiện Viewing Party.</p>
-            </div>
+    <!-- DẢI 4 CHỈ SỐ NĂNG LỰC -->
+    <section class="metrics-section" id="metrics">
+      <div class="container">
+        <div class="metrics-grid" id="metrics-container"></div>
+      </div>
+    </section>
+
+    <!-- MẶT 2: KHU VỰC DỰ ÁN (CẤU TRÚC GÓI GIỚI HẠN AFK JOURNEY) -->
+    <section class="projects-section" id="projects">
+      <div class="container">
+        <div class="section-header-bar">
+          <div>
+            <div class="section-kicker">01 / Biên Niên Sử Thực Chiến</div>
+            <h2 class="section-heading">Danh Mục Dự Án Tiêu Biểu</h2>
+          </div>
+
+          <!-- THANH TRƯỢT CHUYỂN NĂM 2026 <-> 2027 -->
+          <div class="year-switcher" id="year-switcher" data-active-year="2026" role="tablist" aria-label="Chọn năm dự án">
+            <div class="year-slider-pill"></div>
+            <button type="button" class="year-btn active" data-year="2026">2026</button>
+            <button type="button" class="year-btn" data-year="2027">2027</button>
+          </div>
         </div>
+
+        <!-- Vùng render tự động 3 Gói Sự Kiện từ events-data.js -->
+        <div id="projects-root"></div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer id="contact">
-        <h2 style="color: var(--primary-yellow); margin-bottom: 15px;">KẾT NỐI VỚI CHẠM CREW</h2>
-        <p><strong>Trưởng ban Điều phối:</strong> Mỹ Hoa — <a href="tel:0965052847">0965052847</a></p>
-        <p><strong>Email:</strong> chamcrew25@gmail.com</p>
-        <p><strong>Khu vực hoạt động:</strong> TP. Hồ Chí Minh & các tỉnh lân cận</p>
-        <br>
-        <p style="font-size: 0.8rem; color: #555;">© 2026 Chạm Crew. All rights reserved. System built by Khang Tiên Phong.</p>
-    </footer>
+    <!-- KHU VỰC 3 GÓI DỊCH VỤ -->
+    <section class="services-section" id="services">
+      <div class="container">
+        <div class="section-header-bar">
+          <div>
+            <div class="section-kicker">02 / Giải Pháp Chuyên Biệt</div>
+            <h2 class="section-heading">Dịch Vụ Cung Cấp</h2>
+          </div>
+        </div>
+        <div class="services-grid" id="services-container"></div>
+      </div>
+    </section>
+  </main>
 
+  <!-- CHÂN TRANG (FOOTER) -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-brand">CHẠM CREW</div>
+    <p class="footer-tagline">“Chạm cảm xúc – Chạm trái tim”</p>
+    <div class="footer-contact-row" id="footer-contacts"></div>
+    <p class="footer-copy">© 2026 Chạm Crew. All rights reserved. System built by Khang Tiên Phong.</p>
+  </footer>
+
+  <!-- =======================================================================
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM (CHI TIẾT DỰ ÁN - HÌNH 2)
+       ======================================================================= -->
+  <div class="modal-backdrop" id="wavy-project-modal" role="dialog" aria-modal="true" aria-labelledby="wavy-modal-title">
+    <div class="wavy-modal-shell" onclick="event.stopPropagation()">
+      <!-- Viền lượn sóng vàng & kem phía trên -->
+      <svg class="wave-svg-top" viewBox="0 0 1200 36" preserveAspectRatio="none">
+        <path d="M0,12 C320,38 560,-6 1200,14 L1200,36 L0,36 Z" fill="#D4AF37"></path>
+        <path d="M0,18 C320,42 560,0 1200,20 L1200,36 L0,36 Z" fill="#F5EFE6"></path>
+      </svg>
+
+      <div class="wavy-modal-body" id="wavy-modal-content"></div>
+
+      <!-- Viền lượn sóng phía dưới -->
+      <svg class="wave-svg-bottom" viewBox="0 0 1200 36" preserveAspectRatio="none">
+        <path d="M0,0 L1200,0 L1200,20 C760,36 420,-4 0,24 Z" fill="#E8DFD1"></path>
+      </svg>
+
+      <div class="modal-dismiss-hint">-- Nhấn vùng trống bên ngoài hoặc nút Đóng để thoát --</div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       POP-UP 2: THẺ NỔI THU GỌN (CHỈ SỐ & DỊCH VỤ - HÌNH 1)
+       ======================================================================= -->
+  <div class="modal-backdrop" id="compact-info-modal" role="dialog" aria-modal="true" aria-labelledby="compact-modal-title">
+    <div class="compact-modal-card" onclick="event.stopPropagation()" id="compact-modal-content"></div>
+  </div>
+
+  <!-- NẠP KHO DỮ LIỆU -->
+  <script src="events-data.js"></script>
+
+  <!-- LOGIC HIỂN THỊ GIAO DIỆN & WEBGL GRAVITATIONAL LENSING -->
+  <script>
+    (function () {
+      "use strict";
+
+      if (typeof CHAM_CREW_DATA === "undefined") {
+        console.error("Không tìm thấy file events-data.js. Vui lòng kiểm tra lại tên file trên GitHub.");
+        return;
+      }
+
+      const DATA = CHAM_CREW_DATA;
+
+      // 1. CẬP NHẬT THÔNG TIN CHUNG & FOOTER
+      document.getElementById("hero-tagline").textContent = `“${DATA.config.tagline}”`;
+      document.getElementById("header-zalo-btn").href = DATA.config.zaloUrl;
+      document.getElementById("static-backdrop").style.backgroundImage = `url('${DATA.config.bannerImage}')`;
+
+      document.getElementById("footer-contacts").innerHTML = `
+        <span><strong>Đại diện điều phối:</strong> ${DATA.config.coordinator}</span>
+        <span><strong>Hotline / Zalo:</strong> <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer">${DATA.config.phoneDisplay}</a></span>
+        <span><strong>Email:</strong> <a href="mailto:${DATA.config.email}">${DATA.config.email}</a></span>
+        <span><strong>Fanpage:</strong> <a href="${DATA.config.fanpageUrl}" target="_blank" rel="noopener noreferrer">Chạm Crew Official ↗</a></span>
+        <span><strong>Địa bàn:</strong> ${DATA.config.location}</span>
+      `;
+
+      // 2. RENDER DẢI 4 CHỈ SỐ NĂNG LỰC
+      const metricsContainer = document.getElementById("metrics-container");
+      metricsContainer.innerHTML = DATA.metrics.map((m, idx) => `
+        <div class="metric-card metallic-sheen" data-metric-idx="${idx}">
+          <div class="metric-num">${m.number}</div>
+          <div class="metric-label">${m.title}</div>
+          <div class="metric-hint">Nhấn xem quy chuẩn ↗</div>
+        </div>
+      `).join("");
+
+      metricsContainer.addEventListener("click", (e) => {
+        const card = e.target.closest(".metric-card");
+        if (!card) return;
+        const item = DATA.metrics[Number(card.dataset.metricIdx)];
+        openCompactModal(item.title, item.badge, item.detail, "Tư vấn triển khai qua Zalo");
+      });
+
+      // 3. RENDER 3 GÓI DỊCH VỤ
+      const servicesContainer = document.getElementById("services-container");
+      servicesContainer.innerHTML = DATA.services.map((s, idx) => `
+        <article class="service-card metallic-sheen">
+          <div>
+            <div class="service-num">GÓI GIẢI PHÁP ${s.num}</div>
+            <h3 class="service-title">${s.title}</h3>
+            <p class="service-desc">${s.shortDesc}</p>
+          </div>
+          <button type="button" class="service-link-btn" data-service-idx="${idx}">
+            Xem chi tiết quy trình ↗
+          </button>
+        </article>
+      `).join("");
+
+      servicesContainer.addEventListener("click", (e) => {
+        const btn = e.target.closest(".service-link-btn");
+        if (!btn) return;
+        const srv = DATA.services[Number(btn.dataset.serviceIdx)];
+        openCompactModal(srv.title, srv.badge, srv.detail, "Nhận báo giá & Brief qua Zalo");
+      });
+
+      // 4. RENDER KHU VỰC DỰ ÁN THEO NĂM (2026 <-> 2027)
+      const projectsRoot = document.getElementById("projects-root");
+      const yearSwitcher = document.getElementById("year-switcher");
+      const slideState = {}; // Lưu vị trí slide hiện tại của từng Widget lớn
+
+      // Tự động chọn 2027 làm mặc định nếu mảng 2027 đã có dữ liệu
+      const has2027Data = Array.isArray(DATA.projectsByYear["2027"]) && DATA.projectsByYear["2027"].length > 0;
+      let activeYear = has2027Data ? "2027" : "2026";
+
+      function getCategorySvgIcon(groupId) {
+        if (groupId === "corporate") {
+          return `<svg viewBox="0 0 24 24"><path d="M12 2L15 8L21 9L16.5 14L17.8 20L12 17L6.2 20L7.5 14L3 9L9 8L12 2Z"/></svg>`;
+        }
+        if (groupId === "education") {
+          return `<svg viewBox="0 0 24 24"><path d="M12 3L2 8L12 13L22 8L12 3Z"/><path d="M6 11V17C6 19 9 21 12 21C15 21 18 19 18 17V11"/></svg>`;
+        }
+        return `<svg viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3H6L17.5 14.5"/><path d="M13 19L19 13"/><path d="M16 16L20 20"/><path d="M19 21L21 19"/></svg>`;
+      }
+
+      function renderProjects(year) {
+        activeYear = year;
+        yearSwitcher.dataset.activeYear = year;
+        yearSwitcher.querySelectorAll(".year-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.year === year);
+        });
+
+        const groups = DATA.projectsByYear[year] || [];
+        if (groups.length === 0) {
+          projectsRoot.innerHTML = `
+            <div class="year-2027-empty-card metallic-sheen">
+              <div style="margin-bottom: 14px;">
+                <span class="skew-tag tag-gold">✦ HÀNH TRÌNH ${year}</span>
+              </div>
+              <h3>Chương Mới ${year} Đang Được Khởi Tạo</h3>
+              <p>Chạm Crew sẵn sàng đồng hành cùng doanh nghiệp, trường học và cộng đồng eSports trong mùa sự kiện ${year}. Liên hệ ngay để nhận tư vấn kịch bản &amp; nhân sự.</p>
+              <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
+                Đặt Lịch Hợp Tác ${year} ↗
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        projectsRoot.innerHTML = groups.map((group) => {
+          if (typeof slideState[group.groupId] === "undefined") {
+            slideState[group.groupId] = 0;
+          }
+          const currentIdx = slideState[group.groupId];
+          const largeList = group.largeWidgets || [];
+          const activeLarge = largeList[currentIdx];
+
+          let largeHtml = "";
+          if (activeLarge) {
+            const tagMeta = DATA.tags[activeLarge.tagType] || DATA.tags.tag1;
+            const isGold = activeLarge.tagType === "tag4";
+            const mediaHtml = activeLarge.coverImage
+              ? `<img src="${activeLarge.coverImage}" alt="${activeLarge.title}" loading="lazy" />`
+              : `<div class="arch-art-placeholder ${activeLarge.fallbackStyle || 'gold-royal'}">
+                   <div class="arch-emblem-ring">${getCategorySvgIcon(group.groupId)}</div>
+                   <span class="arch-placeholder-caption">${tagMeta.label}</span>
+                 </div>`;
+
+            const controlsHtml = largeList.length > 1
+              ? `<div class="carousel-controls">
+                   <button type="button" class="carousel-arrow-btn" data-dir="-1" data-group="${group.groupId}" aria-label="Sự kiện trước">‹</button>
+                   <div class="carousel-dots">
+                     ${largeList.map((_, i) => `<button type="button" class="carousel-dot ${i === currentIdx ? 'active' : ''}" data-goto="${i}" data-group="${group.groupId}" aria-label="Trang ${i + 1}"></button>`).join("")}
+                   </div>
+                   <button type="button" class="carousel-arrow-btn" data-dir="1" data-group="${group.groupId}" aria-label="Sự kiện tiếp">›</button>
+                   <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted); margin-left: 4px;">${currentIdx + 1} / ${largeList.length}</span>
+                 </div>`
+              : "";
+
+            largeHtml = `
+              <div class="large-widget-wrapper">
+                <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''}">
+                  <div class="large-tag-cluster">
+                    <span class="skew-tag ${tagMeta.className}">${tagMeta.label}</span>
+                    ${activeLarge.scaleTag ? `<span class="scale-pill-tag">${activeLarge.scaleTag}</span>` : ""}
+                  </div>
+
+                  <div class="arch-media-frame">
+                    ${mediaHtml}
+                  </div>
+
+                  <div class="large-info-col">
+                    <div class="large-partner-kicker">${activeLarge.partnerDate}</div>
+                    <h4 class="large-event-title">${activeLarge.title}</h4>
+
+                    <div class="three-stat-boxes">
+                      ${activeLarge.stats.map((st) => `
+                        <div class="stat-item-box">
+                          <div class="stat-item-val">${st.value}</div>
+                          <div class="stat-item-lbl">${st.label}</div>
+                        </div>
+                      `).join("")}
+                    </div>
+
+                    <p class="large-short-desc">${activeLarge.shortDesc}</p>
+                  </div>
+
+                  <button type="button" class="btn-open-detail-large" data-open-project="${activeLarge.id}">
+                    Xem chi tiết ↗
+                  </button>
+                </article>
+                ${controlsHtml}
+              </div>
+            `;
+          }
+
+          const smallHtml = (group.smallCards || []).map((sc) => {
+            const tagMeta = DATA.tags[sc.tagType] || DATA.tags.tag1;
+            return `
+              <article class="small-card metallic-sheen ${sc.gradientType || 'grad-dawn-gold'}">
+                <span class="skew-tag small-card-tag ${tagMeta.className}">${tagMeta.label}</span>
+                <div class="small-card-body">
+                  <h4 class="small-card-title">${sc.title}</h4>
+                  <ul class="small-card-specs">
+                    <li><strong>Thời gian:</strong> ${sc.time}</li>
+                    <li><strong>Địa điểm:</strong> ${sc.venue}</li>
+                    <li><strong>Vai trò:</strong> ${sc.role}</li>
+                  </ul>
+                </div>
+                <button type="button" class="small-card-footer-btn" data-open-project="${sc.id}">
+                  Nhấn để xem bài viết Recap
+                </button>
+              </article>
+            `;
+          }).join("");
+
+          return `
+            <div class="campaign-group">
+              <div class="group-banner-head">
+                <h3 class="group-banner-title">${group.groupTitle}</h3>
+                <span class="group-banner-sub">${group.groupSubtitle}</span>
+              </div>
+              ${largeHtml}
+              <div class="small-cards-grid">${smallHtml}</div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Sự kiện thanh trượt năm 2026 <-> 2027
+      yearSwitcher.addEventListener("click", (e) => {
+        const btn = e.target.closest(".year-btn");
+        if (!btn) return;
+        renderProjects(btn.dataset.year);
+      });
+
+      // Ủy quyền sự kiện bên trong khu vực Dự án (Mũi tên carousel + Nút mở Pop-up chống bấm nhầm)
+      projectsRoot.addEventListener("click", (e) => {
+        const arrowBtn = e.target.closest(".carousel-arrow-btn");
+        if (arrowBtn) {
+          const gId = arrowBtn.dataset.group;
+          const dir = Number(arrowBtn.dataset.dir);
+          const group = (DATA.projectsByYear[activeYear] || []).find((g) => g.groupId === gId);
+          if (group && group.largeWidgets.length > 1) {
+            const len = group.largeWidgets.length;
+            slideState[gId] = (slideState[gId] + dir + len) % len;
+            renderProjects(activeYear);
+          }
+          return;
+        }
+
+        const dotBtn = e.target.closest(".carousel-dot");
+        if (dotBtn) {
+          const gId = dotBtn.dataset.group;
+          slideState[gId] = Number(dotBtn.dataset.goto);
+          renderProjects(activeYear);
+          return;
+        }
+
+        const openBtn = e.target.closest("[data-open-project]");
+        if (openBtn) {
+          const projectId = openBtn.dataset.openProject;
+          const projectObj = findProjectById(projectId);
+          if (projectObj) openWavyProjectModal(projectObj);
+        }
+      });
+
+      function findProjectById(id) {
+        const groups = DATA.projectsByYear[activeYear] || [];
+        for (const g of groups) {
+          const foundLarge = (g.largeWidgets || []).find((item) => item.id === id);
+          if (foundLarge) return foundLarge;
+          const foundSmall = (g.smallCards || []).find((item) => item.id === id);
+          if (foundSmall) return foundSmall;
+        }
+        return null;
+      }
+
+      // 5. QUẢN LÝ 2 DẠNG POP-UP (BẢNG LƯỢN SÓNG & THẺ NỔI THU GỌN)
+      const wavyModal = document.getElementById("wavy-project-modal");
+      const wavyContent = document.getElementById("wavy-modal-content");
+      const compactModal = document.getElementById("compact-info-modal");
+      const compactContent = document.getElementById("compact-modal-content");
+
+      function openWavyProjectModal(proj) {
+        const subtitle = proj.partnerDate
+          ? `${proj.partnerDate} • ${proj.location || ""}`
+          : `${proj.time} • ${proj.location || proj.venue}`;
+
+        const highlights = proj.popupHighlights || [];
+        const ops = proj.operations || [];
+        const recapLink = proj.recapUrl || DATA.config.fanpageUrl;
+
+        wavyContent.innerHTML = `
+          <div class="wavy-modal-header">
+            <h3 class="wavy-modal-title" id="wavy-modal-title">${proj.title}</h3>
+            <div class="wavy-modal-meta">${subtitle}</div>
+          </div>
+
+          <div class="popup-three-cards">
+            ${highlights.map((h) => `
+              <div class="popup-mini-box">
+                <h4>${h.label}</h4>
+                <p>${h.text}</p>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="popup-ops-title">Hạng mục Vận hành &amp; Điều phối Thực tế</div>
+          <ul class="popup-ops-list">
+            ${ops.map((line) => `<li>${line}</li>`).join("")}
+          </ul>
+
+          <div class="wavy-modal-actions">
+            <button type="button" class="btn-popup-close" id="btn-close-wavy">Đóng</button>
+            <a href="${recapLink}" target="_blank" rel="noopener noreferrer" class="btn-popup-recap">
+              Xem Bài Recap Fanpage ↗
+            </a>
+          </div>
+        `;
+
+        wavyModal.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        document.getElementById("btn-close-wavy").addEventListener("click", closeAllModals);
+      }
+
+      function openCompactModal(title, badge, detail, ctaLabel) {
+        compactContent.innerHTML = `
+          <h3 class="compact-title" id="compact-modal-title">${title}</h3>
+          <span class="compact-badge">${badge}</span>
+          <p class="compact-desc">${detail}</p>
+          <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer" class="compact-action-bar">
+            <span>${ctaLabel}</span>
+            <span class="compact-arrow-circle">›</span>
+          </a>
+        `;
+        compactModal.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAllModals() {
+        wavyModal.classList.remove("is-open");
+        compactModal.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+
+      wavyModal.addEventListener("click", closeAllModals);
+      compactModal.addEventListener("click", closeAllModals);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeAllModals();
+      });
+
+      // Khởi tạo render ban đầu
+      renderProjects(activeYear);
+
+      // =========================================================================
+      // 6. BỘ RENDER WEBGL GRAVITATIONAL LENSING (BANNER.WEBP) + ADAPTIVE RENDERING
+      // =========================================================================
+      const canvas = document.getElementById("webgl-canvas");
+      const heroSentinel = document.getElementById("hero-sentinel");
+
+      let isHeroInView = true;
+      let isTabVisible = !document.hidden;
+      let gl = null;
+      let program = null;
+      let positionBuffer = null;
+      let texture = null;
+      let rafId = null;
+      let isDestroyed = false;
+
+      // Theo dõi cuộn trang để chuyển đổi Mặt 1 (WebGL) <-> Mặt 2 (Nền tĩnh mờ)
+      const heroObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            isHeroInView = entry.isIntersecting;
+            if (isHeroInView) {
+              document.body.classList.remove("scrolled-face2");
+              startLoop();
+            } else {
+              document.body.classList.add("scrolled-face2");
+              stopLoop(); // 0 draw calls khi đã cuộn xuống Mặt 2
+            }
+          });
+        },
+        { threshold: 0.18 }
+      );
+      heroObserver.observe(heroSentinel);
+
+      document.addEventListener("visibilitychange", () => {
+        isTabVisible = !document.hidden;
+        if (isTabVisible && isHeroInView) startLoop();
+        else stopLoop();
+      });
+
+      // Kiểm tra chế độ giảm chuyển động của hệ điều hành
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) {
+        document.body.classList.add("webgl-fallback");
+        return;
+      }
+
+      function enableStaticFallback() {
+        isDestroyed = true;
+        stopLoop();
+        if (gl) {
+          if (texture) gl.deleteTexture(texture);
+          if (positionBuffer) gl.deleteBuffer(positionBuffer);
+          if (program) gl.deleteProgram(program);
+        }
+        document.body.classList.add("webgl-fallback");
+      }
+
+      try {
+        gl = canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "low-power" });
+      } catch (err) {
+        gl = null;
+      }
+
+      if (!gl) {
+        enableStaticFallback();
+        return;
+      }
+
+      const vertexShaderSrc = `
+        attribute vec2 a_position;
+        varying vec2 v_uv;
+        void main() {
+          v_uv = a_position * 0.5 + 0.5;
+          v_uv.y = 1.0 - v_uv.y;
+          gl_Position = vec4(a_position, 0.0, 1.0);
+        }
+      `;
+
+      // Fragment Shader: Khóa lõi logo (0 - 1.05R), bẻ cong vành tinh vân (1.05R - 1.75R), giữ nét mảnh kính rìa (> 1.75R)
+      const fragmentShaderSrc = `
+        precision mediump float;
+        varying vec2 v_uv;
+        uniform sampler2D u_image;
+        uniform vec2 u_resolution;
+        uniform vec2 u_texResolution;
+        uniform vec2 u_pointer;
+        uniform float u_time;
+
+        void main() {
+          // Căn tỷ lệ ảnh banner.webp (1696x608) theo chiều ngang để không bị cắt mất mảnh vỡ 2 bên
+          float screenAspect = u_resolution.x / max(u_resolution.y, 1.0);
+          float texAspect = u_texResolution.x / max(u_texResolution.y, 1.0);
+
+          vec2 uv = v_uv;
+          // Đặt tâm ảnh hơi nhích lên 42% chiều cao màn hình để thoáng vùng chữ dưới đáy
+          vec2 centerOffset = vec2(0.5, 0.43);
+          vec2 centered = uv - centerOffset;
+
+          if (screenAspect > texAspect) {
+            centered.x *= screenAspect / texAspect;
+          } else {
+            centered.y *= texAspect / screenAspect;
+          }
+
+          // Hiệu ứng trượt nhẹ 2.5D toàn khung theo trỏ chuột
+          vec2 parallaxShift = u_pointer * 0.014;
+          vec2 samplePos = centered + vec2(0.5, 0.5) - parallaxShift;
+
+          // Tính bán kính chuẩn hóa từ tâm logo CC CHAM CREW
+          vec2 delta = centered - u_pointer * 0.035;
+          delta.x *= texAspect;
+          float dist = length(delta);
+
+          // 3 vùng bán kính thấu kính hấp dẫn:
+          // R_core = 0.22 (~1.05R), R_ring_end = 0.42 (~1.75R)
+          float innerMask = smoothstep(0.20, 0.27, dist);
+          float outerMask = 1.0 - smoothstep(0.36, 0.48, dist);
+          float lensStrength = innerMask * outerMask;
+
+          // Tạo gợn sóng hấp dẫn mềm mại quanh vành tinh vân vàng
+          float swirlAngle = lensStrength * (0.16 + 0.04 * sin(u_time * 1.4));
+          float s = sin(swirlAngle);
+          float c = cos(swirlAngle);
+          vec2 rel = samplePos - vec2(0.5, 0.5);
+          vec2 rotated = vec2(rel.x * c - rel.y * s, rel.x * s + rel.y * c);
+
+          // Kéo nhẹ ánh sáng hướng về tâm thấu kính
+          vec2 deflectedUV = vec2(0.5, 0.5) + rotated * (1.0 - lensStrength * 0.09);
+
+          // Nếu tọa độ nằm ngoài biên trên/dưới của ảnh siêu ngang, hòa mượt vào nền đen #070709
+          float edgeX = smoothstep(0.0, 0.03, deflectedUV.x) * (1.0 - smoothstep(0.97, 1.0, deflectedUV.x));
+          float edgeY = smoothstep(0.0, 0.08, deflectedUV.y) * (1.0 - smoothstep(0.92, 1.0, deflectedUV.y));
+          float boundsMask = edgeX * edgeY;
+
+          vec4 texColor = texture2D(u_image, clamp(deflectedUV, 0.001, 0.999));
+          vec3 voidColor = vec3(0.027, 0.027, 0.035);
+          vec3 finalRGB = mix(voidColor, texColor.rgb, boundsMask);
+
+          gl_FragColor = vec4(finalRGB, 1.0);
+        }
+      `;
+
+      function compileShader(type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          gl.deleteShader(shader);
+          return null;
+        }
+        return shader;
+      }
+
+      const vs = compileShader(gl.VERTEX_SHADER, vertexShaderSrc);
+      const fs = compileShader(gl.FRAGMENT_SHADER, fragmentShaderSrc);
+      if (!vs || !fs) {
+        enableStaticFallback();
+        return;
+      }
+
+      program = gl.createProgram();
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        enableStaticFallback();
+        return;
+      }
+      gl.useProgram(program);
+
+      positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+        gl.STATIC_DRAW
+      );
+
+      const posLoc = gl.getAttribLocation(program, "a_position");
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+      const uResolution = gl.getUniformLocation(program, "u_resolution");
+      const uTexResolution = gl.getUniformLocation(program, "u_texResolution");
+      const uPointer = gl.getUniformLocation(program, "u_pointer");
+      const uTime = gl.getUniformLocation(program, "u_time");
+
+      let texWidth = 1696;
+      let texHeight = 608;
+      let textureReady = false;
+
+      texture = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+      const bannerImg = new Image();
+      bannerImg.onload = function () {
+        if (isDestroyed) return;
+        texWidth = bannerImg.naturalWidth || 1696;
+        texHeight = bannerImg.naturalHeight || 608;
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bannerImg);
+        textureReady = true;
+        resizeCanvas();
+        startLoop();
+      };
+      bannerImg.onerror = function () {
+        enableStaticFallback();
+      };
+      bannerImg.src = DATA.config.bannerImage;
+
+      // Quản lý độ phân giải thích ứng (100% -> 75% -> 50%)
+      let resolutionScale = 1.0;
+      function resizeCanvas() {
+        if (!gl || isDestroyed) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const w = Math.floor(window.innerWidth * dpr * resolutionScale);
+        const h = Math.floor(window.innerHeight * dpr * resolutionScale);
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+          gl.viewport(0, 0, w, h);
+        }
+      }
+      window.addEventListener("resize", resizeCanvas);
+
+      // Theo dõi chuột & chế độ tự trôi quỹ đạo trên thiết bị cảm ứng
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let lastPointerMove = 0;
+
+      window.addEventListener("pointermove", (e) => {
+        targetX = (e.clientX / window.innerWidth) * 2 - 1;
+        targetY = (e.clientY / window.innerHeight) * 2 - 1;
+        lastPointerMove = performance.now();
+      }, { passive: true });
+
+      // Vòng lặp giới hạn 30 FPS + Đo hiệu năng tự động
+      const TARGET_INTERVAL = 1000 / 30;
+      let lastFrameTime = 0;
+      let startTime = performance.now();
+      const frameDurations = [];
+
+      function renderLoop(now) {
+        if (isDestroyed || !isHeroInView || !isTabVisible) {
+          rafId = null;
+          return;
+        }
+
+        rafId = requestAnimationFrame(renderLoop);
+
+        const elapsed = now - lastFrameTime;
+        if (elapsed < TARGET_INTERVAL) return;
+        lastFrameTime = now - (elapsed % TARGET_INTERVAL);
+
+        if (!textureReady) return;
+
+        const drawStart = performance.now();
+        const t = (now - startTime) * 0.001;
+
+        // Tự trôi quỹ đạo nhẹ nếu không rê chuột sau 2 giây (giúp điện thoại vẫn sống động)
+        if (now - lastPointerMove > 2000) {
+          targetX = Math.cos(t * 0.55) * 0.35;
+          targetY = Math.sin(t * 0.42) * 0.25;
+        }
+
+        // Làm mượt tọa độ chuột (Lerp)
+        currentX += (targetX - currentX) * 0.07;
+        currentY += (targetY - currentY) * 0.07;
+
+        gl.uniform2f(uResolution, canvas.width, canvas.height);
+        gl.uniform2f(uTexResolution, texWidth, texHeight);
+        gl.uniform2f(uPointer, currentX, currentY);
+        gl.uniform1f(uTime, t);
+
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+        // Adaptive Rendering sau 1.2 giây làm nóng
+        const drawTime = performance.now() - drawStart;
+        if (now - startTime > 1200) {
+          frameDurations.push(drawTime);
+          if (frameDurations.length >= 10) {
+            const slowCount70 = frameDurations.filter((d) => d > 70).length;
+            const slowCount100 = frameDurations.filter((d) => d > 100).length;
+            frameDurations.length = 0;
+
+            if (resolutionScale === 1.0 && slowCount70 >= 8) {
+              resolutionScale = 0.75;
+              resizeCanvas();
+            } else if (resolutionScale === 0.75 && slowCount70 >= 8) {
+              resolutionScale = 0.5;
+              resizeCanvas();
+            } else if (resolutionScale === 0.5 && slowCount100 >= 8) {
+              enableStaticFallback();
+            }
+          }
+        }
+      }
+
+      function startLoop() {
+        if (!rafId && !isDestroyed && isHeroInView && isTabVisible) {
+          lastFrameTime = performance.now();
+          rafId = requestAnimationFrame(renderLoop);
+        }
+      }
+
+      function stopLoop() {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+    })();
+  </script>
 </body>
 </html>

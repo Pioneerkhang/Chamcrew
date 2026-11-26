@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CHẠM CREW | Hồ Sơ Năng Lực & Giải Pháp Vận Hành Sự Kiện</title>
-  <meta name="description" content="Chạm Crew – Đơn vị Giải pháp Vận hành Hiện trường, Quản trị Hậu cần Số & Sản xuất Sự kiện Cộng đồng tại TP.HCM." />
+  <title>CHẠM CREW | Hồ Sơ Năng Lực &amp; Giải Pháp Vận Hành Sự Kiện</title>
+  <meta name="description" content="Chạm Crew – Đơn vị Giải pháp Vận hành Hiện trường, Quản trị Hậu cần Số &amp; Sản xuất Sự kiện Cộng đồng tại TP.HCM." />
   <link rel="icon" type="image/png" href="logochamcrew.png.png" />
 
-  <!-- Google Fonts: Playfair Display (Editorial Serif) + Plus Jakarta Sans (Tiếng Việt sắc nét) -->
+  <!-- Google Fonts: Playfair Display (Editorial Serif) + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -55,7 +55,7 @@
       line-height: 1.6;
     }
 
-/* =========================================================================
+    /* =========================================================================
        LỚP NỀN CỐ ĐỊNH 2 MẶT (MẶT 1: BANNER TĨNH 100% -> MẶT 2: MỜ CÒN 20% KHI CUỘN)
        ========================================================================= */
     #backdrop-stage {
@@ -87,13 +87,12 @@
       transform: scale(1.06);
     }
 
-    /* Lớp phủ vignette nhẹ ở mép trên/dưới để dễ đọc chữ */
     .backdrop-vignette {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, rgba(7, 7, 9, 0.35) 0%, transparent 18%, transparent 72%, rgba(7, 7, 9, 0.92) 100%);
     }
-    
+
     /* =========================================================================
        THANH ĐIỀU HƯỚNG CỐ ĐỊNH (HEADER)
        ========================================================================= */
@@ -226,9 +225,9 @@
     }
 
     /* =========================================================================
-       MẶT 1: HERO SECTION (GIỮ THOÁNG TÂM CHO LOGO WEBGL)
+       MẶT 1: HERO SECTION (GIỮ KHOẢNG THOÁNG CHO LOGO CHAM CREW TRÊN BANNER)
        ========================================================================= */
- .hero-section {
+    .hero-section {
       min-height: 92vh;
       display: flex;
       flex-direction: column;
@@ -238,8 +237,14 @@
       padding: 96px 20px 36px;
     }
 
+    .hero-center-spacer {
+      flex: 1;
+      min-height: 340px;
+      width: 100%;
+      pointer-events: none;
+    }
+
     .hero-bottom-anchor {
-      margin-top: auto;
       max-width: 780px;
       display: flex;
       flex-direction: column;
@@ -251,9 +256,51 @@
       backdrop-filter: blur(8px);
       border: 1px solid rgba(212, 175, 55, 0.16);
     }
-    
+
+    .hero-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      color: var(--gold-bright);
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.85);
+    }
+
+    .hero-positioning {
+      font-size: clamp(0.9rem, 1.5vw, 1.02rem);
+      color: #E2DDD5;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: 1px solid var(--gold-burnished);
+      background: rgba(20, 20, 24, 0.75);
+      color: var(--gold-bright);
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-outline-gold:hover {
+      background: rgba(212, 175, 55, 0.16);
+      transform: translateY(-2px);
+    }
+
     /* =========================================================================
-       DẢI 4 CHỈ SỐ NĂNG LỰC (BẤM VÀO MỞ THẺ NỔI THU GỌN AFK - HÌNH 1)
+       DẢI 4 CHỈ SỐ NĂNG LỰC
        ========================================================================= */
     .metrics-section {
       padding: 24px 0 64px;
@@ -306,9 +353,9 @@
     }
 
     /* =========================================================================
-       HIỆU ỨNG PHẢN XẠ ÁNH SÁNG KIM LOẠI CHUNG (METALLIC FOIL SHEEN)
+       HIỆU ỨNG PHẢN XẠ ÁNH SÁNG KIM LOẠI CHUNG (KHÔNG CẮT TAG & NÚT)
        ========================================================================= */
-   .metallic-sheen {
+    .metallic-sheen {
       position: relative;
     }
 
@@ -357,6 +404,7 @@
     .metallic-sheen:hover .sheen-clip::after {
       left: 155%;
     }
+
     /* =========================================================================
        KHU VỰC DỰ ÁN: THANH TRƯỢT NĂM (2026 <-> 2027) & TIÊU ĐỀ EDITORIAL
        ========================================================================= */
@@ -392,7 +440,6 @@
       line-height: 1.15;
     }
 
-    /* Thanh trượt chuyển năm 2026 <-> 2027 */
     .year-switcher {
       position: relative;
       display: inline-flex;
@@ -532,12 +579,12 @@
     }
 
     /* =========================================================================
-       TẦNG 1: WIDGET LỚN (KIỂU 1: 50/50 KHUNG VÒM + 3 Ô CHỈ SỐ + NÚT XEM CHI TIẾT)
+       TẦNG 1: WIDGET LỚN
        ========================================================================= */
     .large-widget-wrapper {
       position: relative;
       margin-top: 18px;
-      margin-bottom: 34px;
+      margin-bottom: 38px;
     }
 
     .large-card {
@@ -545,7 +592,7 @@
       background: linear-gradient(145deg, rgba(24, 24, 30, 0.96) 0%, rgba(12, 12, 16, 0.98) 100%);
       border: 1.5px solid rgba(212, 175, 55, 0.42);
       border-radius: 16px;
-      padding: 34px 28px 36px;
+      padding: 34px 28px 42px;
       display: grid;
       grid-template-columns: 1fr 1.15fr;
       gap: 28px;
@@ -558,12 +605,7 @@
       box-shadow: 0 18px 48px rgba(0, 0, 0, 0.75), 0 0 26px rgba(245, 197, 24, 0.16);
     }
 
-    /* Cặp tag góc trên trái */
-largeHtml = `
-            <div class="large-widget-wrapper">
-              <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''}">
-                <div class="sheen-clip"></div>
-                <div class="large-tag-cluster">
+    .large-tag-cluster {
       position: absolute;
       top: -15px;
       left: 16px;
@@ -574,7 +616,6 @@ largeHtml = `
       flex-wrap: wrap;
     }
 
-    /* Nửa trái: Khung ảnh vòm Art Nouveau (Kiểu 1 - 1 ảnh duy nhất) */
     .arch-media-frame {
       position: relative;
       width: 100%;
@@ -593,7 +634,6 @@ largeHtml = `
       display: block;
     }
 
-    /* Nền nghệ thuật tự động khi bạn chưa upload file ảnh bìa sự kiện */
     .arch-art-placeholder {
       width: 100%;
       height: 100%;
@@ -655,7 +695,6 @@ largeHtml = `
       text-transform: uppercase;
     }
 
-    /* Nửa phải: 4 tầng thông tin khít nhau */
     .large-info-col {
       display: flex;
       flex-direction: column;
@@ -679,7 +718,6 @@ largeHtml = `
       line-height: 1.25;
     }
 
-    /* Dải 3 Ô Vật Phẩm / Chỉ Số */
     .three-stat-boxes {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -715,8 +753,8 @@ largeHtml = `
       line-height: 1.55;
     }
 
-    /* Nút Xem Chi Tiết tràn nhẹ mép dưới bên phải (Chống bấm nhầm cả thẻ) */
-.btn-open-detail-large {
+    /* Nút Xem Chi Tiết tăng 25% kích thước & giữ trọn viền ([BUG-02]) */
+    .btn-open-detail-large {
       position: absolute;
       bottom: -20px;
       right: 24px;
@@ -743,13 +781,12 @@ largeHtml = `
       transform: translateY(-2px);
     }
 
-    /* Điều hướng Widget Kép (< 1 / 3 >) */
     .carousel-controls {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       gap: 12px;
-      margin-top: 22px;
+      margin-top: 26px;
       padding-left: 8px;
     }
 
@@ -796,7 +833,7 @@ largeHtml = `
     }
 
     /* =========================================================================
-       TẦNG 2: THẺ NHỎ NỀN GRADIENT BÌNH MINH / HOÀNG HÔN (KHÔNG CẦN ẢNH)
+       TẦNG 2: THẺ NHỎ NỀN GRADIENT BÌNH MINH / HOÀNG HÔN
        ========================================================================= */
     .small-cards-grid {
       display: grid;
@@ -822,7 +859,6 @@ largeHtml = `
       border-color: var(--gold-bright);
     }
 
-    /* 3 Dải màu Gradient Bình minh / Hoàng hôn theo từng nhóm */
     .grad-dawn-gold {
       background: linear-gradient(180deg, #111014 0%, #241B0D 58%, #593E14 100%);
     }
@@ -835,10 +871,7 @@ largeHtml = `
       background: linear-gradient(180deg, #140B0E 0%, #3D141C 58%, #7A3518 100%);
     }
 
-return `
-            <article class="small-card metallic-sheen ${sc.gradientType || 'grad-dawn-gold'}">
-              <div class="sheen-clip"></div>
-              <span class="skew-tag small-card-tag ${tagMeta.className}">${tagMeta.label}</span>
+    .small-card-tag {
       position: absolute;
       top: -13px;
       left: 12px;
@@ -878,7 +911,6 @@ return `
       font-weight: 600;
     }
 
-    /* Đáy thẻ bo cong (Vùng kích hoạt duy nhất để mở Pop-up) */
     .small-card-footer-btn {
       width: 100%;
       border: none;
@@ -900,7 +932,6 @@ return `
       color: #09090B;
     }
 
-    /* Giao diện trạng thái Năm 2027 khi chưa có sự kiện */
     .year-2027-empty-card {
       background: linear-gradient(145deg, rgba(22, 22, 28, 0.92), rgba(10, 10, 14, 0.96));
       border: 1.5px dashed rgba(212, 175, 55, 0.48);
@@ -982,7 +1013,7 @@ return `
     }
 
     /* =========================================================================
-       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM (AFK JOURNEY BUNDLE POPUP - HÌNH 2)
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM + THƯ VIỆN XOAY TRÒN 3D
        ========================================================================= */
     .modal-backdrop {
       position: fixed;
@@ -1028,7 +1059,7 @@ return `
       background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dark) 100%);
       color: var(--ink-dark);
       padding: 16px 32px 24px;
-      max-height: 74vh;
+      max-height: 76vh;
       overflow-y: auto;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
     }
@@ -1055,122 +1086,7 @@ return `
       margin-top: 6px;
     }
 
-    /* 3 Ô Hạng mục cốt lõi bên trong Pop-up */
-    .popup-three-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .popup-mini-box {
-      background: #FFFDF9;
-      border: 1.5px solid #D6C7B2;
-      border-radius: 10px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 3px 10px rgba(28, 25, 23, 0.06);
-    }
-
-    .popup-mini-box h4 {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: #8C6218;
-      margin-bottom: 4px;
-    }
-
-    .popup-mini-box p {
-      font-size: 0.82rem;
-      color: #292524;
-      line-height: 1.45;
-    }
-
-    .popup-ops-title {
-      font-size: 0.84rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #574B3A;
-      margin-bottom: 8px;
-    }
-
-    .popup-ops-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 22px;
-    }
-
-    .popup-ops-list li {
-      position: relative;
-      padding-left: 18px;
-      font-size: 0.88rem;
-      color: #292524;
-      line-height: 1.55;
-    }
-
-    .popup-ops-list li::before {
-      content: "✦";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: #B8860B;
-      font-size: 0.8rem;
-    }
-
-    /* Cặp nút hành động ở đáy Bảng Pop-up (Trái: Đóng | Phải: Xanh lá đậm Recap) */
-    .wavy-modal-actions {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 14px;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .btn-popup-close {
-      padding: 13px 20px;
-      border-radius: 12px 4px 12px 12px;
-      border: 1.5px solid #C7B9A5;
-      background: #FFFFFF;
-      color: #3F3A34;
-      font-family: var(--font-sans);
-      font-weight: 800;
-      font-size: 0.92rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: all 0.2s ease;
-    }
-
-    .btn-popup-close:hover {
-      background: #F0E8DC;
-    }
-
-.btn-popup-recap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 22px;
-      border-radius: 4px 12px 12px 12px;
-      border: 1.5px solid #8C6218;
-      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 52%, #AA7C11 100%);
-      color: #0B0B0D;
-      font-family: var(--font-sans);
-      font-weight: 800;
-      font-size: 0.92rem;
-      text-decoration: none;
-      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.38);
-      transition: all 0.2s ease;
-    }
-
-    .btn-popup-recap:hover {
-      filter: brightness(1.07);
-      transform: translateY(-1px);
-    }
-
-    /* THƯ VIỆN ẢNH XOAY TRÒN 3D BÊN TRONG POP-UP ([CHG-02]) */
+    /* THƯ VIỆN ẢNH XOAY TRÒN 3D ([CHG-02]) */
     .popup-carousel {
       position: relative;
       width: 100%;
@@ -1254,8 +1170,130 @@ return `
     .popup-car-btn.prev { left: 8px; }
     .popup-car-btn.next { right: 8px; }
 
+    .popup-three-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .popup-mini-box {
+      background: #FFFDF9;
+      border: 1.5px solid #D6C7B2;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(28, 25, 23, 0.06);
+    }
+
+    .popup-mini-box h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #8C6218;
+      margin-bottom: 4px;
+    }
+
+    .popup-mini-box p {
+      font-size: 0.82rem;
+      color: #292524;
+      line-height: 1.45;
+    }
+
+    .popup-ops-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #574B3A;
+      margin-bottom: 8px;
+    }
+
+    .popup-ops-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .popup-ops-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      color: #292524;
+      line-height: 1.55;
+    }
+
+    .popup-ops-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #B8860B;
+      font-size: 0.8rem;
+    }
+
+    .wavy-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 14px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .btn-popup-close {
+      padding: 13px 20px;
+      border-radius: 12px 4px 12px 12px;
+      border: 1.5px solid #C7B9A5;
+      background: #FFFFFF;
+      color: #3F3A34;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .btn-popup-close:hover {
+      background: #F0E8DC;
+    }
+
+    /* Nút Recap chuyển sang Gradient Burnished Gold ([CHG-02]) */
+    .btn-popup-recap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 4px 12px 12px 12px;
+      border: 1.5px solid #8C6218;
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 52%, #AA7C11 100%);
+      color: #0B0B0D;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.38);
+      transition: all 0.2s ease;
+    }
+
+    .btn-popup-recap:hover {
+      filter: brightness(1.07);
+      transform: translateY(-1px);
+    }
+
+    .modal-dismiss-hint {
+      text-align: center;
+      color: rgba(244, 241, 234, 0.72);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      margin-top: 14px;
+    }
+
     /* =========================================================================
-       POP-UP 2: THẺ NỔI THU GỌN (AFK ITEM TOOLTIP - HÌNH 1)
+       POP-UP 2: THẺ NỔI THU GỌN (CHỈ SỐ NĂNG LỰC)
        ========================================================================= */
     .compact-modal-card {
       width: 92%;
@@ -1334,10 +1372,9 @@ return `
       }
       .large-card {
         grid-template-columns: 1fr;
-        padding: 32px 20px 36px;
+        padding: 32px 20px 42px;
       }
-      .small-cards-grid,
-      .services-grid {
+      .small-cards-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -1350,8 +1387,8 @@ return `
         min-height: 84vh;
         padding-top: 84px;
       }
-      .hero-webgl-window {
-        min-height: 180px;
+      .hero-center-spacer {
+        min-height: 220px;
       }
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1361,7 +1398,6 @@ return `
         font-size: 1.75rem;
       }
       .small-cards-grid,
-      .services-grid,
       .popup-three-cards {
         grid-template-columns: 1fr;
       }
@@ -1373,15 +1409,15 @@ return `
       }
       .btn-open-detail-large {
         right: 16px;
-        padding: 9px 16px;
-        font-size: 0.8rem;
+        padding: 11px 22px;
+        font-size: 0.96rem;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> MỜ CÒN 20% KHI CUỘN -->
+  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> MỜ CÒN 20% KHI CUỘN -->
   <div id="backdrop-stage" aria-hidden="true">
     <div id="static-backdrop"></div>
     <div class="backdrop-vignette"></div>
@@ -1413,6 +1449,9 @@ return `
   <main>
     <!-- MẶT 1: HERO BANNER -->
     <section class="hero-section" id="hero-sentinel">
+      <!-- Khoảng trống trung tâm giữ thoáng logo CHAM CREW trên banner.webp -->
+      <div class="hero-center-spacer"></div>
+
       <div class="hero-bottom-anchor">
         <p class="hero-tagline" id="hero-tagline">“Chạm cảm xúc – Chạm trái tim”</p>
         <p class="hero-positioning">
@@ -1466,11 +1505,10 @@ return `
   </footer>
 
   <!-- =======================================================================
-       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM (CHI TIẾT DỰ ÁN - HÌNH 2)
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM (CHI TIẾT DỰ ÁN)
        ======================================================================= -->
   <div class="modal-backdrop" id="wavy-project-modal" role="dialog" aria-modal="true" aria-labelledby="wavy-modal-title">
     <div class="wavy-modal-shell" onclick="event.stopPropagation()">
-      <!-- Viền lượn sóng vàng & kem phía trên -->
       <svg class="wave-svg-top" viewBox="0 0 1200 36" preserveAspectRatio="none">
         <path d="M0,12 C320,38 560,-6 1200,14 L1200,36 L0,36 Z" fill="#D4AF37"></path>
         <path d="M0,18 C320,42 560,0 1200,20 L1200,36 L0,36 Z" fill="#F5EFE6"></path>
@@ -1478,7 +1516,6 @@ return `
 
       <div class="wavy-modal-body" id="wavy-modal-content"></div>
 
-      <!-- Viền lượn sóng phía dưới -->
       <svg class="wave-svg-bottom" viewBox="0 0 1200 36" preserveAspectRatio="none">
         <path d="M0,0 L1200,0 L1200,20 C760,36 420,-4 0,24 Z" fill="#E8DFD1"></path>
       </svg>
@@ -1488,7 +1525,7 @@ return `
   </div>
 
   <!-- =======================================================================
-       POP-UP 2: THẺ NỔI THU GỌN (CHỈ SỐ & DỊCH VỤ - HÌNH 1)
+       POP-UP 2: THẺ NỔI THU GỌN (CHỈ SỐ NĂNG LỰC)
        ======================================================================= -->
   <div class="modal-backdrop" id="compact-info-modal" role="dialog" aria-modal="true" aria-labelledby="compact-modal-title">
     <div class="compact-modal-card" onclick="event.stopPropagation()" id="compact-modal-content"></div>
@@ -1497,7 +1534,7 @@ return `
   <!-- NẠP KHO DỮ LIỆU -->
   <script src="events-data.js"></script>
 
-  <!-- LOGIC HIỂN THỊ GIAO DIỆN & WEBGL GRAVITATIONAL LENSING -->
+  <!-- LOGIC HIỂN THỊ GIAO DIỆN -->
   <script>
     (function () {
       "use strict";
@@ -1539,15 +1576,156 @@ return `
         openCompactModal(item.title, item.badge, item.detail, "Tư vấn triển khai qua Zalo");
       });
 
+      // 3. RENDER KHU VỰC DỰ ÁN THEO NĂM (2026 <-> 2027)
+      const projectsRoot = document.getElementById("projects-root");
+      const yearSwitcher = document.getElementById("year-switcher");
+      const slideState = {};
 
-      // Sự kiện thanh trượt năm 2026 <-> 2027
+      const has2027Data = Array.isArray(DATA.projectsByYear["2027"]) && DATA.projectsByYear["2027"].length > 0;
+      let activeYear = has2027Data ? "2027" : "2026";
+
+      function getCategorySvgIcon(groupId) {
+        if (groupId === "corporate") {
+          return `<svg viewBox="0 0 24 24"><path d="M12 2L15 8L21 9L16.5 14L17.8 20L12 17L6.2 20L7.5 14L3 9L9 8L12 2Z"/></svg>`;
+        }
+        if (groupId === "education") {
+          return `<svg viewBox="0 0 24 24"><path d="M12 3L2 8L12 13L22 8L12 3Z"/><path d="M6 11V17C6 19 9 21 12 21C15 21 18 19 18 17V11"/></svg>`;
+        }
+        return `<svg viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3H6L17.5 14.5"/><path d="M13 19L19 13"/><path d="M16 16L20 20"/><path d="M19 21L21 19"/></svg>`;
+      }
+
+      function renderProjects(year) {
+        activeYear = year;
+        yearSwitcher.dataset.activeYear = year;
+        yearSwitcher.querySelectorAll(".year-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.year === year);
+        });
+
+        const groups = DATA.projectsByYear[year] || [];
+        if (groups.length === 0) {
+          projectsRoot.innerHTML = `
+            <div class="year-2027-empty-card metallic-sheen">
+              <div style="margin-bottom: 14px;">
+                <span class="skew-tag tag-gold">✦ HÀNH TRÌNH ${year}</span>
+              </div>
+              <h3>Chương Mới ${year} Đang Được Khởi Tạo</h3>
+              <p>Chạm Crew sẵn sàng đồng hành cùng doanh nghiệp, trường học và cộng đồng eSports trong mùa sự kiện ${year}. Liên hệ ngay để nhận tư vấn kịch bản &amp; nhân sự.</p>
+              <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
+                Đặt Lịch Hợp Tác ${year} ↗
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        projectsRoot.innerHTML = groups.map((group) => {
+          if (typeof slideState[group.groupId] === "undefined") {
+            slideState[group.groupId] = 0;
+          }
+          const currentIdx = slideState[group.groupId];
+          const largeList = group.largeWidgets || [];
+          const activeLarge = largeList[currentIdx];
+
+          let largeHtml = "";
+          if (activeLarge) {
+            const tagMeta = DATA.tags[activeLarge.tagType] || DATA.tags.tag1;
+            const isGold = activeLarge.tagType === "tag4";
+            const mediaHtml = activeLarge.coverImage
+              ? `<img src="${activeLarge.coverImage}" alt="${activeLarge.title}" loading="lazy" />`
+              : `<div class="arch-art-placeholder ${activeLarge.fallbackStyle || 'gold-royal'}">
+                  <div class="arch-emblem-ring">${getCategorySvgIcon(group.groupId)}</div>
+                  <span class="arch-placeholder-caption">${tagMeta.label}</span>
+                </div>`;
+
+            const controlsHtml = largeList.length > 1
+              ? `<div class="carousel-controls">
+                  <button type="button" class="carousel-arrow-btn" data-dir="-1" data-group="${group.groupId}" aria-label="Sự kiện trước">‹</button>
+                  <div class="carousel-dots">
+                    ${largeList.map((_, i) => `<button type="button" class="carousel-dot ${i === currentIdx ? 'active' : ''}" data-goto="${i}" data-group="${group.groupId}" aria-label="Trang ${i + 1}"></button>`).join("")}
+                  </div>
+                  <button type="button" class="carousel-arrow-btn" data-dir="1" data-group="${group.groupId}" aria-label="Sự kiện tiếp">›</button>
+                  <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted); margin-left: 4px;">${currentIdx + 1} / ${largeList.length}</span>
+                </div>`
+              : "";
+
+            largeHtml = `
+              <div class="large-widget-wrapper">
+                <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''}">
+                  <div class="sheen-clip"></div>
+                  <div class="large-tag-cluster">
+                    <span class="skew-tag ${tagMeta.className}">${tagMeta.label}</span>
+                    ${activeLarge.scaleTag ? `<span class="scale-pill-tag">${activeLarge.scaleTag}</span>` : ""}
+                  </div>
+
+                  <div class="arch-media-frame">
+                    ${mediaHtml}
+                  </div>
+
+                  <div class="large-info-col">
+                    <div class="large-partner-kicker">${activeLarge.partnerDate}</div>
+                    <h4 class="large-event-title">${activeLarge.title}</h4>
+
+                    <div class="three-stat-boxes">
+                      ${activeLarge.stats.map((st) => `
+                        <div class="stat-item-box">
+                          <div class="stat-item-val">${st.value}</div>
+                          <div class="stat-item-lbl">${st.label}</div>
+                        </div>
+                      `).join("")}
+                    </div>
+
+                    <p class="large-short-desc">${activeLarge.shortDesc}</p>
+                  </div>
+
+                  <button type="button" class="btn-open-detail-large" data-open-project="${activeLarge.id}">
+                    Xem chi tiết ↗
+                  </button>
+                </article>
+                ${controlsHtml}
+              </div>
+            `;
+          }
+
+          const smallHtml = (group.smallCards || []).map((sc) => {
+            const tagMeta = DATA.tags[sc.tagType] || DATA.tags.tag1;
+            return `
+              <article class="small-card metallic-sheen ${sc.gradientType || 'grad-dawn-gold'}">
+                <div class="sheen-clip"></div>
+                <span class="skew-tag small-card-tag ${tagMeta.className}">${tagMeta.label}</span>
+                <div class="small-card-body">
+                  <h4 class="small-card-title">${sc.title}</h4>
+                  <ul class="small-card-specs">
+                    <li><strong>Thời gian:</strong> ${sc.time}</li>
+                    <li><strong>Địa điểm:</strong> ${sc.venue}</li>
+                    <li><strong>Vai trò:</strong> ${sc.role}</li>
+                  </ul>
+                </div>
+                <button type="button" class="small-card-footer-btn" data-open-project="${sc.id}">
+                  Nhấn để xem bài viết Recap
+                </button>
+              </article>
+            `;
+          }).join("");
+
+          return `
+            <div class="campaign-group">
+              <div class="group-banner-head">
+                <h3 class="group-banner-title">${group.groupTitle}</h3>
+                <span class="group-banner-sub">${group.groupSubtitle}</span>
+              </div>
+              ${largeHtml}
+              <div class="small-cards-grid">${smallHtml}</div>
+            </div>
+          `;
+        }).join("");
+      }
+
       yearSwitcher.addEventListener("click", (e) => {
         const btn = e.target.closest(".year-btn");
         if (!btn) return;
         renderProjects(btn.dataset.year);
       });
 
-      // Ủy quyền sự kiện bên trong khu vực Dự án (Mũi tên carousel + Nút mở Pop-up chống bấm nhầm)
       projectsRoot.addEventListener("click", (e) => {
         const arrowBtn = e.target.closest(".carousel-arrow-btn");
         if (arrowBtn) {
@@ -1589,13 +1767,13 @@ return `
         return null;
       }
 
-      // 5. QUẢN LÝ 2 DẠNG POP-UP (BẢNG LƯỢN SÓNG & THẺ NỔI THU GỌN)
+      // 4. QUẢN LÝ 2 DẠNG POP-UP (BẢNG LƯỢN SÓNG + THƯ VIỆN ẢNH XOAY TRÒN 3D)
       const wavyModal = document.getElementById("wavy-project-modal");
       const wavyContent = document.getElementById("wavy-modal-content");
       const compactModal = document.getElementById("compact-info-modal");
       const compactContent = document.getElementById("compact-modal-content");
 
-function openWavyProjectModal(proj) {
+      function openWavyProjectModal(proj) {
         const subtitle = proj.partnerDate
           ? `${proj.partnerDate} • ${proj.location || ""}`
           : `${proj.time} • ${proj.location || proj.venue}`;
@@ -1604,7 +1782,6 @@ function openWavyProjectModal(proj) {
         const ops = proj.operations || [];
         const recapLink = proj.recapUrl || DATA.config.fanpageUrl;
 
-        // Gom danh sách ảnh cho thư viện xoay tròn (ưu tiên mảng gallery, dự phòng coverImage)
         const images = Array.isArray(proj.gallery) && proj.gallery.length > 0
           ? proj.gallery
           : (proj.coverImage ? [proj.coverImage] : []);
@@ -1651,7 +1828,6 @@ function openWavyProjectModal(proj) {
           </div>
         `;
 
-        // Khởi tạo điều khiển thư viện xoay tròn 3D nếu có ảnh
         if (images.length > 0) {
           let activeSlide = 0;
           const slides = wavyContent.querySelectorAll(".popup-carousel-slide");
@@ -1723,9 +1899,7 @@ function openWavyProjectModal(proj) {
       // Khởi tạo render ban đầu
       renderProjects(activeYear);
 
-      // =========================================================================
-      // 6. CHUYỂN ĐỔI NỀN MẶT 1 (100%) -> MẶT 2 (MỜ CÒN 20%) KHI CUỘN TRANG
-      // =========================================================================
+      // 5. CHUYỂN ĐỔI NỀN MẶT 1 (100%) -> MẶT 2 (MỜ CÒN 20%) KHI CUỘN TRANG
       const heroSentinel = document.getElementById("hero-sentinel");
       const heroObserver = new IntersectionObserver(
         (entries) => {

@@ -55,8 +55,8 @@
       line-height: 1.6;
     }
 
-    /* =========================================================================
-       LỚP NỀN CỐ ĐỊNH 2 MẶT (MẶT 1: WEBGL HERO -> MẶT 2: NỀN TĨNH MỜ KHI CUỘN)
+/* =========================================================================
+       LỚP NỀN CỐ ĐỊNH 2 MẶT (MẶT 1: BANNER TĨNH 100% -> MẶT 2: MỜ CÒN 20% KHI CUỘN)
        ========================================================================= */
     #backdrop-stage {
       position: fixed;
@@ -67,15 +67,6 @@
       overflow: hidden;
     }
 
-    #webgl-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      transition: opacity 0.6s ease;
-    }
-
     #static-backdrop {
       position: absolute;
       inset: -24px;
@@ -83,41 +74,26 @@
       background-size: contain;
       background-position: center 38%;
       background-repeat: no-repeat;
-      opacity: 0;
+      opacity: 1;
       filter: blur(0px) brightness(1);
-      transform: scale(1.02);
-      transition: opacity 0.65s ease, filter 0.65s ease, transform 0.65s ease;
-      will-change: opacity, filter;
+      transform: scale(1);
+      transition: filter 0.6s ease, transform 0.6s ease;
+      will-change: filter, transform;
     }
 
-    /* Trạng thái fallback nếu thiết bị không hỗ trợ WebGL */
-    body.webgl-fallback #webgl-canvas {
-      display: none;
-    }
-    body.webgl-fallback #static-backdrop {
-      opacity: 1;
-      filter: blur(0px) brightness(0.95);
-    }
-
-    /* Trạng thái Mặt 2: Khi cuộn xuống khu vực Dự án & Dịch vụ */
-    body.scrolled-face2 #webgl-canvas {
-      opacity: 0;
-    }
+    /* Trạng thái Mặt 2: Khi cuộn xuống khu vực Dự án -> mờ đi còn 20% */
     body.scrolled-face2 #static-backdrop {
-      opacity: 1;
-      filter: blur(18px) brightness(0.28) saturate(1.15);
-      transform: scale(1.08);
+      filter: blur(14px) brightness(0.20) saturate(1.1);
+      transform: scale(1.06);
     }
 
-    /* Lớp phủ vignette làm tối viền và chân màn hình */
+    /* Lớp phủ vignette nhẹ ở mép trên/dưới để dễ đọc chữ */
     .backdrop-vignette {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at 50% 42%, transparent 25%, rgba(7, 7, 9, 0.72) 85%),
-        linear-gradient(180deg, rgba(7, 7, 9, 0.55) 0%, transparent 22%, transparent 65%, rgba(7, 7, 9, 0.96) 100%);
+      background: linear-gradient(180deg, rgba(7, 7, 9, 0.35) 0%, transparent 18%, transparent 72%, rgba(7, 7, 9, 0.92) 100%);
     }
-
+    
     /* =========================================================================
        THANH ĐIỀU HƯỚNG CỐ ĐỊNH (HEADER)
        ========================================================================= */
@@ -252,41 +228,18 @@
     /* =========================================================================
        MẶT 1: HERO SECTION (GIỮ THOÁNG TÂM CHO LOGO WEBGL)
        ========================================================================= */
-    .hero-section {
+ .hero-section {
       min-height: 92vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       text-align: center;
       padding: 96px 20px 36px;
     }
 
-    .hero-top-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      border-radius: 999px;
-      background: rgba(15, 15, 20, 0.72);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      backdrop-filter: blur(8px);
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold-bright);
-    }
-
-    /* Vùng trống trung tâm nhường sân khấu cho hiệu ứng WebGL trên banner.webp */
-    .hero-webgl-window {
-      flex: 1;
-      min-height: 240px;
-      width: 100%;
-      pointer-events: none;
-    }
-
     .hero-bottom-anchor {
+      margin-top: auto;
       max-width: 780px;
       display: flex;
       flex-direction: column;
@@ -298,49 +251,7 @@
       backdrop-filter: blur(8px);
       border: 1px solid rgba(212, 175, 55, 0.16);
     }
-
-    .hero-tagline {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(1.35rem, 3vw, 2rem);
-      color: var(--gold-bright);
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.85);
-    }
-
-    .hero-positioning {
-      font-size: clamp(0.9rem, 1.5vw, 1.02rem);
-      color: #E2DDD5;
-      max-width: 640px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    .btn-outline-gold {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 6px;
-      border: 1px solid var(--gold-burnished);
-      background: rgba(20, 20, 24, 0.75);
-      color: var(--gold-bright);
-      font-weight: 700;
-      font-size: 0.88rem;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-
-    .btn-outline-gold:hover {
-      background: rgba(212, 175, 55, 0.16);
-      transform: translateY(-2px);
-    }
-
+    
     /* =========================================================================
        DẢI 4 CHỈ SỐ NĂNG LỰC (BẤM VÀO MỞ THẺ NỔI THU GỌN AFK - HÌNH 1)
        ========================================================================= */
@@ -397,12 +308,26 @@
     /* =========================================================================
        HIỆU ỨNG PHẢN XẠ ÁNH SÁNG KIM LOẠI CHUNG (METALLIC FOIL SHEEN)
        ========================================================================= */
-    .metallic-sheen {
+   .metallic-sheen {
       position: relative;
+    }
+
+    .metric-card.metallic-sheen,
+    .year-2027-empty-card.metallic-sheen {
       overflow: hidden;
     }
 
-    .metallic-sheen::after {
+    .sheen-clip {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .metallic-sheen::after,
+    .sheen-clip::after {
       content: "";
       position: absolute;
       top: -50%;
@@ -423,10 +348,15 @@
       z-index: 4;
     }
 
-    .metallic-sheen:hover::after {
-      left: 155%;
+    .large-card.metallic-sheen::after,
+    .small-card.metallic-sheen::after {
+      display: none;
     }
 
+    .metallic-sheen:hover::after,
+    .metallic-sheen:hover .sheen-clip::after {
+      left: 155%;
+    }
     /* =========================================================================
        KHU VỰC DỰ ÁN: THANH TRƯỢT NĂM (2026 <-> 2027) & TIÊU ĐỀ EDITORIAL
        ========================================================================= */
@@ -629,7 +559,11 @@
     }
 
     /* Cặp tag góc trên trái */
-    .large-tag-cluster {
+largeHtml = `
+            <div class="large-widget-wrapper">
+              <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''}">
+                <div class="sheen-clip"></div>
+                <div class="large-tag-cluster">
       position: absolute;
       top: -15px;
       left: 16px;
@@ -782,22 +716,22 @@
     }
 
     /* Nút Xem Chi Tiết tràn nhẹ mép dưới bên phải (Chống bấm nhầm cả thẻ) */
-    .btn-open-detail-large {
+.btn-open-detail-large {
       position: absolute;
-      bottom: -16px;
+      bottom: -20px;
       right: 24px;
       z-index: 8;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 22px;
-      border-radius: 8px;
+      gap: 10px;
+      padding: 13px 28px;
+      border-radius: 10px;
       border: 1.5px solid var(--gold-bright);
       background: linear-gradient(135deg, #1E1C16 0%, #0E0D0B 100%);
       color: var(--gold-bright);
       font-family: var(--font-sans);
       font-weight: 800;
-      font-size: 0.84rem;
+      font-size: 1.05rem;
       cursor: pointer;
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75);
       transition: all 0.25s ease;
@@ -901,7 +835,10 @@
       background: linear-gradient(180deg, #140B0E 0%, #3D141C 58%, #7A3518 100%);
     }
 
-    .small-card-tag {
+return `
+            <article class="small-card metallic-sheen ${sc.gradientType || 'grad-dawn-gold'}">
+              <div class="sheen-clip"></div>
+              <span class="skew-tag small-card-tag ${tagMeta.className}">${tagMeta.label}</span>
       position: absolute;
       top: -13px;
       left: 12px;
@@ -986,77 +923,6 @@
       max-width: 520px;
       margin: 0 auto 24px;
       font-size: 0.95rem;
-    }
-
-    /* =========================================================================
-       KHU VỰC DỊCH VỤ (3 GÓI GIẢI PHÁP)
-       ========================================================================= */
-    .services-section {
-      padding: 30px 0 90px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .service-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 14px;
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold-bright);
-    }
-
-    .service-num {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--gold-bright);
-      letter-spacing: 1px;
-    }
-
-    .service-title {
-      font-family: var(--font-serif);
-      font-size: 1.28rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin: 8px 0 10px;
-      line-height: 1.3;
-    }
-
-    .service-desc {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .service-link-btn {
-      align-self: flex-start;
-      background: transparent;
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      color: var(--gold-bright);
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .service-link-btn:hover {
-      background: var(--gold-bright);
-      color: #09090B;
     }
 
     /* =========================================================================
@@ -1281,36 +1147,112 @@
       background: #F0E8DC;
     }
 
-    .btn-popup-recap {
+.btn-popup-recap {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       padding: 13px 22px;
       border-radius: 4px 12px 12px 12px;
-      border: 1.5px solid #0B4631;
-      background: linear-gradient(135deg, #17855D 0%, #0F5C40 100%);
-      color: #FFFFFF;
+      border: 1.5px solid #8C6218;
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 52%, #AA7C11 100%);
+      color: #0B0B0D;
       font-family: var(--font-sans);
       font-weight: 800;
       font-size: 0.92rem;
       text-decoration: none;
-      box-shadow: 0 6px 18px rgba(15, 92, 64, 0.35);
+      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.38);
       transition: all 0.2s ease;
     }
 
     .btn-popup-recap:hover {
-      filter: brightness(1.08);
+      filter: brightness(1.07);
       transform: translateY(-1px);
     }
 
-    .modal-dismiss-hint {
-      text-align: center;
-      color: rgba(244, 241, 234, 0.72);
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      margin-top: 14px;
+    /* THƯ VIỆN ẢNH XOAY TRÒN 3D BÊN TRONG POP-UP ([CHG-02]) */
+    .popup-carousel {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+      overflow: hidden;
+      user-select: none;
     }
+
+    .popup-carousel-slide {
+      position: absolute;
+      width: 62%;
+      max-width: 420px;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid #D4AF37;
+      background: #141418;
+      box-shadow: 0 10px 26px rgba(28, 25, 23, 0.35);
+      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.42s ease;
+      cursor: pointer;
+    }
+
+    .popup-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .popup-carousel-slide.is-center {
+      transform: translateX(0) scale(1) rotateY(0deg);
+      opacity: 1;
+      z-index: 3;
+      cursor: default;
+    }
+
+    .popup-carousel-slide.is-prev {
+      transform: translateX(-54%) scale(0.78) rotateY(18deg);
+      opacity: 0.72;
+      z-index: 2;
+    }
+
+    .popup-carousel-slide.is-next {
+      transform: translateX(54%) scale(0.78) rotateY(-18deg);
+      opacity: 0.72;
+      z-index: 2;
+    }
+
+    .popup-carousel-slide.is-hidden {
+      transform: translateX(0) scale(0.55);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .popup-car-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid #8C6218;
+      background: linear-gradient(135deg, #F5C518 0%, #B8860B 100%);
+      color: #0B0B0D;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+    }
+
+    .popup-car-btn.prev { left: 8px; }
+    .popup-car-btn.next { right: 8px; }
 
     /* =========================================================================
        POP-UP 2: THẺ NỔI THU GỌN (AFK ITEM TOOLTIP - HÌNH 1)
@@ -1439,9 +1381,8 @@
 </head>
 <body>
 
-  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: WEBGL GRAVITATIONAL LENSING -> NỀN TĨNH MỜ KHI CUỘN -->
+<!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> MỜ CÒN 20% KHI CUỘN -->
   <div id="backdrop-stage" aria-hidden="true">
-    <canvas id="webgl-canvas"></canvas>
     <div id="static-backdrop"></div>
     <div class="backdrop-vignette"></div>
   </div>
@@ -1461,23 +1402,17 @@
     <nav class="nav-links">
       <a href="#metrics">Năng Lực</a>
       <a href="#projects">Dự Án</a>
-      <a href="#services">Dịch Vụ</a>
       <a href="#contact">Liên Hệ</a>
     </nav>
 
     <a id="header-zalo-btn" href="https://zalo.me/0965052847" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
-      Gửi Brief / Tư Vấn Zalo ↗
+      Tư Vấn Zalo ↗
     </a>
   </header>
 
   <main>
     <!-- MẶT 1: HERO BANNER -->
     <section class="hero-section" id="hero-sentinel">
-      <div class="hero-top-pill">✦ Agency Portfolio • TP. Hồ Chí Minh</div>
-
-      <!-- Khoảng trống trung tâm để lộ rõ logo CC CHAM CREW và hiệu ứng bẻ cong ánh sáng WebGL -->
-      <div class="hero-webgl-window"></div>
-
       <div class="hero-bottom-anchor">
         <p class="hero-tagline" id="hero-tagline">“Chạm cảm xúc – Chạm trái tim”</p>
         <p class="hero-positioning">
@@ -1518,19 +1453,6 @@
 
         <!-- Vùng render tự động 3 Gói Sự Kiện từ events-data.js -->
         <div id="projects-root"></div>
-      </div>
-    </section>
-
-    <!-- KHU VỰC 3 GÓI DỊCH VỤ -->
-    <section class="services-section" id="services">
-      <div class="container">
-        <div class="section-header-bar">
-          <div>
-            <div class="section-kicker">02 / Giải Pháp Chuyên Biệt</div>
-            <h2 class="section-heading">Dịch Vụ Cung Cấp</h2>
-          </div>
-        </div>
-        <div class="services-grid" id="services-container"></div>
       </div>
     </section>
   </main>
@@ -1617,170 +1539,6 @@
         openCompactModal(item.title, item.badge, item.detail, "Tư vấn triển khai qua Zalo");
       });
 
-      // 3. RENDER 3 GÓI DỊCH VỤ
-      const servicesContainer = document.getElementById("services-container");
-      servicesContainer.innerHTML = DATA.services.map((s, idx) => `
-        <article class="service-card metallic-sheen">
-          <div>
-            <div class="service-num">GÓI GIẢI PHÁP ${s.num}</div>
-            <h3 class="service-title">${s.title}</h3>
-            <p class="service-desc">${s.shortDesc}</p>
-          </div>
-          <button type="button" class="service-link-btn" data-service-idx="${idx}">
-            Xem chi tiết quy trình ↗
-          </button>
-        </article>
-      `).join("");
-
-      servicesContainer.addEventListener("click", (e) => {
-        const btn = e.target.closest(".service-link-btn");
-        if (!btn) return;
-        const srv = DATA.services[Number(btn.dataset.serviceIdx)];
-        openCompactModal(srv.title, srv.badge, srv.detail, "Nhận báo giá & Brief qua Zalo");
-      });
-
-      // 4. RENDER KHU VỰC DỰ ÁN THEO NĂM (2026 <-> 2027)
-      const projectsRoot = document.getElementById("projects-root");
-      const yearSwitcher = document.getElementById("year-switcher");
-      const slideState = {}; // Lưu vị trí slide hiện tại của từng Widget lớn
-
-      // Tự động chọn 2027 làm mặc định nếu mảng 2027 đã có dữ liệu
-      const has2027Data = Array.isArray(DATA.projectsByYear["2027"]) && DATA.projectsByYear["2027"].length > 0;
-      let activeYear = has2027Data ? "2027" : "2026";
-
-      function getCategorySvgIcon(groupId) {
-        if (groupId === "corporate") {
-          return `<svg viewBox="0 0 24 24"><path d="M12 2L15 8L21 9L16.5 14L17.8 20L12 17L6.2 20L7.5 14L3 9L9 8L12 2Z"/></svg>`;
-        }
-        if (groupId === "education") {
-          return `<svg viewBox="0 0 24 24"><path d="M12 3L2 8L12 13L22 8L12 3Z"/><path d="M6 11V17C6 19 9 21 12 21C15 21 18 19 18 17V11"/></svg>`;
-        }
-        return `<svg viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3H6L17.5 14.5"/><path d="M13 19L19 13"/><path d="M16 16L20 20"/><path d="M19 21L21 19"/></svg>`;
-      }
-
-      function renderProjects(year) {
-        activeYear = year;
-        yearSwitcher.dataset.activeYear = year;
-        yearSwitcher.querySelectorAll(".year-btn").forEach((btn) => {
-          btn.classList.toggle("active", btn.dataset.year === year);
-        });
-
-        const groups = DATA.projectsByYear[year] || [];
-        if (groups.length === 0) {
-          projectsRoot.innerHTML = `
-            <div class="year-2027-empty-card metallic-sheen">
-              <div style="margin-bottom: 14px;">
-                <span class="skew-tag tag-gold">✦ HÀNH TRÌNH ${year}</span>
-              </div>
-              <h3>Chương Mới ${year} Đang Được Khởi Tạo</h3>
-              <p>Chạm Crew sẵn sàng đồng hành cùng doanh nghiệp, trường học và cộng đồng eSports trong mùa sự kiện ${year}. Liên hệ ngay để nhận tư vấn kịch bản &amp; nhân sự.</p>
-              <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
-                Đặt Lịch Hợp Tác ${year} ↗
-              </a>
-            </div>
-          `;
-          return;
-        }
-
-        projectsRoot.innerHTML = groups.map((group) => {
-          if (typeof slideState[group.groupId] === "undefined") {
-            slideState[group.groupId] = 0;
-          }
-          const currentIdx = slideState[group.groupId];
-          const largeList = group.largeWidgets || [];
-          const activeLarge = largeList[currentIdx];
-
-          let largeHtml = "";
-          if (activeLarge) {
-            const tagMeta = DATA.tags[activeLarge.tagType] || DATA.tags.tag1;
-            const isGold = activeLarge.tagType === "tag4";
-            const mediaHtml = activeLarge.coverImage
-              ? `<img src="${activeLarge.coverImage}" alt="${activeLarge.title}" loading="lazy" />`
-              : `<div class="arch-art-placeholder ${activeLarge.fallbackStyle || 'gold-royal'}">
-                   <div class="arch-emblem-ring">${getCategorySvgIcon(group.groupId)}</div>
-                   <span class="arch-placeholder-caption">${tagMeta.label}</span>
-                 </div>`;
-
-            const controlsHtml = largeList.length > 1
-              ? `<div class="carousel-controls">
-                   <button type="button" class="carousel-arrow-btn" data-dir="-1" data-group="${group.groupId}" aria-label="Sự kiện trước">‹</button>
-                   <div class="carousel-dots">
-                     ${largeList.map((_, i) => `<button type="button" class="carousel-dot ${i === currentIdx ? 'active' : ''}" data-goto="${i}" data-group="${group.groupId}" aria-label="Trang ${i + 1}"></button>`).join("")}
-                   </div>
-                   <button type="button" class="carousel-arrow-btn" data-dir="1" data-group="${group.groupId}" aria-label="Sự kiện tiếp">›</button>
-                   <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted); margin-left: 4px;">${currentIdx + 1} / ${largeList.length}</span>
-                 </div>`
-              : "";
-
-            largeHtml = `
-              <div class="large-widget-wrapper">
-                <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''}">
-                  <div class="large-tag-cluster">
-                    <span class="skew-tag ${tagMeta.className}">${tagMeta.label}</span>
-                    ${activeLarge.scaleTag ? `<span class="scale-pill-tag">${activeLarge.scaleTag}</span>` : ""}
-                  </div>
-
-                  <div class="arch-media-frame">
-                    ${mediaHtml}
-                  </div>
-
-                  <div class="large-info-col">
-                    <div class="large-partner-kicker">${activeLarge.partnerDate}</div>
-                    <h4 class="large-event-title">${activeLarge.title}</h4>
-
-                    <div class="three-stat-boxes">
-                      ${activeLarge.stats.map((st) => `
-                        <div class="stat-item-box">
-                          <div class="stat-item-val">${st.value}</div>
-                          <div class="stat-item-lbl">${st.label}</div>
-                        </div>
-                      `).join("")}
-                    </div>
-
-                    <p class="large-short-desc">${activeLarge.shortDesc}</p>
-                  </div>
-
-                  <button type="button" class="btn-open-detail-large" data-open-project="${activeLarge.id}">
-                    Xem chi tiết ↗
-                  </button>
-                </article>
-                ${controlsHtml}
-              </div>
-            `;
-          }
-
-          const smallHtml = (group.smallCards || []).map((sc) => {
-            const tagMeta = DATA.tags[sc.tagType] || DATA.tags.tag1;
-            return `
-              <article class="small-card metallic-sheen ${sc.gradientType || 'grad-dawn-gold'}">
-                <span class="skew-tag small-card-tag ${tagMeta.className}">${tagMeta.label}</span>
-                <div class="small-card-body">
-                  <h4 class="small-card-title">${sc.title}</h4>
-                  <ul class="small-card-specs">
-                    <li><strong>Thời gian:</strong> ${sc.time}</li>
-                    <li><strong>Địa điểm:</strong> ${sc.venue}</li>
-                    <li><strong>Vai trò:</strong> ${sc.role}</li>
-                  </ul>
-                </div>
-                <button type="button" class="small-card-footer-btn" data-open-project="${sc.id}">
-                  Nhấn để xem bài viết Recap
-                </button>
-              </article>
-            `;
-          }).join("");
-
-          return `
-            <div class="campaign-group">
-              <div class="group-banner-head">
-                <h3 class="group-banner-title">${group.groupTitle}</h3>
-                <span class="group-banner-sub">${group.groupSubtitle}</span>
-              </div>
-              ${largeHtml}
-              <div class="small-cards-grid">${smallHtml}</div>
-            </div>
-          `;
-        }).join("");
-      }
 
       // Sự kiện thanh trượt năm 2026 <-> 2027
       yearSwitcher.addEventListener("click", (e) => {
@@ -1837,7 +1595,7 @@
       const compactModal = document.getElementById("compact-info-modal");
       const compactContent = document.getElementById("compact-modal-content");
 
-      function openWavyProjectModal(proj) {
+function openWavyProjectModal(proj) {
         const subtitle = proj.partnerDate
           ? `${proj.partnerDate} • ${proj.location || ""}`
           : `${proj.time} • ${proj.location || proj.venue}`;
@@ -1846,11 +1604,30 @@
         const ops = proj.operations || [];
         const recapLink = proj.recapUrl || DATA.config.fanpageUrl;
 
+        // Gom danh sách ảnh cho thư viện xoay tròn (ưu tiên mảng gallery, dự phòng coverImage)
+        const images = Array.isArray(proj.gallery) && proj.gallery.length > 0
+          ? proj.gallery
+          : (proj.coverImage ? [proj.coverImage] : []);
+
+        const carouselHtml = images.length > 0
+          ? `<div class="popup-carousel" id="popup-carousel">
+              ${images.length > 1 ? `<button type="button" class="popup-car-btn prev" id="car-prev" aria-label="Ảnh trước">‹</button>` : ""}
+              ${images.map((src, i) => `
+                <div class="popup-carousel-slide" data-slide-idx="${i}">
+                  <img src="${src}" alt="${proj.title} - Ảnh ${i + 1}" loading="lazy" />
+                </div>
+              `).join("")}
+              ${images.length > 1 ? `<button type="button" class="popup-car-btn next" id="car-next" aria-label="Ảnh sau">›</button>` : ""}
+            </div>`
+          : "";
+
         wavyContent.innerHTML = `
           <div class="wavy-modal-header">
             <h3 class="wavy-modal-title" id="wavy-modal-title">${proj.title}</h3>
             <div class="wavy-modal-meta">${subtitle}</div>
           </div>
+
+          ${carouselHtml}
 
           <div class="popup-three-cards">
             ${highlights.map((h) => `
@@ -1873,6 +1650,44 @@
             </a>
           </div>
         `;
+
+        // Khởi tạo điều khiển thư viện xoay tròn 3D nếu có ảnh
+        if (images.length > 0) {
+          let activeSlide = 0;
+          const slides = wavyContent.querySelectorAll(".popup-carousel-slide");
+          const total = slides.length;
+
+          function updateCarousel() {
+            slides.forEach((el, idx) => {
+              el.classList.remove("is-center", "is-prev", "is-next", "is-hidden");
+              if (idx === activeSlide) {
+                el.classList.add("is-center");
+              } else if (total > 1 && idx === (activeSlide - 1 + total) % total) {
+                el.classList.add("is-prev");
+              } else if (total > 1 && idx === (activeSlide + 1) % total) {
+                el.classList.add("is-next");
+              } else {
+                el.classList.add("is-hidden");
+              }
+            });
+          }
+
+          updateCarousel();
+
+          const prevBtn = document.getElementById("car-prev");
+          const nextBtn = document.getElementById("car-next");
+          if (prevBtn) prevBtn.addEventListener("click", () => { activeSlide = (activeSlide - 1 + total) % total; updateCarousel(); });
+          if (nextBtn) nextBtn.addEventListener("click", () => { activeSlide = (activeSlide + 1) % total; updateCarousel(); });
+
+          slides.forEach((el, idx) => {
+            el.addEventListener("click", () => {
+              if (idx !== activeSlide) {
+                activeSlide = idx;
+                updateCarousel();
+              }
+            });
+          });
+        }
 
         wavyModal.classList.add("is-open");
         document.body.style.overflow = "hidden";
@@ -1909,322 +1724,18 @@
       renderProjects(activeYear);
 
       // =========================================================================
-      // 6. BỘ RENDER WEBGL GRAVITATIONAL LENSING (BANNER.WEBP) + ADAPTIVE RENDERING
+      // 6. CHUYỂN ĐỔI NỀN MẶT 1 (100%) -> MẶT 2 (MỜ CÒN 20%) KHI CUỘN TRANG
       // =========================================================================
-      const canvas = document.getElementById("webgl-canvas");
       const heroSentinel = document.getElementById("hero-sentinel");
-
-      let isHeroInView = true;
-      let isTabVisible = !document.hidden;
-      let gl = null;
-      let program = null;
-      let positionBuffer = null;
-      let texture = null;
-      let rafId = null;
-      let isDestroyed = false;
-
-      // Theo dõi cuộn trang để chuyển đổi Mặt 1 (WebGL) <-> Mặt 2 (Nền tĩnh mờ)
       const heroObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            isHeroInView = entry.isIntersecting;
-            if (isHeroInView) {
-              document.body.classList.remove("scrolled-face2");
-              startLoop();
-            } else {
-              document.body.classList.add("scrolled-face2");
-              stopLoop(); // 0 draw calls khi đã cuộn xuống Mặt 2
-            }
+            document.body.classList.toggle("scrolled-face2", !entry.isIntersecting);
           });
         },
-        { threshold: 0.18 }
+        { threshold: 0.25 }
       );
       heroObserver.observe(heroSentinel);
-
-      document.addEventListener("visibilitychange", () => {
-        isTabVisible = !document.hidden;
-        if (isTabVisible && isHeroInView) startLoop();
-        else stopLoop();
-      });
-
-      // Kiểm tra chế độ giảm chuyển động của hệ điều hành
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) {
-        document.body.classList.add("webgl-fallback");
-        return;
-      }
-
-      function enableStaticFallback() {
-        isDestroyed = true;
-        stopLoop();
-        if (gl) {
-          if (texture) gl.deleteTexture(texture);
-          if (positionBuffer) gl.deleteBuffer(positionBuffer);
-          if (program) gl.deleteProgram(program);
-        }
-        document.body.classList.add("webgl-fallback");
-      }
-
-      try {
-        gl = canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "low-power" });
-      } catch (err) {
-        gl = null;
-      }
-
-      if (!gl) {
-        enableStaticFallback();
-        return;
-      }
-
-      const vertexShaderSrc = `
-        attribute vec2 a_position;
-        varying vec2 v_uv;
-        void main() {
-          v_uv = a_position * 0.5 + 0.5;
-          v_uv.y = 1.0 - v_uv.y;
-          gl_Position = vec4(a_position, 0.0, 1.0);
-        }
-      `;
-
-      // Fragment Shader: Khóa lõi logo (0 - 1.05R), bẻ cong vành tinh vân (1.05R - 1.75R), giữ nét mảnh kính rìa (> 1.75R)
-      const fragmentShaderSrc = `
-        precision mediump float;
-        varying vec2 v_uv;
-        uniform sampler2D u_image;
-        uniform vec2 u_resolution;
-        uniform vec2 u_texResolution;
-        uniform vec2 u_pointer;
-        uniform float u_time;
-
-        void main() {
-          // Căn tỷ lệ ảnh banner.webp (1696x608) theo chiều ngang để không bị cắt mất mảnh vỡ 2 bên
-          float screenAspect = u_resolution.x / max(u_resolution.y, 1.0);
-          float texAspect = u_texResolution.x / max(u_texResolution.y, 1.0);
-
-          vec2 uv = v_uv;
-          // Đặt tâm ảnh hơi nhích lên 42% chiều cao màn hình để thoáng vùng chữ dưới đáy
-          vec2 centerOffset = vec2(0.5, 0.43);
-          vec2 centered = uv - centerOffset;
-
-          if (screenAspect > texAspect) {
-            centered.x *= screenAspect / texAspect;
-          } else {
-            centered.y *= texAspect / screenAspect;
-          }
-
-          // Hiệu ứng trượt nhẹ 2.5D toàn khung theo trỏ chuột
-          vec2 parallaxShift = u_pointer * 0.014;
-          vec2 samplePos = centered + vec2(0.5, 0.5) - parallaxShift;
-
-          // Tính bán kính chuẩn hóa từ tâm logo CC CHAM CREW
-          vec2 delta = centered - u_pointer * 0.035;
-          delta.x *= texAspect;
-          float dist = length(delta);
-
-          // 3 vùng bán kính thấu kính hấp dẫn:
-          // R_core = 0.22 (~1.05R), R_ring_end = 0.42 (~1.75R)
-          float innerMask = smoothstep(0.20, 0.27, dist);
-          float outerMask = 1.0 - smoothstep(0.36, 0.48, dist);
-          float lensStrength = innerMask * outerMask;
-
-          // Tạo gợn sóng hấp dẫn mềm mại quanh vành tinh vân vàng
-          float swirlAngle = lensStrength * (0.16 + 0.04 * sin(u_time * 1.4));
-          float s = sin(swirlAngle);
-          float c = cos(swirlAngle);
-          vec2 rel = samplePos - vec2(0.5, 0.5);
-          vec2 rotated = vec2(rel.x * c - rel.y * s, rel.x * s + rel.y * c);
-
-          // Kéo nhẹ ánh sáng hướng về tâm thấu kính
-          vec2 deflectedUV = vec2(0.5, 0.5) + rotated * (1.0 - lensStrength * 0.09);
-
-          // Nếu tọa độ nằm ngoài biên trên/dưới của ảnh siêu ngang, hòa mượt vào nền đen #070709
-          float edgeX = smoothstep(0.0, 0.03, deflectedUV.x) * (1.0 - smoothstep(0.97, 1.0, deflectedUV.x));
-          float edgeY = smoothstep(0.0, 0.08, deflectedUV.y) * (1.0 - smoothstep(0.92, 1.0, deflectedUV.y));
-          float boundsMask = edgeX * edgeY;
-
-          vec4 texColor = texture2D(u_image, clamp(deflectedUV, 0.001, 0.999));
-          vec3 voidColor = vec3(0.027, 0.027, 0.035);
-          vec3 finalRGB = mix(voidColor, texColor.rgb, boundsMask);
-
-          gl_FragColor = vec4(finalRGB, 1.0);
-        }
-      `;
-
-      function compileShader(type, source) {
-        const shader = gl.createShader(type);
-        gl.shaderSource(shader, source);
-        gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-          gl.deleteShader(shader);
-          return null;
-        }
-        return shader;
-      }
-
-      const vs = compileShader(gl.VERTEX_SHADER, vertexShaderSrc);
-      const fs = compileShader(gl.FRAGMENT_SHADER, fragmentShaderSrc);
-      if (!vs || !fs) {
-        enableStaticFallback();
-        return;
-      }
-
-      program = gl.createProgram();
-      gl.attachShader(program, vs);
-      gl.attachShader(program, fs);
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        enableStaticFallback();
-        return;
-      }
-      gl.useProgram(program);
-
-      positionBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.bufferData(
-        gl.ARRAY_BUFFER,
-        new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-        gl.STATIC_DRAW
-      );
-
-      const posLoc = gl.getAttribLocation(program, "a_position");
-      gl.enableVertexAttribArray(posLoc);
-      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-      const uResolution = gl.getUniformLocation(program, "u_resolution");
-      const uTexResolution = gl.getUniformLocation(program, "u_texResolution");
-      const uPointer = gl.getUniformLocation(program, "u_pointer");
-      const uTime = gl.getUniformLocation(program, "u_time");
-
-      let texWidth = 1696;
-      let texHeight = 608;
-      let textureReady = false;
-
-      texture = gl.createTexture();
-      gl.bindTexture(gl.TEXTURE_2D, texture);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-
-      const bannerImg = new Image();
-      bannerImg.onload = function () {
-        if (isDestroyed) return;
-        texWidth = bannerImg.naturalWidth || 1696;
-        texHeight = bannerImg.naturalHeight || 608;
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bannerImg);
-        textureReady = true;
-        resizeCanvas();
-        startLoop();
-      };
-      bannerImg.onerror = function () {
-        enableStaticFallback();
-      };
-      bannerImg.src = DATA.config.bannerImage;
-
-      // Quản lý độ phân giải thích ứng (100% -> 75% -> 50%)
-      let resolutionScale = 1.0;
-      function resizeCanvas() {
-        if (!gl || isDestroyed) return;
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-        const w = Math.floor(window.innerWidth * dpr * resolutionScale);
-        const h = Math.floor(window.innerHeight * dpr * resolutionScale);
-        if (canvas.width !== w || canvas.height !== h) {
-          canvas.width = w;
-          canvas.height = h;
-          gl.viewport(0, 0, w, h);
-        }
-      }
-      window.addEventListener("resize", resizeCanvas);
-
-      // Theo dõi chuột & chế độ tự trôi quỹ đạo trên thiết bị cảm ứng
-      let targetX = 0;
-      let targetY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      let lastPointerMove = 0;
-
-      window.addEventListener("pointermove", (e) => {
-        targetX = (e.clientX / window.innerWidth) * 2 - 1;
-        targetY = (e.clientY / window.innerHeight) * 2 - 1;
-        lastPointerMove = performance.now();
-      }, { passive: true });
-
-      // Vòng lặp giới hạn 30 FPS + Đo hiệu năng tự động
-      const TARGET_INTERVAL = 1000 / 30;
-      let lastFrameTime = 0;
-      let startTime = performance.now();
-      const frameDurations = [];
-
-      function renderLoop(now) {
-        if (isDestroyed || !isHeroInView || !isTabVisible) {
-          rafId = null;
-          return;
-        }
-
-        rafId = requestAnimationFrame(renderLoop);
-
-        const elapsed = now - lastFrameTime;
-        if (elapsed < TARGET_INTERVAL) return;
-        lastFrameTime = now - (elapsed % TARGET_INTERVAL);
-
-        if (!textureReady) return;
-
-        const drawStart = performance.now();
-        const t = (now - startTime) * 0.001;
-
-        // Tự trôi quỹ đạo nhẹ nếu không rê chuột sau 2 giây (giúp điện thoại vẫn sống động)
-        if (now - lastPointerMove > 2000) {
-          targetX = Math.cos(t * 0.55) * 0.35;
-          targetY = Math.sin(t * 0.42) * 0.25;
-        }
-
-        // Làm mượt tọa độ chuột (Lerp)
-        currentX += (targetX - currentX) * 0.07;
-        currentY += (targetY - currentY) * 0.07;
-
-        gl.uniform2f(uResolution, canvas.width, canvas.height);
-        gl.uniform2f(uTexResolution, texWidth, texHeight);
-        gl.uniform2f(uPointer, currentX, currentY);
-        gl.uniform1f(uTime, t);
-
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-        // Adaptive Rendering sau 1.2 giây làm nóng
-        const drawTime = performance.now() - drawStart;
-        if (now - startTime > 1200) {
-          frameDurations.push(drawTime);
-          if (frameDurations.length >= 10) {
-            const slowCount70 = frameDurations.filter((d) => d > 70).length;
-            const slowCount100 = frameDurations.filter((d) => d > 100).length;
-            frameDurations.length = 0;
-
-            if (resolutionScale === 1.0 && slowCount70 >= 8) {
-              resolutionScale = 0.75;
-              resizeCanvas();
-            } else if (resolutionScale === 0.75 && slowCount70 >= 8) {
-              resolutionScale = 0.5;
-              resizeCanvas();
-            } else if (resolutionScale === 0.5 && slowCount100 >= 8) {
-              enableStaticFallback();
-            }
-          }
-        }
-      }
-
-      function startLoop() {
-        if (!rafId && !isDestroyed && isHeroInView && isTabVisible) {
-          lastFrameTime = performance.now();
-          rafId = requestAnimationFrame(renderLoop);
-        }
-      }
-
-      function stopLoop() {
-        if (rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-      }
     })();
   </script>
 </body>

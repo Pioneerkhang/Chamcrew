@@ -60,7 +60,7 @@
     }
 
     /* =========================================================================
-       LỚP NỀN CỐ ĐỊNH 2 MẶT + QUẦNG SÁNG KHÚC XẠ LIQUID GLASS
+       LỚP NỀN CỐ ĐỊNH 2 MẶT + QUẦNG SÁNG KHÚC XẠ TỐI ƯU GPU DI ĐỘNG
        ========================================================================= */
     #backdrop-stage {
       position: fixed;
@@ -69,6 +69,7 @@
       pointer-events: none;
       background-color: var(--bg-void);
       overflow: hidden;
+      transform: translateZ(0);
     }
 
     #static-backdrop {
@@ -80,15 +81,15 @@
       background-repeat: no-repeat;
       opacity: 1;
       filter: blur(0px) brightness(1);
-      transform: scale(1);
-      transition: filter 0.6s ease, transform 0.6s ease;
-      will-change: filter, transform;
+      transform: translateZ(0) scale(1);
+      transition: filter 0.6s ease;
+      will-change: filter;
     }
 
-    /* Trạng thái Mặt 2: Khi cuộn xuống khu vực Dự án -> mờ đi còn 20% */
+    /* Trạng thái Mặt 2: Giữ banner sắc nét, chỉ giảm sáng còn 20% */
     body.scrolled-face2 #static-backdrop {
-      filter: blur(px) brightness(0.20) saturate(1.1);
-      transform: scale(1);
+      filter: blur(0px) brightness(0.20) saturate(1.1);
+      transform: translateZ(0) scale(1);
     }
 
     /* Quầng sáng vàng hổ phách dịu tạo hiệu ứng khúc xạ xuyên qua thẻ kính lỏng */
@@ -98,6 +99,7 @@
       opacity: 0;
       transition: opacity 0.8s ease;
       pointer-events: none;
+      transform: translateZ(0);
     }
 
     body.scrolled-face2 .ambient-glass-orbs {
@@ -107,31 +109,32 @@
     .ambient-glass-orbs .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(95px);
+      filter: blur(36px);
+      transform: translateZ(0);
     }
 
     .ambient-glass-orbs .orb-1 {
-      width: 460px;
-      height: 460px;
-      top: 14%;
-      left: 8%;
-      background: radial-gradient(circle, rgba(245, 197, 24, 0.22) 0%, transparent 70%);
+      width: 520px;
+      height: 520px;
+      top: 10%;
+      left: 5%;
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.20) 0%, rgba(245, 197, 24, 0.06) 42%, transparent 72%);
     }
 
     .ambient-glass-orbs .orb-2 {
-      width: 520px;
-      height: 520px;
-      top: 46%;
-      right: 6%;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.20) 0%, rgba(21, 96, 117, 0.12) 45%, transparent 72%);
+      width: 560px;
+      height: 560px;
+      top: 44%;
+      right: 4%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, rgba(21, 96, 117, 0.10) 45%, transparent 74%);
     }
 
     .ambient-glass-orbs .orb-3 {
-      width: 440px;
-      height: 440px;
-      bottom: 8%;
-      left: 28%;
-      background: radial-gradient(circle, rgba(245, 197, 24, 0.18) 0%, rgba(140, 25, 44, 0.10) 50%, transparent 72%);
+      width: 500px;
+      height: 500px;
+      bottom: 6%;
+      left: 24%;
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.16) 0%, rgba(140, 25, 44, 0.08) 48%, transparent 74%);
     }
 
     .backdrop-vignette {
@@ -153,11 +156,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 16, 0.36) 100%);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 16, 0.42) 100%);
+      backdrop-filter: blur(16px) saturate(165%);
+      -webkit-backdrop-filter: blur(16px) saturate(165%);
       border-bottom: 1px solid var(--glass-border-gold);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.14);
+      transform: translateZ(0);
     }
 
     .brand-box {
@@ -300,13 +304,15 @@
       gap: 14px;
       padding: 22px 26px;
       border-radius: 22px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 18, 0.42) 100%);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 18, 0.46) 100%);
+      backdrop-filter: blur(16px) saturate(165%);
+      -webkit-backdrop-filter: blur(16px) saturate(165%);
       border: 1px solid var(--glass-border-gold);
       border-top-color: var(--glass-rim-light);
       border-left-color: rgba(255, 248, 225, 0.32);
       box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52), var(--glass-highlight);
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .hero-tagline {
@@ -338,8 +344,7 @@
       padding: 10px 20px;
       border-radius: 8px;
       border: 1px solid var(--gold-burnished);
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--gold-bright);
       font-weight: 600;
       font-size: 0.9rem;
@@ -353,7 +358,7 @@
     }
 
     /* =========================================================================
-       DẢI 4 CHỈ SỐ NĂNG LỰC (LIQUID GLASS)
+       DẢI 4 CHỈ SỐ NĂNG LỰC (LIQUID GLASS - GPU COMPOSITED)
        ========================================================================= */
     .metrics-section {
       padding: 24px 0 64px;
@@ -367,9 +372,9 @@
 
     .metric-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(16, 16, 22, 0.34) 100%);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(16, 16, 22, 0.38) 100%);
+      backdrop-filter: blur(15px) saturate(165%);
+      -webkit-backdrop-filter: blur(15px) saturate(165%);
       border: 1px solid var(--glass-border-gold);
       border-top-color: var(--glass-rim-light);
       border-left-color: rgba(255, 248, 225, 0.3);
@@ -379,11 +384,13 @@
       text-align: center;
       cursor: pointer;
       overflow: hidden;
+      transform: translateZ(0);
+      backface-visibility: hidden;
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .metric-card:hover {
-      transform: translateY(-4px);
+      transform: translateZ(0) translateY(-4px);
       border-color: var(--gold-bright);
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 22px var(--gold-glow), var(--glass-highlight);
     }
@@ -502,8 +509,7 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(18px) saturate(160%);
+      background: rgba(255, 255, 255, 0.07);
       border: 1.5px solid rgba(212, 175, 55, 0.48);
       border-radius: 999px;
       padding: 4px;
@@ -562,7 +568,6 @@
       padding: 12px 18px;
       border-left: 3px solid var(--gold-bright);
       background: linear-gradient(90deg, rgba(245, 197, 24, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
-      backdrop-filter: blur(14px) saturate(150%);
       border-radius: 0 12px 12px 0;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
     }
@@ -628,8 +633,7 @@
       display: inline-flex;
       align-items: center;
       padding: 5px 12px;
-      background: rgba(15, 92, 64, 0.75);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 92, 64, 0.85);
       border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 6px;
       font-family: var(--font-mono);
@@ -641,7 +645,7 @@
     }
 
     /* =========================================================================
-       TẦNG 1: WIDGET LỚN (LIQUID GLASS KHÚC XẠ 3D)
+       TẦNG 1: WIDGET LỚN (LIQUID GLASS - TỐI ƯU 1 LỚP KÍNH CHỐNG CHỚP TRẮNG)
        ========================================================================= */
     .large-widget-wrapper {
       position: relative;
@@ -651,9 +655,9 @@
 
     .large-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(245, 197, 24, 0.04) 45%, rgba(14, 14, 20, 0.36) 100%);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(245, 197, 24, 0.04) 45%, rgba(14, 14, 20, 0.40) 100%);
+      backdrop-filter: blur(15px) saturate(165%);
+      -webkit-backdrop-filter: blur(15px) saturate(165%);
       border: 1px solid var(--glass-border-gold);
       border-top-color: var(--glass-rim-light);
       border-left-color: rgba(255, 248, 225, 0.32);
@@ -664,6 +668,8 @@
       gap: 28px;
       align-items: center;
       box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), var(--glass-highlight);
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .large-card.is-gold-tier {
@@ -742,8 +748,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.08);
       box-shadow: 0 0 22px rgba(245, 197, 24, 0.22);
     }
 
@@ -795,7 +800,6 @@
 
     .stat-item-box {
       background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(10px);
       border: 1px solid rgba(245, 197, 24, 0.30);
       border-top-color: rgba(255, 255, 255, 0.28);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -835,8 +839,7 @@
       padding: 13px 28px;
       border-radius: 12px;
       border: 1.5px solid var(--gold-bright);
-      background: linear-gradient(135deg, rgba(42, 38, 28, 0.78) 0%, rgba(16, 15, 13, 0.88) 100%);
-      backdrop-filter: blur(16px) saturate(160%);
+      background: linear-gradient(135deg, rgba(42, 38, 28, 0.92) 0%, rgba(16, 15, 13, 0.96) 100%);
       color: var(--gold-bright);
       font-family: var(--font-sans);
       font-weight: 700;
@@ -866,8 +869,7 @@
       height: 36px;
       border-radius: 50%;
       border: 1px solid rgba(212, 175, 55, 0.55);
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--gold-bright);
       font-size: 1rem;
       font-weight: 700;
@@ -905,7 +907,7 @@
     }
 
     /* =========================================================================
-       TẦNG 2: THẺ NHỎ LIQUID GLASS CHUYỂN SẮC
+       TẦNG 2: THẺ NHỎ LIQUID GLASS CHUYỂN SẮC (GPU COMPOSITED)
        ========================================================================= */
     .small-cards-grid {
       display: grid;
@@ -920,31 +922,33 @@
       border: 1px solid rgba(245, 197, 24, 0.36);
       border-top-color: var(--glass-rim-light);
       border-left-color: rgba(255, 248, 225, 0.28);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      backdrop-filter: blur(15px) saturate(165%);
+      -webkit-backdrop-filter: blur(15px) saturate(165%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       min-height: 255px;
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.48), var(--glass-highlight);
+      transform: translateZ(0);
+      backface-visibility: hidden;
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .small-card:hover {
-      transform: translateY(-4px);
+      transform: translateZ(0) translateY(-4px);
       border-color: var(--gold-bright);
     }
 
     .grad-dawn-gold {
-      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(72, 54, 18, 0.28) 58%, rgba(138, 98, 26, 0.26) 100%);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(72, 54, 18, 0.30) 58%, rgba(138, 98, 26, 0.28) 100%);
     }
 
     .grad-teal-sunset {
-      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(22, 74, 88, 0.30) 58%, rgba(72, 110, 74, 0.26) 100%);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(22, 74, 88, 0.32) 58%, rgba(72, 110, 74, 0.28) 100%);
     }
 
     .grad-sunset-ember {
-      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(88, 26, 38, 0.30) 58%, rgba(148, 62, 28, 0.26) 100%);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(88, 26, 38, 0.32) 58%, rgba(148, 62, 28, 0.28) 100%);
     }
 
     .small-card-tag {
@@ -976,7 +980,7 @@
       gap: 6px;
       font-size: 0.86rem;
       color: #EFECE6;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       padding: 10px 12px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -992,8 +996,7 @@
       border: none;
       border-top: 1px solid rgba(212, 175, 55, 0.38);
       border-radius: 22px 0 19px 19px;
-      background: rgba(245, 239, 230, 0.88);
-      backdrop-filter: blur(8px);
+      background: rgba(245, 239, 230, 0.92);
       color: var(--ink-dark);
       padding: 13px 16px;
       font-family: var(--font-sans);
@@ -1010,8 +1013,9 @@
     }
 
     .year-2027-empty-card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(14, 14, 20, 0.42));
-      backdrop-filter: blur(22px) saturate(180%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(14, 14, 20, 0.44));
+      backdrop-filter: blur(15px) saturate(165%);
+      -webkit-backdrop-filter: blur(15px) saturate(165%);
       border: 1.5px dashed rgba(212, 175, 55, 0.55);
       border-radius: 22px;
       padding: 56px 24px;
@@ -1019,6 +1023,7 @@
       max-width: 720px;
       margin: 0 auto;
       box-shadow: 0 18px 42px rgba(0, 0, 0, 0.5), var(--glass-highlight);
+      transform: translateZ(0);
     }
 
     .year-2027-empty-card h3 {
@@ -1041,11 +1046,13 @@
     .site-footer {
       position: relative;
       z-index: 10;
-      background: rgba(10, 10, 14, 0.58);
-      backdrop-filter: blur(22px) saturate(160%);
+      background: rgba(10, 10, 14, 0.65);
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
       border-top: 1px solid var(--glass-border-gold);
       padding: 56px 20px 32px;
       text-align: center;
+      transform: translateZ(0);
     }
 
     .footer-brand {
@@ -1496,7 +1503,7 @@
 </head>
 <body>
 
-  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> MỜ CÒN 20% + QUẦNG SÁNG KHÚC XẠ -->
+  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> GIẢM SÁNG CÒN 20% + QUẦNG SÁNG KHÚC XẠ -->
   <div id="backdrop-stage" aria-hidden="true">
     <div id="static-backdrop"></div>
     <div class="ambient-glass-orbs">
@@ -1983,7 +1990,7 @@
       // Khởi tạo render ban đầu
       renderProjects(activeYear);
 
-      // 5. CHUYỂN ĐỔI NỀN MẶT 1 (100%) -> MẶT 2 (MỜ CÒN 20%) KHI CUỘN TRANG
+      // 5. CHUYỂN ĐỔI NỀN MẶT 1 (100%) -> MẶT 2 (GIẢM SÁNG CÒN 20%) KHI CUỘN TRANG
       const heroSentinel = document.getElementById("hero-sentinel");
       const heroObserver = new IntersectionObserver(
         (entries) => {

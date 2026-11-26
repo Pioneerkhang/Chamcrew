@@ -15,11 +15,9 @@
   <style>
     :root {
       --bg-void: #070709;
-      --glass-bg: rgba(18, 18, 24, 0.42);
-      --glass-bg-deep: rgba(12, 12, 17, 0.62);
-      --glass-border: rgba(255, 255, 255, 0.16);
       --glass-border-gold: rgba(245, 197, 24, 0.38);
-      --glass-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.28), inset 0 -1px 1px rgba(212, 175, 55, 0.12);
+      --glass-rim-light: rgba(255, 248, 225, 0.42);
+      --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.36), inset 1px 0 1px rgba(255, 255, 255, 0.18), inset 0 -1px 1px rgba(212, 175, 55, 0.16);
       --gold-bright: #F5C518;
       --gold-burnished: #D4AF37;
       --gold-dim: rgba(212, 175, 55, 0.28);
@@ -28,7 +26,7 @@
       --ivory-dark: #E8DFD1;
       --ink-dark: #1C1917;
       --text-main: #F4F1EA;
-      --text-muted: #B8B2A6;
+      --text-muted: #C2BCB0;
       --emerald-deep: #0F5C40;
       --emerald-btn: #147A55;
       --teal-deep: #0F4C5C;
@@ -62,7 +60,7 @@
     }
 
     /* =========================================================================
-       LỚP NỀN CỐ ĐỊNH 2 MẶT (MẶT 1: BANNER TĨNH 100% -> MẶT 2: MỜ CÒN 20% KHI CUỘN)
+       LỚP NỀN CỐ ĐỊNH 2 MẶT + QUẦNG SÁNG KHÚC XẠ LIQUID GLASS
        ========================================================================= */
     #backdrop-stage {
       position: fixed;
@@ -93,10 +91,53 @@
       transform: scale(1.06);
     }
 
+    /* Quầng sáng vàng hổ phách dịu tạo hiệu ứng khúc xạ xuyên qua thẻ kính lỏng */
+    .ambient-glass-orbs {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+
+    body.scrolled-face2 .ambient-glass-orbs {
+      opacity: 1;
+    }
+
+    .ambient-glass-orbs .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(95px);
+    }
+
+    .ambient-glass-orbs .orb-1 {
+      width: 460px;
+      height: 460px;
+      top: 14%;
+      left: 8%;
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.22) 0%, transparent 70%);
+    }
+
+    .ambient-glass-orbs .orb-2 {
+      width: 520px;
+      height: 520px;
+      top: 46%;
+      right: 6%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.20) 0%, rgba(21, 96, 117, 0.12) 45%, transparent 72%);
+    }
+
+    .ambient-glass-orbs .orb-3 {
+      width: 440px;
+      height: 440px;
+      bottom: 8%;
+      left: 28%;
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.18) 0%, rgba(140, 25, 44, 0.10) 50%, transparent 72%);
+    }
+
     .backdrop-vignette {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(7, 7, 9, 0.35) 0%, transparent 18%, transparent 72%, rgba(7, 7, 9, 0.92) 100%);
+      background: linear-gradient(180deg, rgba(7, 7, 9, 0.32) 0%, transparent 18%, transparent 72%, rgba(7, 7, 9, 0.90) 100%);
     }
 
     /* =========================================================================
@@ -112,11 +153,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(12, 12, 16, 0.45);
-      backdrop-filter: blur(20px) saturate(150%);
-      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 16, 0.36) 100%);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
       border-bottom: 1px solid var(--glass-border-gold);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.14);
     }
 
     .brand-box {
@@ -258,12 +299,14 @@
       align-items: center;
       gap: 14px;
       padding: 22px 26px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(24, 24, 32, 0.46) 0%, rgba(10, 10, 14, 0.64) 100%);
-      backdrop-filter: blur(18px) saturate(145%);
-      -webkit-backdrop-filter: blur(18px) saturate(145%);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 18, 0.42) 100%);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
       border: 1px solid var(--glass-border-gold);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55), var(--glass-highlight);
+      border-top-color: var(--glass-rim-light);
+      border-left-color: rgba(255, 248, 225, 0.32);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52), var(--glass-highlight);
     }
 
     .hero-tagline {
@@ -276,7 +319,7 @@
 
     .hero-positioning {
       font-size: clamp(0.94rem, 1.5vw, 1.05rem);
-      color: #E8E3DA;
+      color: #EFECE6;
       max-width: 640px;
     }
 
@@ -295,8 +338,8 @@
       padding: 10px 20px;
       border-radius: 8px;
       border: 1px solid var(--gold-burnished);
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
       color: var(--gold-bright);
       font-weight: 600;
       font-size: 0.9rem;
@@ -305,7 +348,7 @@
     }
 
     .btn-outline-gold:hover {
-      background: rgba(212, 175, 55, 0.18);
+      background: rgba(212, 175, 55, 0.2);
       transform: translateY(-2px);
     }
 
@@ -324,12 +367,14 @@
 
     .metric-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(28, 28, 36, 0.44) 0%, rgba(12, 12, 17, 0.58) 100%);
-      backdrop-filter: blur(16px) saturate(140%);
-      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(16, 16, 22, 0.34) 100%);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
       border: 1px solid var(--glass-border-gold);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), var(--glass-highlight);
-      border-radius: 16px;
+      border-top-color: var(--glass-rim-light);
+      border-left-color: rgba(255, 248, 225, 0.3);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45), var(--glass-highlight);
+      border-radius: 18px;
       padding: 22px 18px;
       text-align: center;
       cursor: pointer;
@@ -340,7 +385,7 @@
     .metric-card:hover {
       transform: translateY(-4px);
       border-color: var(--gold-bright);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-glow), var(--glass-highlight);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 22px var(--gold-glow), var(--glass-highlight);
     }
 
     .metric-num {
@@ -362,11 +407,11 @@
     .metric-hint {
       font-size: 0.78rem;
       color: var(--gold-burnished);
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     /* =========================================================================
-       HIỆU ỨNG PHẢN XẠ ÁNH SÁNG KIM LOẠI CHUNG (KHÔNG CẮT TAG & NÚT)
+       HIỆU ỨNG PHẢN XẠ ÁNH SÁNG KIM LOẠI (1 GIÂY - KHÔNG CẮT TAG & NÚT)
        ========================================================================= */
     .metallic-sheen {
       position: relative;
@@ -397,13 +442,13 @@
       background: linear-gradient(
         115deg,
         transparent 0%,
-        rgba(255, 244, 194, 0.04) 35%,
-        rgba(255, 236, 153, 0.22) 50%,
-        rgba(255, 244, 194, 0.04) 65%,
+        rgba(255, 244, 194, 0.05) 35%,
+        rgba(255, 236, 153, 0.26) 50%,
+        rgba(255, 244, 194, 0.05) 65%,
         transparent 100%
       );
       transform: rotate(22deg);
-      transition: left 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: left 1s cubic-bezier(0.22, 1, 0.36, 1);
       pointer-events: none;
       z-index: 4;
     }
@@ -433,7 +478,7 @@
       gap: 20px;
       padding-bottom: 22px;
       margin-bottom: 42px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.32);
     }
 
     .section-kicker {
@@ -457,12 +502,12 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      background: rgba(14, 14, 18, 0.62);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px) saturate(160%);
+      border: 1.5px solid rgba(212, 175, 55, 0.48);
       border-radius: 999px;
       padding: 4px;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.55);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .year-slider-pill {
@@ -473,7 +518,7 @@
       height: calc(100% - 8px);
       border-radius: 999px;
       background: linear-gradient(135deg, #F5C518 0%, #C99A1E 100%);
-      box-shadow: 0 2px 12px rgba(245, 197, 24, 0.4);
+      box-shadow: 0 2px 12px rgba(245, 197, 24, 0.45);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       z-index: 1;
     }
@@ -516,9 +561,10 @@
       margin-bottom: 28px;
       padding: 12px 18px;
       border-left: 3px solid var(--gold-bright);
-      background: linear-gradient(90deg, rgba(212, 175, 55, 0.16) 0%, rgba(255, 255, 255, 0.02) 100%);
-      backdrop-filter: blur(10px);
-      border-radius: 0 10px 10px 0;
+      background: linear-gradient(90deg, rgba(245, 197, 24, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+      backdrop-filter: blur(14px) saturate(150%);
+      border-radius: 0 12px 12px 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
     }
 
     .group-banner-title {
@@ -548,7 +594,7 @@
       border-radius: 6px;
       transform: rotate(-4deg);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.26);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       z-index: 6;
       user-select: none;
     }
@@ -582,8 +628,8 @@
       display: inline-flex;
       align-items: center;
       padding: 5px 12px;
-      background: rgba(15, 92, 64, 0.78);
-      backdrop-filter: blur(8px);
+      background: rgba(15, 92, 64, 0.75);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(212, 175, 55, 0.55);
       border-radius: 6px;
       font-family: var(--font-mono);
@@ -595,7 +641,7 @@
     }
 
     /* =========================================================================
-       TẦNG 1: WIDGET LỚN (LIQUID GLASS)
+       TẦNG 1: WIDGET LỚN (LIQUID GLASS KHÚC XẠ 3D)
        ========================================================================= */
     .large-widget-wrapper {
       position: relative;
@@ -605,22 +651,25 @@
 
     .large-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(30, 30, 38, 0.46) 0%, rgba(12, 12, 17, 0.64) 100%);
-      backdrop-filter: blur(18px) saturate(145%);
-      -webkit-backdrop-filter: blur(18px) saturate(145%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(245, 197, 24, 0.04) 45%, rgba(14, 14, 20, 0.36) 100%);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
       border: 1px solid var(--glass-border-gold);
-      border-radius: 20px;
+      border-top-color: var(--glass-rim-light);
+      border-left-color: rgba(255, 248, 225, 0.32);
+      border-radius: 22px;
       padding: 34px 28px 42px;
       display: grid;
       grid-template-columns: 1fr 1.15fr;
       gap: 28px;
       align-items: center;
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55), var(--glass-highlight);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), var(--glass-highlight);
     }
 
     .large-card.is-gold-tier {
-      border-color: rgba(245, 197, 24, 0.68);
-      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.65), 0 0 28px rgba(245, 197, 24, 0.2), var(--glass-highlight);
+      border-color: rgba(245, 197, 24, 0.72);
+      border-top-color: rgba(255, 250, 230, 0.6);
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.62), 0 0 30px rgba(245, 197, 24, 0.22), var(--glass-highlight);
     }
 
     .large-tag-cluster {
@@ -639,10 +688,10 @@
       width: 100%;
       aspect-ratio: 16 / 10;
       border-radius: 28px 28px 12px 12px;
-      border: 1.5px solid rgba(212, 175, 55, 0.55);
+      border: 1.5px solid rgba(245, 197, 24, 0.55);
       overflow: hidden;
-      background: rgba(17, 17, 22, 0.65);
-      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.75);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.65);
     }
 
     .arch-media-frame img {
@@ -665,36 +714,37 @@
     }
 
     .arch-art-placeholder.gold-royal {
-      background: radial-gradient(circle at 30% 25%, rgba(245, 197, 24, 0.32), transparent 60%),
-                  linear-gradient(135deg, rgba(30, 24, 11, 0.78) 0%, rgba(13, 12, 16, 0.85) 60%, rgba(44, 33, 11, 0.78) 100%);
+      background: radial-gradient(circle at 30% 25%, rgba(245, 197, 24, 0.34), transparent 60%),
+                  linear-gradient(135deg, rgba(38, 30, 12, 0.62) 0%, rgba(16, 15, 20, 0.68) 60%, rgba(54, 40, 12, 0.62) 100%);
     }
 
     .arch-art-placeholder.emerald-gold {
-      background: radial-gradient(circle at 70% 25%, rgba(19, 112, 78, 0.38), transparent 60%),
-                  linear-gradient(135deg, rgba(11, 31, 24, 0.78) 0%, rgba(13, 14, 18, 0.85) 65%, rgba(36, 29, 13, 0.78) 100%);
+      background: radial-gradient(circle at 70% 25%, rgba(19, 112, 78, 0.40), transparent 60%),
+                  linear-gradient(135deg, rgba(14, 38, 30, 0.62) 0%, rgba(15, 16, 22, 0.68) 65%, rgba(42, 34, 14, 0.62) 100%);
     }
 
     .arch-art-placeholder.teal-dawn {
-      background: radial-gradient(circle at 30% 30%, rgba(21, 96, 117, 0.42), transparent 60%),
-                  linear-gradient(135deg, rgba(11, 29, 36, 0.78) 0%, rgba(13, 14, 18, 0.85) 65%, rgba(30, 36, 20, 0.78) 100%);
+      background: radial-gradient(circle at 30% 30%, rgba(21, 96, 117, 0.44), transparent 60%),
+                  linear-gradient(135deg, rgba(14, 36, 44, 0.62) 0%, rgba(15, 16, 22, 0.68) 65%, rgba(36, 44, 24, 0.62) 100%);
     }
 
     .arch-art-placeholder.crimson-ember {
-      background: radial-gradient(circle at 70% 25%, rgba(140, 25, 44, 0.45), transparent 60%),
-                  linear-gradient(135deg, rgba(36, 10, 16, 0.78) 0%, rgba(13, 13, 17, 0.85) 65%, rgba(43, 23, 10, 0.78) 100%);
+      background: radial-gradient(circle at 70% 25%, rgba(140, 25, 44, 0.48), transparent 60%),
+                  linear-gradient(135deg, rgba(44, 12, 20, 0.62) 0%, rgba(15, 15, 20, 0.68) 65%, rgba(52, 28, 12, 0.62) 100%);
     }
 
     .arch-emblem-ring {
       width: 68px;
       height: 68px;
       border-radius: 50%;
-      border: 1.5px solid rgba(245, 197, 24, 0.6);
+      border: 1.5px solid rgba(245, 197, 24, 0.65);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 10px;
-      background: rgba(0, 0, 0, 0.45);
-      box-shadow: 0 0 20px rgba(245, 197, 24, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 22px rgba(245, 197, 24, 0.22);
     }
 
     .arch-emblem-ring svg {
@@ -744,10 +794,11 @@
     }
 
     .stat-item-box {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(245, 197, 24, 0.28);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(245, 197, 24, 0.30);
+      border-top-color: rgba(255, 255, 255, 0.28);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
       border-radius: 12px;
       padding: 10px 8px;
       text-align: center;
@@ -769,7 +820,7 @@
 
     .large-short-desc {
       font-size: 0.92rem;
-      color: #D8D2C7;
+      color: #E2DDD3;
       line-height: 1.55;
     }
 
@@ -784,14 +835,14 @@
       padding: 13px 28px;
       border-radius: 12px;
       border: 1.5px solid var(--gold-bright);
-      background: linear-gradient(135deg, rgba(34, 31, 24, 0.88) 0%, rgba(14, 13, 11, 0.94) 100%);
-      backdrop-filter: blur(12px);
+      background: linear-gradient(135deg, rgba(42, 38, 28, 0.78) 0%, rgba(16, 15, 13, 0.88) 100%);
+      backdrop-filter: blur(16px) saturate(160%);
       color: var(--gold-bright);
       font-family: var(--font-sans);
       font-weight: 700;
       font-size: 1.05rem;
       cursor: pointer;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.28);
       transition: all 0.25s ease;
     }
 
@@ -814,9 +865,9 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1px solid rgba(212, 175, 55, 0.5);
-      background: rgba(18, 18, 22, 0.65);
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
       color: var(--gold-bright);
       font-size: 1rem;
       font-weight: 700;
@@ -842,7 +893,7 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: rgba(212, 175, 55, 0.28);
+      background: rgba(212, 175, 55, 0.32);
       border: none;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -865,15 +916,17 @@
 
     .small-card {
       position: relative;
-      border-radius: 18px;
-      border: 1px solid rgba(245, 197, 24, 0.34);
-      backdrop-filter: blur(16px) saturate(145%);
-      -webkit-backdrop-filter: blur(16px) saturate(145%);
+      border-radius: 20px;
+      border: 1px solid rgba(245, 197, 24, 0.36);
+      border-top-color: var(--glass-rim-light);
+      border-left-color: rgba(255, 248, 225, 0.28);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       min-height: 255px;
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.48), var(--glass-highlight);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.48), var(--glass-highlight);
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
@@ -883,15 +936,15 @@
     }
 
     .grad-dawn-gold {
-      background: linear-gradient(165deg, rgba(24, 22, 28, 0.46) 0%, rgba(56, 42, 16, 0.44) 60%, rgba(118, 84, 24, 0.38) 100%);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(72, 54, 18, 0.28) 58%, rgba(138, 98, 26, 0.26) 100%);
     }
 
     .grad-teal-sunset {
-      background: linear-gradient(165deg, rgba(16, 24, 30, 0.46) 0%, rgba(20, 62, 74, 0.44) 60%, rgba(64, 96, 66, 0.38) 100%);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(22, 74, 88, 0.30) 58%, rgba(72, 110, 74, 0.26) 100%);
     }
 
     .grad-sunset-ember {
-      background: linear-gradient(165deg, rgba(24, 14, 18, 0.46) 0%, rgba(74, 24, 34, 0.44) 60%, rgba(132, 56, 26, 0.38) 100%);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(88, 26, 38, 0.30) 58%, rgba(148, 62, 28, 0.26) 100%);
     }
 
     .small-card-tag {
@@ -922,11 +975,11 @@
       flex-direction: column;
       gap: 6px;
       font-size: 0.86rem;
-      color: #EAE4D7;
-      background: rgba(7, 7, 9, 0.32);
+      color: #EFECE6;
+      background: rgba(255, 255, 255, 0.05);
       padding: 10px 12px;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
     }
 
     .small-card-specs strong {
@@ -938,7 +991,7 @@
       width: 100%;
       border: none;
       border-top: 1px solid rgba(212, 175, 55, 0.38);
-      border-radius: 22px 0 17px 17px;
+      border-radius: 22px 0 19px 19px;
       background: rgba(245, 239, 230, 0.88);
       backdrop-filter: blur(8px);
       color: var(--ink-dark);
@@ -957,10 +1010,10 @@
     }
 
     .year-2027-empty-card {
-      background: linear-gradient(145deg, rgba(28, 28, 36, 0.48), rgba(12, 12, 17, 0.66));
-      backdrop-filter: blur(18px) saturate(140%);
-      border: 1.5px dashed rgba(212, 175, 55, 0.52);
-      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(14, 14, 20, 0.42));
+      backdrop-filter: blur(22px) saturate(180%);
+      border: 1.5px dashed rgba(212, 175, 55, 0.55);
+      border-radius: 22px;
       padding: 56px 24px;
       text-align: center;
       max-width: 720px;
@@ -988,8 +1041,8 @@
     .site-footer {
       position: relative;
       z-index: 10;
-      background: rgba(8, 8, 12, 0.72);
-      backdrop-filter: blur(18px);
+      background: rgba(10, 10, 14, 0.58);
+      backdrop-filter: blur(22px) saturate(160%);
       border-top: 1px solid var(--glass-border-gold);
       padding: 56px 20px 32px;
       text-align: center;
@@ -1040,15 +1093,15 @@
     }
 
     /* =========================================================================
-       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM LIQUID GLASS (HƯỚNG A)
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (HƯỚNG B)
        ========================================================================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
       background: rgba(4, 4, 6, 0.78);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -1083,21 +1136,17 @@
     }
 
     .wavy-modal-body {
-      background: linear-gradient(165deg, rgba(26, 26, 34, 0.72) 0%, rgba(12, 12, 16, 0.84) 100%);
-      backdrop-filter: blur(24px) saturate(150%);
-      -webkit-backdrop-filter: blur(24px) saturate(150%);
-      border-left: 1px solid var(--glass-border-gold);
-      border-right: 1px solid var(--glass-border-gold);
-      color: var(--text-main);
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dark) 100%);
+      color: var(--ink-dark);
       padding: 18px 32px 26px;
       max-height: 76vh;
       overflow-y: auto;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
     }
 
     .wavy-modal-header {
       text-align: center;
-      border-bottom: 1px solid rgba(245, 197, 24, 0.24);
+      border-bottom: 1px solid rgba(28, 25, 23, 0.14);
       padding-bottom: 14px;
       margin-bottom: 18px;
     }
@@ -1106,14 +1155,14 @@
       font-family: var(--font-serif);
       font-size: clamp(1.35rem, 2.6vw, 1.85rem);
       font-weight: 700;
-      color: var(--gold-bright);
+      color: #1C1917;
       line-height: 1.25;
     }
 
     .wavy-modal-meta {
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: #6B5E4C;
       margin-top: 6px;
     }
 
@@ -1140,7 +1189,7 @@
       overflow: hidden;
       border: 2px solid #D4AF37;
       background: #141418;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 10px 26px rgba(28, 25, 23, 0.35);
       transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.42s ease;
       cursor: pointer;
     }
@@ -1195,7 +1244,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.38);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
     }
 
     .popup-car-btn.prev { left: 8px; }
@@ -1209,26 +1258,25 @@
     }
 
     .popup-mini-box {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(245, 197, 24, 0.32);
-      border-radius: 12px;
+      background: #FFFDF9;
+      border: 1.5px solid #D6C7B2;
+      border-radius: 10px;
       padding: 12px;
       text-align: center;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      box-shadow: 0 3px 10px rgba(28, 25, 23, 0.06);
     }
 
     .popup-mini-box h4 {
       font-size: 0.82rem;
       text-transform: uppercase;
       letter-spacing: 0.4px;
-      color: var(--gold-bright);
+      color: #8C6218;
       margin-bottom: 4px;
     }
 
     .popup-mini-box p {
       font-size: 0.86rem;
-      color: #EAE4D7;
+      color: #292524;
       line-height: 1.45;
     }
 
@@ -1237,7 +1285,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      color: var(--gold-bright);
+      color: #574B3A;
       margin-bottom: 8px;
     }
 
@@ -1253,7 +1301,7 @@
       position: relative;
       padding-left: 18px;
       font-size: 0.92rem;
-      color: #F4F1EA;
+      color: #292524;
       line-height: 1.55;
     }
 
@@ -1262,7 +1310,7 @@
       position: absolute;
       left: 0;
       top: 0;
-      color: var(--gold-bright);
+      color: #B8860B;
       font-size: 0.8rem;
     }
 
@@ -1277,19 +1325,19 @@
     .btn-popup-close {
       padding: 13px 20px;
       border-radius: 12px 4px 12px 12px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      color: var(--text-main);
+      border: 1.5px solid #C7B9A5;
+      background: #FFFFFF;
+      color: #3F3A34;
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.95rem;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: all 0.2s ease;
     }
 
     .btn-popup-close:hover {
-      background: rgba(255, 255, 255, 0.16);
+      background: #F0E8DC;
     }
 
     .btn-popup-recap {
@@ -1324,34 +1372,31 @@
     }
 
     /* =========================================================================
-       POP-UP 2: THẺ NỔI THU GỌN LIQUID GLASS (CHỈ SỐ NĂNG LỰC)
+       POP-UP 2: THẺ NỔI THU GỌN GIẤY KEM ẤM (HƯỚNG B - CHỈ SỐ NĂNG LỰC)
        ========================================================================= */
     .compact-modal-card {
       width: 92%;
       max-width: 420px;
-      background: linear-gradient(155deg, rgba(28, 28, 36, 0.72) 0%, rgba(12, 12, 16, 0.86) 100%);
-      backdrop-filter: blur(22px) saturate(150%);
-      -webkit-backdrop-filter: blur(22px) saturate(150%);
-      color: var(--text-main);
-      border-radius: 18px;
-      border: 1.5px solid var(--glass-border-gold);
+      background: linear-gradient(180deg, #F6F0E6 0%, #EAE0D0 100%);
+      color: var(--ink-dark);
+      border-radius: 14px;
+      border: 2px solid var(--gold-burnished);
       padding: 22px 22px 18px;
-      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.85), var(--glass-highlight);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85);
     }
 
     .compact-title {
       font-family: var(--font-serif);
       font-size: 1.4rem;
       font-weight: 700;
-      color: var(--gold-bright);
+      color: #1C1917;
       margin-bottom: 6px;
     }
 
     .compact-badge {
       display: inline-block;
-      background: rgba(245, 197, 24, 0.16);
-      border: 1px solid rgba(245, 197, 24, 0.35);
-      color: var(--gold-bright);
+      background: #4A433B;
+      color: #F5EFE6;
       font-size: 0.78rem;
       font-weight: 600;
       padding: 3px 10px;
@@ -1361,7 +1406,7 @@
 
     .compact-desc {
       font-size: 0.92rem;
-      color: #EAE4D7;
+      color: #292524;
       line-height: 1.55;
       margin-bottom: 16px;
     }
@@ -1370,27 +1415,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(245, 197, 24, 0.32);
-      border-radius: 12px;
+      background: rgba(28, 25, 23, 0.08);
+      border: 1px solid rgba(28, 25, 23, 0.14);
+      border-radius: 10px;
       padding: 10px 14px;
       text-decoration: none;
-      color: var(--text-main);
-      font-weight: 600;
+      color: #1C1917;
+      font-weight: 700;
       font-size: 0.9rem;
       transition: background 0.2s ease;
     }
 
     .compact-action-bar:hover {
-      background: rgba(245, 197, 24, 0.2);
+      background: rgba(212, 175, 55, 0.28);
     }
 
     .compact-arrow-circle {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: var(--gold-bright);
-      color: #09090B;
+      background: #4A433B;
+      color: #F5EFE6;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1451,9 +1496,14 @@
 </head>
 <body>
 
-  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> MỜ CÒN 20% KHI CUỘN -->
+  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> MỜ CÒN 20% + QUẦNG SÁNG KHÚC XẠ -->
   <div id="backdrop-stage" aria-hidden="true">
     <div id="static-backdrop"></div>
+    <div class="ambient-glass-orbs">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+      <span class="orb orb-3"></span>
+    </div>
     <div class="backdrop-vignette"></div>
   </div>
 
@@ -1539,19 +1589,19 @@
   </footer>
 
   <!-- =======================================================================
-       POP-UP 1: BẢNG NGANG LƯỢN SÓNG TRUNG TÂM LIQUID GLASS
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (HƯỚNG B - CHI TIẾT DỰ ÁN)
        ======================================================================= -->
   <div class="modal-backdrop" id="wavy-project-modal" role="dialog" aria-modal="true" aria-labelledby="wavy-modal-title">
     <div class="wavy-modal-shell" onclick="event.stopPropagation()">
       <svg class="wave-svg-top" viewBox="0 0 1200 36" preserveAspectRatio="none">
         <path d="M0,12 C320,38 560,-6 1200,14 L1200,36 L0,36 Z" fill="#D4AF37"></path>
-        <path d="M0,18 C320,42 560,0 1200,20 L1200,36 L0,36 Z" fill="rgba(26,26,34,0.92)"></path>
+        <path d="M0,18 C320,42 560,0 1200,20 L1200,36 L0,36 Z" fill="#F5EFE6"></path>
       </svg>
 
       <div class="wavy-modal-body" id="wavy-modal-content"></div>
 
       <svg class="wave-svg-bottom" viewBox="0 0 1200 36" preserveAspectRatio="none">
-        <path d="M0,0 L1200,0 L1200,20 C760,36 420,-4 0,24 Z" fill="rgba(16,16,22,0.94)"></path>
+        <path d="M0,0 L1200,0 L1200,20 C760,36 420,-4 0,24 Z" fill="#E8DFD1"></path>
       </svg>
 
       <div class="modal-dismiss-hint">-- Nhấn vùng trống bên ngoài hoặc nút Đóng để thoát --</div>
@@ -1559,7 +1609,7 @@
   </div>
 
   <!-- =======================================================================
-       POP-UP 2: THẺ NỔI THU GỌN LIQUID GLASS (CHỈ SỐ NĂNG LỰC)
+       POP-UP 2: THẺ NỔI THU GỌN GIẤY KEM ẤM (HƯỚNG B - CHỈ SỐ NĂNG LỰC)
        ======================================================================= -->
   <div class="modal-backdrop" id="compact-info-modal" role="dialog" aria-modal="true" aria-labelledby="compact-modal-title">
     <div class="compact-modal-card" onclick="event.stopPropagation()" id="compact-modal-content"></div>
@@ -1801,7 +1851,7 @@
         return null;
       }
 
-      // 4. QUẢN LÝ 2 DẠNG POP-UP (BẢNG LƯỢN SÓNG + THƯ VIỆN ẢNH XOAY TRÒN 3D)
+      // 4. QUẢN LÝ 2 DẠNG POP-UP (BẢNG LƯỢN SÓNG GIẤY KEM + THƯ VIỆN ẢNH XOAY TRÒN 3D)
       const wavyModal = document.getElementById("wavy-project-modal");
       const wavyContent = document.getElementById("wavy-modal-content");
       const compactModal = document.getElementById("compact-info-modal");

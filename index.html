@@ -14,23 +14,24 @@
 
 <style>
     :root {
-      /* Bảng biến màu Neumorphism (Sau này đổi sang bản Sáng chỉ cần sửa 6 dòng đầu này) */
-      --neo-bg: #141519;
-      --neo-surface: #17181D;
-      --neo-surface-alt: #1B1C22;
-      --neo-shadow-out: -6px -6px 14px rgba(255, 255, 255, 0.045), 8px 8px 18px rgba(0, 0, 0, 0.78);
-      --neo-shadow-out-lg: -8px -8px 20px rgba(255, 255, 255, 0.05), 12px 12px 26px rgba(0, 0, 0, 0.85);
-      --neo-shadow-in: inset -3px -3px 7px rgba(255, 255, 255, 0.04), inset 4px 4px 10px rgba(0, 0, 0, 0.82);
+      /* Bảng màu Phương án A: Kem Ngà Ấm (Warm Ivory Light Neumorphism) */
+      --neo-bg: #EAE5DC;
+      --neo-surface: #F4F0E8;
+      --neo-inset: #E1DBD0;
+      --neo-border: #D6CEC0;
+      --neo-shadow-out: -5px -5px 12px rgba(255, 255, 255, 0.88), 6px 6px 14px rgba(168, 160, 146, 0.48);
+      --neo-shadow-out-lg: -7px -7px 16px rgba(255, 255, 255, 0.92), 10px 10px 22px rgba(168, 160, 146, 0.55);
+      --neo-shadow-in: inset -3px -3px 6px rgba(255, 255, 255, 0.82), inset 3px 3px 8px rgba(163, 155, 141, 0.52);
 
       --gold-bright: #F5C518;
       --gold-burnished: #D4AF37;
-      --gold-border: rgba(212, 175, 55, 0.28);
-      --gold-glow: rgba(245, 197, 24, 0.18);
+      --gold-ink: #9A6B12;
       --ivory: #F5EFE6;
       --ivory-dark: #E8DFD1;
       --ink-dark: #1C1917;
-      --text-main: #F4F1EA;
-      --text-muted: #B8B2A6;
+      --ink-body: #2E2A25;
+      --text-main: #1C1917;
+      --text-muted: #575046;
       --font-serif: 'Spectral', Georgia, serif;
       --font-sans: 'Spectral', Georgia, serif;
       --font-mono: 'Spectral', Georgia, serif;
@@ -56,8 +57,8 @@
       background-color: #070709;
       font-family: var(--font-sans);
       font-weight: 600;
-      line-height: 1.6;
-      transition: background-color 0.5s ease;
+      line-height: 1.65;
+      transition: background-color 0.45s ease;
     }
 
     body.scrolled-face2 {
@@ -65,7 +66,7 @@
     }
 
     /* =========================================================================
-       LỚP NỀN 2 MẶT THUẦN CPU: BANNER MẶT 1 -> NỀN THAN CHÌ ĐẶC MẶT 2
+       LỚP NỀN 2 MẶT THUẦN CPU: BANNER ĐEN MẶT 1 -> NỀN KEM NGÀ ẤM MẶT 2
        ========================================================================= */
     #backdrop-stage {
       position: fixed;
@@ -73,7 +74,7 @@
       z-index: 0;
       pointer-events: none;
       background-color: #070709;
-      transition: background-color 0.5s ease;
+      transition: background-color 0.45s ease;
     }
 
     body.scrolled-face2 #backdrop-stage {
@@ -88,24 +89,29 @@
       background-position: center 38%;
       background-repeat: no-repeat;
       opacity: 1;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.45s ease;
     }
 
-    /* Khi cuộn sang Mặt 2: Ẩn banner để lộ mặt phẳng than chì #141519 chuẩn Neumorphism */
     body.scrolled-face2 #static-backdrop {
       opacity: 0;
     }
 
+    /* Dải chuyển tiếp êm mắt từ nền đen Mặt 1 sang nền kem #EAE5DC */
     .backdrop-vignette {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(7, 7, 9, 0.35) 0%, transparent 18%, transparent 72%, rgba(20, 21, 25, 0.96) 100%);
+      background: linear-gradient(180deg, rgba(7, 7, 9, 0.35) 0%, transparent 18%, transparent 65%, #EAE5DC 100%);
+      transition: opacity 0.45s ease;
+    }
+
+    body.scrolled-face2 .backdrop-vignette {
+      opacity: 0;
     }
 
     /* =========================================================================
-       THANH ĐIỀU HƯỚNG (HEADER NEUMORPHISM)
+       THANH ĐIỀU HƯỚNG (TỰ ĐỔI TỪ KÍNH TỐI SANG KEM SÁNG KHI CUỘN XUỐNG)
        ========================================================================= */
-.site-header {
+    .site-header {
       position: fixed;
       top: 0;
       left: 0;
@@ -115,11 +121,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 16, 0.42) 100%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 16, 0.45) 100%);
       backdrop-filter: blur(16px) saturate(165%);
       -webkit-backdrop-filter: blur(16px) saturate(165%);
       border-bottom: 1px solid rgba(245, 197, 24, 0.38);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.14);
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    body.scrolled-face2 .site-header {
+      background: rgba(244, 240, 232, 0.94);
+      border-bottom: 1px solid var(--neo-border);
+      box-shadow: 0 4px 16px rgba(140, 132, 118, 0.22);
     }
 
     .brand-box {
@@ -127,7 +140,7 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: var(--text-main);
+      color: #F4F1EA;
     }
 
     .brand-logo-wrap {
@@ -135,12 +148,11 @@
       height: 38px;
       border-radius: 50%;
       border: 1.5px solid var(--gold-burnished);
-      background: var(--neo-bg);
+      background: #111;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      box-shadow: var(--neo-shadow-out);
       flex-shrink: 0;
     }
 
@@ -169,13 +181,23 @@
       letter-spacing: 2px;
       color: var(--gold-bright);
       line-height: 1.1;
+      transition: color 0.3s ease;
+    }
+
+    body.scrolled-face2 .brand-title {
+      color: var(--gold-ink);
     }
 
     .brand-sub {
       font-size: 0.7rem;
-      color: var(--text-muted);
+      color: #C2BCB0;
       letter-spacing: 1.1px;
       text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    body.scrolled-face2 .brand-sub {
+      color: var(--text-muted);
     }
 
     .nav-links {
@@ -185,16 +207,24 @@
     }
 
     .nav-links a {
-      color: var(--text-muted);
+      color: #E5E0D6;
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: 0.4px;
-      transition: color 0.2s ease;
+      transition: color 0.25s ease;
     }
 
     .nav-links a:hover {
       color: var(--gold-bright);
+    }
+
+    body.scrolled-face2 .nav-links a {
+      color: var(--ink-dark);
+    }
+
+    body.scrolled-face2 .nav-links a:hover {
+      color: var(--gold-ink);
     }
 
     .btn-zalo-cta {
@@ -206,20 +236,17 @@
       background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
       color: #0B0B0D;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       text-decoration: none;
       letter-spacing: 0.3px;
-      box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.06), 5px 5px 12px rgba(0, 0, 0, 0.75);
+      border: 1px solid #B8860B;
+      box-shadow: 0 4px 12px rgba(154, 107, 18, 0.25);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn-zalo-cta:hover {
       transform: translateY(-2px);
-    }
-
-    .btn-zalo-cta:active {
-      transform: translateY(0);
-      box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 6px 16px rgba(154, 107, 18, 0.35);
     }
 
     /* =========================================================================
@@ -238,7 +265,7 @@
     }
 
     /* =========================================================================
-       MẶT 1: HERO SECTION (KHỐI NỔI NEUMORPHISM)
+       MẶT 1: HERO SECTION (GIỮ NGUYÊN LIQUID GLASS TRÊN NỀN BANNER ĐEN)
        ========================================================================= */
     .hero-section {
       min-height: 92vh;
@@ -257,7 +284,7 @@
       pointer-events: none;
     }
 
-.hero-bottom-anchor {
+    .hero-bottom-anchor {
       max-width: 780px;
       display: flex;
       flex-direction: column;
@@ -265,14 +292,15 @@
       gap: 14px;
       padding: 24px 28px;
       border-radius: 22px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 18, 0.44) 100%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 18, 0.52) 100%);
       backdrop-filter: blur(16px) saturate(165%);
       -webkit-backdrop-filter: blur(16px) saturate(165%);
-      border: 1px solid rgba(245, 197, 24, 0.38);
+      border: 1px solid rgba(245, 197, 24, 0.42);
       border-top-color: rgba(255, 248, 225, 0.42);
       border-left-color: rgba(255, 248, 225, 0.32);
       box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52), inset 0 1px 1.5px rgba(255, 255, 255, 0.36);
     }
+
     .hero-tagline {
       font-family: var(--font-serif);
       font-style: italic;
@@ -281,8 +309,8 @@
     }
 
     .hero-positioning {
-      font-size: clamp(0.94rem, 1.5vw, 1.05rem);
-      color: #EAE6DF;
+      font-size: clamp(0.96rem, 1.5vw, 1.06rem);
+      color: #F4F1EA;
       max-width: 640px;
     }
 
@@ -301,27 +329,21 @@
       padding: 10px 20px;
       border-radius: 10px;
       border: 1px solid var(--gold-burnished);
-      background-color: var(--neo-surface-alt);
+      background: rgba(20, 20, 26, 0.68);
       color: var(--gold-bright);
       font-weight: 600;
       font-size: 0.9rem;
       text-decoration: none;
-      box-shadow: var(--neo-shadow-out);
       transition: all 0.2s ease;
     }
 
     .btn-outline-gold:hover {
-      background-color: #20222A;
+      background: rgba(212, 175, 55, 0.22);
       transform: translateY(-2px);
     }
 
-    .btn-outline-gold:active {
-      box-shadow: var(--neo-shadow-in);
-      transform: translateY(0);
-    }
-
     /* =========================================================================
-       DẢI 4 CHỈ SỐ NĂNG LỰC (KHỐI NỔI NEUMORPHISM TĨNH)
+       DẢI 4 CHỈ SỐ NĂNG LỰC (THẺ TĨNH CHUYỂN TIẾP)
        ========================================================================= */
     .metrics-section {
       padding: 24px 0 64px;
@@ -333,22 +355,20 @@
       gap: 18px;
     }
 
-.metric-card {
+    .metric-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(16, 16, 22, 0.38) 100%);
+      background: linear-gradient(145deg, rgba(28, 28, 36, 0.82) 0%, rgba(14, 14, 18, 0.90) 100%);
       backdrop-filter: blur(15px) saturate(165%);
       -webkit-backdrop-filter: blur(15px) saturate(165%);
-      border: 1px solid rgba(245, 197, 24, 0.38);
-      border-top-color: rgba(255, 248, 225, 0.42);
-      border-left-color: rgba(255, 248, 225, 0.3);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.36);
+      border: 1px solid rgba(245, 197, 24, 0.45);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.28);
       border-radius: 18px;
       padding: 24px 18px;
       text-align: center;
       cursor: default;
       overflow: hidden;
     }
-  
+
     .metric-num {
       font-family: var(--font-serif);
       font-size: 2.2rem;
@@ -361,7 +381,7 @@
     .metric-label {
       font-size: 0.96rem;
       font-weight: 600;
-      color: var(--text-main);
+      color: #F4F1EA;
     }
 
     /* =========================================================================
@@ -396,9 +416,9 @@
       background: linear-gradient(
         115deg,
         transparent 0%,
-        rgba(255, 244, 194, 0.04) 35%,
-        rgba(255, 236, 153, 0.20) 50%,
-        rgba(255, 244, 194, 0.04) 65%,
+        rgba(255, 255, 255, 0.08) 35%,
+        rgba(255, 255, 255, 0.45) 50%,
+        rgba(255, 255, 255, 0.08) 65%,
         transparent 100%
       );
       transform: rotate(22deg);
@@ -418,10 +438,10 @@
     }
 
     /* =========================================================================
-       KHU VỰC DỰ ÁN: RÃNH LÕM THANH TRƯỢT NĂM (2026 <-> 2027)
+       KHU VỰC DỰ ÁN: NỀN SÁNG KEM NGÀ & RÃNH THANH TRƯỢT NĂM (2026 <-> 2027)
        ========================================================================= */
     .projects-section {
-      padding: 40px 0 80px;
+      padding: 36px 0 84px;
     }
 
     .section-header-bar {
@@ -432,33 +452,34 @@
       gap: 20px;
       padding-bottom: 22px;
       margin-bottom: 42px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      border-bottom: 1.5px solid var(--neo-border);
     }
 
     .section-kicker {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: var(--gold-bright);
-      letter-spacing: 1.6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold-ink);
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       margin-bottom: 6px;
     }
 
     .section-heading {
       font-family: var(--font-serif);
-      font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+      font-size: clamp(1.9rem, 3.5vw, 2.65rem);
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--ink-dark);
       line-height: 1.15;
     }
 
-    /* Rãnh khắc chìm Neumorphism (Inset) */
+    /* Rãnh khắc chìm Light Neumorphism (Inset) */
     .year-switcher {
       position: relative;
       display: inline-flex;
       align-items: center;
-      background-color: var(--neo-bg);
-      border: 1px solid var(--gold-border);
+      background-color: var(--neo-inset);
+      border: 1px solid var(--neo-border);
       border-radius: 999px;
       padding: 5px;
       box-shadow: var(--neo-shadow-in);
@@ -471,8 +492,8 @@
       width: calc(50% - 5px);
       height: calc(100% - 10px);
       border-radius: 999px;
-      background: linear-gradient(135deg, #F5C518 0%, #C99A1E 100%);
-      box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.08), 3px 3px 8px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      box-shadow: 0 2px 8px rgba(154, 107, 18, 0.35);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       z-index: 1;
     }
@@ -486,9 +507,9 @@
       z-index: 2;
       border: none;
       background: transparent;
-      padding: 8px 24px;
+      padding: 8px 26px;
       font-family: var(--font-mono);
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
@@ -496,7 +517,7 @@
     }
 
     .year-btn.active {
-      color: #09090B;
+      color: #1C1917;
     }
 
     /* =========================================================================
@@ -513,22 +534,25 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 28px;
-      padding: 14px 20px;
-      border-left: 4px solid var(--gold-bright);
+      padding: 15px 22px;
+      border-left: 4px solid var(--gold-ink);
       background-color: var(--neo-surface);
+      border-top: 1px solid rgba(255, 255, 255, 0.85);
+      border-right: 1px solid var(--neo-border);
+      border-bottom: 1px solid var(--neo-border);
       border-radius: 0 14px 14px 0;
       box-shadow: var(--neo-shadow-out);
     }
 
     .group-banner-title {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 700;
-      color: var(--gold-bright);
+      color: var(--gold-ink);
     }
 
     .group-banner-sub {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
     }
 
@@ -540,14 +564,14 @@
       align-items: center;
       gap: 6px;
       padding: 6px 14px;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       border-radius: 6px;
       transform: rotate(-4deg);
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 4px 12px rgba(28, 25, 23, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.45);
       z-index: 6;
       user-select: none;
     }
@@ -569,8 +593,8 @@
 
     .tag-gold {
       background: linear-gradient(135deg, #F5C518 0%, #B8860B 100%);
-      color: #0B0B0D;
-      border-color: #FFF3B0;
+      color: #1C1917;
+      border-color: #8C6218;
     }
 
     .scale-pill-tag {
@@ -578,18 +602,18 @@
       align-items: center;
       padding: 5px 12px;
       background-color: #0F5C40;
-      border: 1px solid rgba(212, 175, 55, 0.5);
+      border: 1px solid #093D2A;
       border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      color: #F5C518;
+      color: #F5EFE6;
       letter-spacing: 0.4px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 3px 8px rgba(28, 25, 23, 0.2);
     }
 
     /* =========================================================================
-       TẦNG 1: WIDGET LỚN (KHỐI NỔI NEUMORPHISM)
+       TẦNG 1: WIDGET LỚN (LIGHT NEUMORPHISM KEM NGÀ ẤM)
        ========================================================================= */
     .large-widget-wrapper {
       position: relative;
@@ -600,9 +624,11 @@
     .large-card {
       position: relative;
       background-color: var(--neo-surface);
-      border: 1px solid var(--gold-border);
+      border: 1px solid var(--neo-border);
+      border-top-color: rgba(255, 255, 255, 0.9);
+      border-left-color: rgba(255, 255, 255, 0.9);
       border-radius: 22px;
-      padding: 34px 28px 42px;
+      padding: 36px 28px 44px;
       display: grid;
       grid-template-columns: 1fr 1.15fr;
       gap: 28px;
@@ -611,7 +637,8 @@
     }
 
     .large-card.is-gold-tier {
-      border-color: rgba(245, 197, 24, 0.65);
+      border-color: #C99A1E;
+      border-width: 1.5px;
     }
 
     .large-tag-cluster {
@@ -630,9 +657,9 @@
       width: 100%;
       aspect-ratio: 16 / 10;
       border-radius: 26px 26px 12px 12px;
-      border: 1.5px solid rgba(245, 197, 24, 0.45);
+      border: 2px solid #C99A1E;
       overflow: hidden;
-      background-color: var(--neo-bg);
+      background-color: var(--neo-inset);
       box-shadow: var(--neo-shadow-in);
     }
 
@@ -655,26 +682,26 @@
     }
 
     .arch-art-placeholder.gold-royal {
-      background: linear-gradient(135deg, #241D0E 0%, #141519 60%, #2E230E 100%);
+      background: linear-gradient(135deg, #EFE5CE 0%, #F7F3EB 60%, #E6D6B3 100%);
     }
 
     .arch-art-placeholder.emerald-gold {
-      background: linear-gradient(135deg, #10261E 0%, #141519 65%, #26200F 100%);
+      background: linear-gradient(135deg, #DCEAE3 0%, #F4F6F4 65%, #EAE2CE 100%);
     }
 
     .arch-art-placeholder.teal-dawn {
-      background: linear-gradient(135deg, #10242B 0%, #141519 65%, #222918 100%);
+      background: linear-gradient(135deg, #DCE8EC 0%, #F4F6F7 65%, #E3EAD9 100%);
     }
 
     .arch-art-placeholder.crimson-ember {
-      background: linear-gradient(135deg, #2A0E15 0%, #141519 65%, #2E190E 100%);
+      background: linear-gradient(135deg, #EEDCE0 0%, #F7F3F3 65%, #EFE0D6 100%);
     }
 
     .arch-emblem-ring {
       width: 68px;
       height: 68px;
       border-radius: 50%;
-      border: 1.5px solid rgba(245, 197, 24, 0.55);
+      border: 1.5px solid #B8860B;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -686,15 +713,16 @@
     .arch-emblem-ring svg {
       width: 32px;
       height: 32px;
-      stroke: var(--gold-bright);
+      stroke: var(--gold-ink);
       fill: none;
-      stroke-width: 1.75;
+      stroke-width: 1.85;
     }
 
     .arch-placeholder-caption {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--gold-burnished);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold-ink);
       letter-spacing: 0.8px;
       text-transform: uppercase;
     }
@@ -707,22 +735,22 @@
 
     .large-partner-kicker {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       letter-spacing: 0.6px;
       text-transform: uppercase;
     }
 
     .large-event-title {
       font-family: var(--font-serif);
-      font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+      font-size: clamp(1.4rem, 2.4vw, 1.8rem);
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--ink-dark);
       line-height: 1.25;
     }
 
-    /* 3 ô thông số chạm khắc lõm (Inset) bên trong thẻ nổi */
+    /* 3 ô thông số khắc chìm (Inset) nền sáng chữ đen rõ nét */
     .three-stat-boxes {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -731,32 +759,33 @@
     }
 
     .stat-item-box {
-      background-color: var(--neo-bg);
-      border: 1px solid rgba(245, 197, 24, 0.2);
+      background-color: var(--neo-inset);
+      border: 1px solid rgba(255, 255, 255, 0.65);
       box-shadow: var(--neo-shadow-in);
       border-radius: 12px;
-      padding: 10px 8px;
+      padding: 11px 8px;
       text-align: center;
     }
 
     .stat-item-val {
       font-family: var(--font-serif);
-      font-size: 1.18rem;
+      font-size: 1.22rem;
       font-weight: 700;
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       line-height: 1.15;
     }
 
     .stat-item-lbl {
-      font-size: 0.76rem;
-      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #464038;
       margin-top: 3px;
     }
 
     .large-short-desc {
-      font-size: 0.92rem;
-      color: #E2DDD3;
-      line-height: 1.55;
+      font-size: 0.98rem;
+      color: var(--ink-body);
+      line-height: 1.6;
     }
 
     .btn-open-detail-large {
@@ -769,12 +798,12 @@
       gap: 10px;
       padding: 13px 28px;
       border-radius: 12px;
-      border: 1.5px solid var(--gold-bright);
-      background-color: var(--neo-surface-alt);
-      color: var(--gold-bright);
+      border: 1.5px solid #9A6B12;
+      background-color: var(--neo-surface);
+      color: var(--ink-dark);
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.04rem;
       cursor: pointer;
       box-shadow: var(--neo-shadow-out);
       transition: all 0.2s ease;
@@ -804,10 +833,10 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      border: 1px solid var(--gold-border);
+      border: 1px solid var(--neo-border);
       background-color: var(--neo-surface);
-      color: var(--gold-bright);
-      font-size: 1.05rem;
+      color: var(--gold-ink);
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
@@ -833,10 +862,10 @@
     }
 
     .carousel-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      background: rgba(212, 175, 55, 0.3);
+      background: #C7BEB0;
       border: none;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -844,46 +873,48 @@
 
     .carousel-dot.active {
       width: 24px;
-      background: var(--gold-bright);
+      background: var(--gold-ink);
     }
 
     /* =========================================================================
-       TẦNG 2: THẺ NHỎ NEUMORPHISM CHUYỂN SẮC TRẦM
+       TẦNG 2: THẺ NHỎ LIGHT NEUMORPHISM (CHỮ ĐEN TRÊN NỀN KEM SÁNG DỊU)
        ========================================================================= */
     .small-cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 26px 20px;
+      gap: 28px 20px;
       margin-top: 18px;
     }
 
     .small-card {
       position: relative;
       border-radius: 20px;
-      border: 1px solid var(--gold-border);
+      border: 1px solid var(--neo-border);
+      border-top-color: rgba(255, 255, 255, 0.9);
+      border-left-color: rgba(255, 255, 255, 0.9);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 255px;
+      min-height: 265px;
       box-shadow: var(--neo-shadow-out);
       transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
     .small-card:hover {
       transform: translateY(-4px);
-      border-color: var(--gold-bright);
+      border-color: #B8860B;
     }
 
     .grad-dawn-gold {
-      background: linear-gradient(165deg, #1B1A18 0%, #262014 60%, #332714 100%);
+      background: linear-gradient(165deg, #F7F3EB 0%, #EFE7D8 60%, #E7DBC4 100%);
     }
 
     .grad-teal-sunset {
-      background: linear-gradient(165deg, #161B1E 0%, #16262C 60%, #1F2D22 100%);
+      background: linear-gradient(165deg, #F2F6F5 0%, #E5EDEB 60%, #DDE7E1 100%);
     }
 
     .grad-sunset-ember {
-      background: linear-gradient(165deg, #1D1618 0%, #2A161B 60%, #361E15 100%);
+      background: linear-gradient(165deg, #F7F2F1 0%, #EFE3E0 60%, #E8D6D1 100%);
     }
 
     .small-card-tag {
@@ -893,7 +924,7 @@
     }
 
     .small-card-body {
-      padding: 34px 18px 18px;
+      padding: 36px 18px 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -901,44 +932,44 @@
 
     .small-card-title {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.3;
+      color: var(--ink-dark);
+      line-height: 1.32;
       text-align: center;
     }
 
-    /* Hộp thông số chạm khắc lõm bên trong thẻ nhỏ */
+    /* Hộp thông số khắc chìm nền sáng chữ đen */
     .small-card-specs {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      font-size: 0.86rem;
-      color: #EFECE6;
-      background-color: rgba(15, 16, 20, 0.72);
-      padding: 11px 13px;
+      gap: 7px;
+      font-size: 0.92rem;
+      color: var(--ink-body);
+      background-color: rgba(225, 219, 208, 0.78);
+      padding: 12px 14px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.65);
       box-shadow: var(--neo-shadow-in);
     }
 
     .small-card-specs strong {
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       font-weight: 700;
     }
 
     .small-card-footer-btn {
       width: 100%;
       border: none;
-      border-top: 1px solid rgba(212, 175, 55, 0.35);
+      border-top: 1px solid var(--neo-border);
       border-radius: 22px 0 19px 19px;
-      background-color: var(--ivory);
-      color: var(--ink-dark);
+      background-color: #23201D;
+      color: #F5EFE6;
       padding: 13px 16px;
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       text-align: center;
       cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease;
@@ -946,12 +977,12 @@
 
     .small-card-footer-btn:hover {
       background-color: var(--gold-bright);
-      color: #09090B;
+      color: #1C1917;
     }
 
     .year-2027-empty-card {
       background-color: var(--neo-surface);
-      border: 1.5px dashed rgba(212, 175, 55, 0.45);
+      border: 1.5px dashed #B8860B;
       border-radius: 22px;
       padding: 56px 24px;
       text-align: center;
@@ -963,35 +994,35 @@
     .year-2027-empty-card h3 {
       font-family: var(--font-serif);
       font-size: 1.65rem;
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       margin-bottom: 12px;
     }
 
     .year-2027-empty-card p {
-      color: var(--text-muted);
+      color: var(--ink-body);
       max-width: 520px;
       margin: 0 auto 24px;
-      font-size: 0.96rem;
+      font-size: 0.98rem;
     }
 
     /* =========================================================================
-       FOOTER (CHÂN TRANG NEUMORPHISM)
+       FOOTER (CHÂN TRANG LIGHT NEUMORPHISM)
        ========================================================================= */
     .site-footer {
       position: relative;
       z-index: 10;
       background-color: var(--neo-surface);
-      border-top: 1px solid var(--gold-border);
-      box-shadow: 0 -8px 22px rgba(0, 0, 0, 0.65);
+      border-top: 1.5px solid var(--neo-border);
+      box-shadow: 0 -6px 18px rgba(168, 160, 146, 0.25);
       padding: 56px 20px 32px;
       text-align: center;
     }
 
     .footer-brand {
       font-family: var(--font-serif);
-      font-size: 1.7rem;
+      font-size: 1.75rem;
       font-weight: 700;
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       letter-spacing: 2px;
       margin-bottom: 6px;
     }
@@ -1000,7 +1031,7 @@
       font-style: italic;
       color: var(--text-muted);
       margin-bottom: 24px;
-      font-size: 0.96rem;
+      font-size: 1rem;
     }
 
     .footer-contact-row {
@@ -1009,13 +1040,14 @@
       justify-content: center;
       gap: 16px 28px;
       margin-bottom: 26px;
-      font-size: 0.94rem;
+      font-size: 0.96rem;
+      color: var(--ink-dark);
     }
 
     .footer-contact-row a {
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .footer-contact-row a:hover {
@@ -1023,22 +1055,22 @@
     }
 
     .footer-copy {
-      font-size: 0.82rem;
-      color: #827D75;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      color: #6B6358;
+      border-top: 1px solid var(--neo-border);
       padding-top: 20px;
       max-width: 780px;
       margin: 0 auto;
     }
 
     /* =========================================================================
-       POP-UP: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (HƯỚNG B - NỀN SÁNG CHỮ ĐEN)
+       POP-UP: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (ĐỒNG BỘ 100% VỚI NỀN SÁNG)
        ========================================================================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
-      background: rgba(8, 9, 12, 0.86);
+      background: rgba(28, 25, 23, 0.72);
       display: none;
       align-items: center;
       justify-content: center;
@@ -1078,7 +1110,7 @@
       padding: 18px 32px 26px;
       max-height: 76vh;
       overflow-y: auto;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
     }
 
     .wavy-modal-header {
@@ -1097,9 +1129,9 @@
     }
 
     .wavy-modal-meta {
-      font-size: 0.9rem;
+      font-size: 0.94rem;
       font-weight: 600;
-      color: #6B5E4C;
+      color: #575046;
       margin-top: 6px;
     }
 
@@ -1126,7 +1158,7 @@
       overflow: hidden;
       border: 2px solid #D4AF37;
       background: #141418;
-      box-shadow: 0 10px 26px rgba(28, 25, 23, 0.35);
+      box-shadow: 0 10px 26px rgba(28, 25, 23, 0.28);
       transition: transform 0.4s ease, opacity 0.4s ease;
       cursor: pointer;
     }
@@ -1181,7 +1213,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     .popup-car-btn.prev { left: 8px; }
@@ -1204,7 +1236,7 @@
     }
 
     .popup-mini-box h4 {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       text-transform: uppercase;
       letter-spacing: 0.4px;
       color: #8C6218;
@@ -1212,13 +1244,13 @@
     }
 
     .popup-mini-box p {
-      font-size: 0.86rem;
+      font-size: 0.9rem;
       color: #292524;
       line-height: 1.45;
     }
 
     .popup-ops-title {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.6px;
@@ -1237,9 +1269,9 @@
     .popup-ops-list li {
       position: relative;
       padding-left: 18px;
-      font-size: 0.92rem;
+      font-size: 0.96rem;
       color: #292524;
-      line-height: 1.55;
+      line-height: 1.58;
     }
 
     .popup-ops-list li::before {
@@ -1248,7 +1280,7 @@
       left: 0;
       top: 0;
       color: #B8860B;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
 
     .wavy-modal-actions {
@@ -1267,7 +1299,7 @@
       color: #3F3A34;
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: all 0.2s ease;
@@ -1289,9 +1321,9 @@
       color: #0B0B0D;
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       text-decoration: none;
-      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.38);
+      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.35);
       transition: all 0.2s ease;
     }
 
@@ -1302,16 +1334,16 @@
 
     .modal-dismiss-hint {
       text-align: center;
-      color: rgba(244, 241, 234, 0.72);
-      font-size: 0.82rem;
+      color: #F4F1EA;
+      font-size: 0.84rem;
       letter-spacing: 0.8px;
       margin-top: 14px;
     }
 
     /* =========================================================================
-       RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE - ĐỒNG BỘ 100% CPU)
+       RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE - THUẦN CPU 100%)
        ========================================================================= */
-@media (max-width: 960px) {
+    @media (max-width: 960px) {
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1322,15 +1354,24 @@
       .small-cards-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-.site-header,
+      .site-header,
       .hero-bottom-anchor,
       .metric-card {
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
-        background: linear-gradient(145deg, rgba(28, 28, 36, 0.82) 0%, rgba(14, 14, 18, 0.88) 100%);
+      }
+      .site-header {
+        background: rgba(14, 14, 18, 0.94);
+      }
+      body.scrolled-face2 .site-header {
+        background: rgba(244, 240, 232, 0.98);
+      }
+      .hero-bottom-anchor,
+      .metric-card {
+        background: linear-gradient(145deg, rgba(28, 28, 36, 0.88) 0%, rgba(14, 14, 18, 0.94) 100%);
       }
     }
-  
+
     @media (max-width: 680px) {
       .nav-links {
         display: none;
@@ -1366,7 +1407,6 @@
       }
     }
   </style>
-</head>
 <body>
 
   <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> GIẢM SÁNG CÒN 20% + QUẦNG SÁNG KHÚC XẠ -->

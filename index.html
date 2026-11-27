@@ -382,17 +382,10 @@
       border-radius: 18px;
       padding: 22px 18px;
       text-align: center;
-      cursor: pointer;
+cursor: default;
       overflow: hidden;
       transform: translateZ(0);
       backface-visibility: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .metric-card:hover {
-      transform: translateZ(0) translateY(-4px);
-      border-color: var(--gold-bright);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 22px var(--gold-glow), var(--glass-highlight);
     }
 
     .metric-num {
@@ -1513,7 +1506,6 @@
         background: linear-gradient(165deg, rgba(36, 22, 26, 0.92) 0%, rgba(76, 24, 34, 0.92) 60%, rgba(122, 50, 24, 0.92) 100%);
       }
 
-      .metric-card:hover,
       .small-card:hover {
         transform: translateY(-4px);
       }
@@ -1704,22 +1696,14 @@
         <span><strong>Địa bàn:</strong> ${DATA.config.location}</span>
       `;
 
-      // 2. RENDER DẢI 4 CHỈ SỐ NĂNG LỰC
+// 2. RENDER DẢI 4 CHỈ SỐ NĂNG LỰC (THẺ TRƯNG BÀY TĨNH)
       const metricsContainer = document.getElementById("metrics-container");
-      metricsContainer.innerHTML = DATA.metrics.map((m, idx) => `
-        <div class="metric-card metallic-sheen" data-metric-idx="${idx}">
+      metricsContainer.innerHTML = DATA.metrics.map((m) => `
+        <div class="metric-card metallic-sheen">
           <div class="metric-num">${m.number}</div>
           <div class="metric-label">${m.title}</div>
-          <div class="metric-hint">Nhấn xem quy chuẩn ↗</div>
         </div>
       `).join("");
-
-      metricsContainer.addEventListener("click", (e) => {
-        const card = e.target.closest(".metric-card");
-        if (!card) return;
-        const item = DATA.metrics[Number(card.dataset.metricIdx)];
-        openCompactModal(item.title, item.badge, item.detail, "Tư vấn triển khai qua Zalo");
-      });
 
       // 3. RENDER KHU VỰC DỰ ÁN THEO NĂM (2026 <-> 2027)
       const projectsRoot = document.getElementById("projects-root");

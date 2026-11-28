@@ -181,7 +181,7 @@
       color: #1C1917;
     }
 
-    .btn-zalo-cta {
+.btn-zalo-cta {
       position: relative;
       overflow: hidden;
       white-space: nowrap;
@@ -199,29 +199,40 @@
       letter-spacing: 0.3px;
       border: 1.5px solid #B8860B;
       box-shadow: var(--neo-shadow-out);
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.16s ease, box-shadow 0.2s ease;
+      transition: border-color 0.35s ease, transform 0.16s ease, box-shadow 0.35s ease;
+    }
+
+    .btn-zalo-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #101A2C 0%, #11284D 55%, #264B6F 100%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .zalo-btn-label {
       position: relative;
       z-index: 2;
       color: #1C1917;
-      transition: color 0.25s ease;
+      transition: color 0.35s ease;
     }
 
     .btn-zalo-cta:hover {
-      background: linear-gradient(135deg, #101A2C 0%, #11284D 55%, #264B6F 100%);
       border-color: #F5C518;
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(16, 26, 44, 0.38);
     }
 
+    .btn-zalo-cta:hover::before {
+      opacity: 1;
+    }
+
     .btn-zalo-cta:hover .zalo-btn-label {
-      background: linear-gradient(135deg, #FFE066 0%, #F5C518 55%, #D4AF37 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
+      color: #F5C518;
     }
 
     /* =========================================================================
@@ -808,7 +819,7 @@
       line-height: 1.6;
     }
 
-    .btn-open-detail-large {
+.btn-open-detail-large {
       position: absolute;
       bottom: -21px;
       right: 24px;
@@ -828,22 +839,33 @@
       font-size: 0.98rem;
       cursor: pointer;
       box-shadow: var(--neo-shadow-out);
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.16s ease, box-shadow 0.2s ease;
+      transition: border-color 0.35s ease, transform 0.16s ease, box-shadow 0.35s ease;
+    }
+
+    .btn-open-detail-large::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #101A2C 0%, #11284D 55%, #264B6F 100%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .btn-open-detail-large:hover {
-      background: linear-gradient(135deg, #101A2C 0%, #11284D 55%, #264B6F 100%);
       border-color: #F5C518;
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(16, 26, 44, 0.38);
     }
 
+    .btn-open-detail-large:hover::before {
+      opacity: 1;
+    }
+
     .btn-open-detail-large:hover .zalo-btn-label {
-      background: linear-gradient(135deg, #FFE066 0%, #F5C518 55%, #D4AF37 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
+      color: #F5C518;
     }
 
     .carousel-controls {

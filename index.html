@@ -133,31 +133,59 @@ html {
       text-transform: uppercase;
     }
 
-    .nav-links {
-      display: flex;
+.nav-links {
+      position: relative;
+      display: inline-flex;
       align-items: center;
-      gap: 28px;
+      background-color: var(--neo-inset);
+      border: 1px solid var(--neo-border);
+      border-radius: 999px;
+      padding: 4px;
+      box-shadow: var(--neo-shadow-in);
+    }
+
+    .nav-slider-pill {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc(50% - 4px);
+      height: calc(100% - 8px);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      box-shadow: 0 2px 8px rgba(154, 107, 18, 0.35);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1;
+    }
+
+    .nav-links[data-active-tab="contact"] .nav-slider-pill {
+      transform: translateX(100%);
     }
 
     .nav-links a {
-      color: var(--ink-dark);
+      position: relative;
+      z-index: 2;
+      min-width: 104px;
+      text-align: center;
+      padding: 6px 18px;
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.4px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
       transition: color 0.25s ease;
     }
 
+    .nav-links a.active,
     .nav-links a:hover {
-      color: var(--gold-ink);
+      color: #1C1917;
     }
 
     .btn-zalo-cta {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 9px 18px;
-      border-radius: 10px;
+      padding: 9px 22px;
+      border-radius: 999px;
       background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
       color: #0B0B0D;
       font-weight: 700;
@@ -192,17 +220,17 @@ html {
     /* =========================================================================
        MẶT 1: KHUNG BANNER ĐÓNG KHUNG SÂN KHẤU + KHỐI GIỚI THIỆU LIGHT NEUMORPHISM
        ========================================================================= */
-    .hero-section {
-      padding: 96px 20px 24px;
+.hero-section {
+      padding: 82px 20px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: 16px;
     }
 
     .hero-banner-frame {
       width: 100%;
-      max-width: 1200px;
+      max-width: 920px;
       aspect-ratio: 1696 / 608;
       border-radius: 22px;
       overflow: hidden;
@@ -225,8 +253,8 @@ html {
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
-      padding: 26px 28px;
+      gap: 10px;
+      padding: 20px 28px;
       border-radius: 22px;
       background-color: var(--neo-surface);
       border: 1px solid var(--neo-border);
@@ -238,46 +266,47 @@ html {
     .hero-tagline {
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: clamp(1.4rem, 3vw, 2.05rem);
+      font-size: clamp(1.35rem, 2.8vw, 1.95rem);
       color: var(--gold-ink);
     }
 
     .hero-positioning {
-      font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+      font-size: clamp(0.95rem, 1.4vw, 1.04rem);
       color: var(--ink-body);
       max-width: 720px;
     }
 
     .hero-actions {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     .btn-outline-gold {
+      position: relative;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 10px 22px;
-      border-radius: 10px;
-      border: 1.5px solid #9A6B12;
-      background-color: var(--neo-surface);
+      padding: 13px 34px;
+      border-radius: 999px;
+      border: 1.5px solid #B8860B;
+      background-color: var(--ivory);
       color: var(--ink-dark);
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
       text-decoration: none;
       box-shadow: var(--neo-shadow-out);
-      transition: all 0.2s ease;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
     }
 
     .btn-outline-gold:hover {
-      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
-      color: #09090B;
+      background-color: var(--gold-bright);
+      color: #1C1917;
       transform: translateY(-2px);
     }
-
     /* =========================================================================
        DẢI 4 CHỈ SỐ NĂNG LỰC (LIGHT NEUMORPHISM TĨNH)
        ========================================================================= */
@@ -378,6 +407,7 @@ html {
        ========================================================================= */
     .projects-section {
       padding: 36px 0 84px;
+      scroll-margin-top: 84px;
     }
 
     .section-header-bar {
@@ -952,6 +982,7 @@ html {
       box-shadow: 0 -6px 18px rgba(168, 160, 146, 0.25);
       padding: 56px 20px 32px;
       text-align: center;
+      scroll-margin-top: 84px;
     }
 
     .footer-brand {
@@ -1349,11 +1380,11 @@ html {
       </div>
     </a>
 
-    <nav class="nav-links">
-      <a href="#metrics">Năng Lực</a>
-      <a href="#projects">Dự Án</a>
-      <a href="#contact">Liên Hệ</a>
-    </nav>
+<nav class="nav-links" id="header-nav-switcher" data-active-tab="projects" aria-label="Điều hướng chính">
+   <span class="nav-slider-pill" aria-hidden="true"></span>
+   <a href="#projects" data-tab="projects" class="active">Dự Án</a>
+   <a href="#contact" data-tab="contact">Liên Hệ</a>
+ </nav>
 
     <a id="header-zalo-btn" href="https://zalo.me/0965052847" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
       Tư Vấn Zalo ↗
@@ -1372,12 +1403,11 @@ html {
         <p class="hero-positioning">
           Đơn vị Giải pháp Vận hành Hiện trường, Quản trị Hậu cần Số &amp; Sản xuất Sự kiện Cộng đồng chuyên nghiệp tại TP. Hồ Chí Minh và các tỉnh lân cận.
         </p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn-zalo-cta">Khám Phá Hồ Sơ Dự Án ↓</a>
-          <a href="https://www.facebook.com/chamcrewne?locale=vi_VN" target="_blank" rel="noopener noreferrer" class="btn-outline-gold">
-            Fanpage Chạm Crew ↗
-          </a>
-        </div>
+<div class="hero-actions">
+     <a href="https://www.facebook.com/chamcrewne?locale=vi_VN" target="_blank" rel="noopener noreferrer" class="btn-outline-gold metallic-sheen">
+       Fanpage Chạm Crew ↗
+     </a>
+   </div>
       </div>
     </section>
 
@@ -1393,7 +1423,6 @@ html {
       <div class="container">
         <div class="section-header-bar">
           <div>
-            <div class="section-kicker">01 / Biên Niên Sử Thực Chiến</div>
             <h2 class="section-heading">Danh Mục Dự Án Tiêu Biểu</h2>
           </div>
 
@@ -1806,17 +1835,31 @@ html {
       // Khởi tạo render ban đầu
       renderProjects(activeYear);
 
-      // 5. CHUYỂN ĐỔI NỀN MẶT 1 (100%) -> MẶT 2 (GIẢM SÁNG CÒN 20%) KHI CUỘN TRANG
-      const heroSentinel = document.getElementById("hero-sentinel");
-      const heroObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            document.body.classList.toggle("scrolled-face2", !entry.isIntersecting);
-          });
-        },
-        { threshold: 0.25 }
-      );
-      heroObserver.observe(heroSentinel);
+// TỰ ĐỘNG GẠT THANH TRƯỢT HEADER (DỰ ÁN <-> LIÊN HỆ) KHI CUỘN TRANG
+      const headerNav = document.getElementById("header-nav-switcher");
+      const contactEl = document.getElementById("contact");
+
+      function setHeaderTab(tabName) {
+        if (!headerNav || headerNav.dataset.activeTab === tabName) return;
+        headerNav.dataset.activeTab = tabName;
+        headerNav.querySelectorAll("a").forEach((link) => {
+          link.classList.toggle("active", link.dataset.tab === tabName);
+        });
+      }
+
+      if (headerNav) {
+        headerNav.addEventListener("click", (e) => {
+          const link = e.target.closest("a[data-tab]");
+          if (link) setHeaderTab(link.dataset.tab);
+        });
+
+        window.addEventListener("scroll", () => {
+          if (!contactEl) return;
+          const contactTop = contactEl.getBoundingClientRect().top;
+          const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+          setHeaderTab(contactTop <= window.innerHeight * 0.55 || nearBottom ? "contact" : "projects");
+        }, { passive: true });
+      }
     })();
   </script>
 </body>

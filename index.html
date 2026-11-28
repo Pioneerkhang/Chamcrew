@@ -180,26 +180,32 @@ html {
       color: #1C1917;
     }
 
-    .btn-zalo-cta {
+.btn-zalo-cta {
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 9px 22px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
-      color: #0B0B0D;
+      background-color: #1C1917;
+      color: var(--gold-bright);
       font-weight: 700;
       font-size: 0.9rem;
       text-decoration: none;
       letter-spacing: 0.3px;
-      border: 1px solid #B8860B;
-      box-shadow: 0 4px 12px rgba(154, 107, 18, 0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1.5px solid #C99A1E;
+      box-shadow: 0 4px 12px rgba(28, 25, 23, 0.22);
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn-zalo-cta:hover {
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      color: #0B0B0D;
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(154, 107, 18, 0.35);
+      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.38);
     }
 
     /* =========================================================================
@@ -1323,9 +1329,14 @@ html {
       }
     }
 
-    @media (max-width: 680px) {
+@media (max-width: 680px) {
       .nav-links {
         display: none;
+      }
+      .btn-zalo-cta {
+        padding: 8px 14px;
+        font-size: 0.82rem;
+        gap: 4px;
       }
       .hero-section {
         padding: 82px 14px 18px;
@@ -1386,8 +1397,7 @@ html {
    <a href="#contact" data-tab="contact">Liên Hệ</a>
  </nav>
 
-    <a id="header-zalo-btn" href="https://zalo.me/0965052847" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
-      Tư Vấn Zalo ↗
+<a href="https://zalo.me" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta metallic-sheen">      Tư Vấn Zalo ↗
     </a>
   </header>
 

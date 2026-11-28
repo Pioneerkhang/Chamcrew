@@ -602,13 +602,19 @@ html {
     /* =========================================================================
        TẦNG 1: WIDGET LỚN (LIGHT NEUMORPHISM KEM NGÀ ẤM)
        ========================================================================= */
-    .large-widget-wrapper {
+.large-widget-wrapper {
       position: relative;
       margin-top: 18px;
       margin-bottom: 38px;
     }
 
+    .large-cards-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
     .large-card {
+      grid-area: 1 / 1;
       position: relative;
       background-color: var(--neo-surface);
       border: 1px solid var(--neo-border);
@@ -621,6 +627,48 @@ html {
       gap: 28px;
       align-items: center;
       box-shadow: var(--neo-shadow-out-lg);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 1;
+      will-change: transform, opacity;
+    }
+
+    .large-card.is-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    @keyframes largeSlideFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(26px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes largeSlideFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-26px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .large-card.anim-next {
+      animation: largeSlideFromRight 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .large-card.anim-prev {
+      animation: largeSlideFromLeft 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     .large-card.is-gold-tier {
@@ -769,100 +817,105 @@ html {
       margin-top: 3px;
     }
 
-    .large-short-desc {
-      font-size: 0.98rem;
-      color: var(--ink-body);
-      line-height: 1.6;
-    }
-
-    .btn-open-detail-large {
+.btn-open-detail-large {
       position: absolute;
-      bottom: -20px;
+      bottom: -21px;
       right: 24px;
       z-index: 8;
+      overflow: hidden;
+      white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 13px 28px;
-      border-radius: 12px;
-      border: 1.5px solid #9A6B12;
-      background-color: var(--neo-surface);
-      color: var(--ink-dark);
+      gap: 8px;
+      padding: 11px 26px;
+      border-radius: 999px;
+      border: 1.5px solid #B8860B;
+      background: linear-gradient(135deg, #FFE066 0%, #F5C518 55%, #D4AF37 100%);
+      color: #1C1917;
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 1.04rem;
+      font-size: 0.98rem;
       cursor: pointer;
       box-shadow: var(--neo-shadow-out);
-      transition: all 0.2s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.16s ease, box-shadow 0.2s ease;
     }
 
     .btn-open-detail-large:hover {
-      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
-      color: #09090B;
+      background: linear-gradient(135deg, #101A2C 0%, #11284D 55%, #264B6F 100%);
+      border-color: #F5C518;
       transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(16, 26, 44, 0.38);
     }
 
-    .btn-open-detail-large:active {
-      box-shadow: var(--neo-shadow-in);
-      transform: translateY(0);
+    .btn-open-detail-large:hover .zalo-btn-label {
+      background: linear-gradient(135deg, #FFE066 0%, #F5C518 55%, #D4AF37 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
     }
 
     .carousel-controls {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: 12px;
-      margin-top: 26px;
+      gap: 14px;
+      margin-top: 28px;
       padding-left: 8px;
     }
 
     .carousel-arrow-btn {
-      width: 38px;
-      height: 38px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      border: 1px solid var(--neo-border);
+      border: 1.5px solid var(--neo-border);
       background-color: var(--neo-surface);
       color: var(--gold-ink);
-      font-size: 1.1rem;
+      font-size: 1.32rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       box-shadow: var(--neo-shadow-out);
-      transition: all 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.14s ease, box-shadow 0.18s ease;
     }
 
     .carousel-arrow-btn:hover {
       background-color: var(--gold-bright);
+      border-color: #B8860B;
       color: #09090B;
-    }
-
-    .carousel-arrow-btn:active {
-      box-shadow: var(--neo-shadow-in);
     }
 
     .carousel-dots {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .carousel-dot {
-      width: 9px;
-      height: 9px;
+      width: 11px;
+      height: 11px;
       border-radius: 999px;
       background: #C7BEB0;
       border: none;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: width 0.25s ease, background-color 0.25s ease, transform 0.14s ease;
     }
 
     .carousel-dot.active {
-      width: 24px;
+      width: 28px;
       background: var(--gold-ink);
     }
 
+    .carousel-counter {
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+  
     /* =========================================================================
        TẦNG 2: THẺ NHỎ LIGHT NEUMORPHISM (CHỮ ĐEN TRÊN NỀN KEM SÁNG DỊU)
        ========================================================================= */
@@ -1328,6 +1381,46 @@ html {
       margin-top: 14px;
     }
 
+  /* =========================================================================
+       HIỆU ỨNG NHẤN PHÍM CƠ + VÒNG SÁNG VÀNG ĐỒNG BỘ TOÀN BỘ NÚT (KIỂU A)
+       ========================================================================= */
+    .btn-zalo-cta,
+    .btn-outline-gold,
+    .btn-open-detail-large,
+    .small-card-footer-btn,
+    .carousel-arrow-btn,
+    .carousel-dot,
+    .popup-car-btn,
+    .btn-popup-close,
+    .btn-popup-recap,
+    .year-btn,
+    .nav-links a {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .btn-zalo-cta:active,
+    .btn-outline-gold:active,
+    .btn-open-detail-large:active,
+    .small-card-footer-btn:active,
+    .carousel-arrow-btn:active,
+    .popup-car-btn:active,
+    .btn-popup-close:active,
+    .btn-popup-recap:active {
+      transform: scale(0.95) !important;
+      box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.38), 0 3px 10px rgba(28, 25, 23, 0.22) !important;
+    }
+
+    .popup-car-btn:active {
+      transform: translateY(-50%) scale(0.93) !important;
+    }
+
+    .year-btn:active,
+    .nav-links a:active,
+    .carousel-dot:active {
+      transform: scale(0.93);
+    }
+  
     /* =========================================================================
        RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE - THUẦN CPU 100%)
        ========================================================================= */
@@ -1565,7 +1658,7 @@ html {
           btn.classList.toggle("active", btn.dataset.year === year);
         });
 
-        const groups = DATA.projectsByYear[year] || [];
+const groups = DATA.projectsByYear[year] || [];
         if (groups.length === 0) {
           projectsRoot.innerHTML = `
             <div class="year-2027-empty-card metallic-sheen">
@@ -1574,8 +1667,8 @@ html {
               </div>
               <h3>Chương Mới ${year} Đang Được Khởi Tạo</h3>
               <p>Chạm Crew sẵn sàng đồng hành cùng doanh nghiệp, trường học và cộng đồng eSports trong mùa sự kiện ${year}. Liên hệ ngay để nhận tư vấn kịch bản &amp; nhân sự.</p>
-              <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta">
-                Đặt Lịch Hợp Tác ${year} ↗
+              <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta metallic-sheen">
+                <span class="zalo-btn-label">Đặt Lịch Hợp Tác ${year} ↗</span>
               </a>
             </div>
           `;
@@ -1588,18 +1681,53 @@ html {
           }
           const currentIdx = slideState[group.groupId];
           const largeList = group.largeWidgets || [];
-          const activeLarge = largeList[currentIdx];
 
           let largeHtml = "";
-          if (activeLarge) {
-            const tagMeta = DATA.tags[activeLarge.tagType] || DATA.tags.tag1;
-            const isGold = activeLarge.tagType === "tag4";
-            const mediaHtml = activeLarge.coverImage
-              ? `<img src="${activeLarge.coverImage}" alt="${activeLarge.title}" loading="lazy" />`
-              : `<div class="arch-art-placeholder ${activeLarge.fallbackStyle || 'gold-royal'}">
-                  <div class="arch-emblem-ring">${getCategorySvgIcon(group.groupId)}</div>
-                  <span class="arch-placeholder-caption">${tagMeta.label}</span>
-                </div>`;
+          if (largeList.length > 0) {
+            const cardsStackHtml = largeList.map((item, i) => {
+              const tagMeta = DATA.tags[item.tagType] || DATA.tags.tag1;
+              const isGold = item.tagType === "tag4";
+              const mediaHtml = item.coverImage
+                ? `<img src="${item.coverImage}" alt="${item.title}" loading="lazy" />`
+                : `<div class="arch-art-placeholder ${item.fallbackStyle || 'gold-royal'}">
+                    <div class="arch-emblem-ring">${getCategorySvgIcon(group.groupId)}</div>
+                    <span class="arch-placeholder-caption">${tagMeta.label}</span>
+                  </div>`;
+
+              return `
+                <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''} ${i === currentIdx ? 'is-active' : ''}" data-slide-index="${i}">
+                  <div class="sheen-clip"></div>
+                  <div class="large-tag-cluster">
+                    <span class="skew-tag ${tagMeta.className}">${tagMeta.label}</span>
+                    ${item.scaleTag ? `<span class="scale-pill-tag">${item.scaleTag}</span>` : ""}
+                  </div>
+
+                  <div class="arch-media-frame">
+                    ${mediaHtml}
+                  </div>
+
+                  <div class="large-info-col">
+                    <div class="large-partner-kicker">${item.partnerDate}</div>
+                    <h4 class="large-event-title">${item.title}</h4>
+
+                    <div class="three-stat-boxes">
+                      ${item.stats.map((st) => `
+                        <div class="stat-item-box">
+                          <div class="stat-item-val">${st.value}</div>
+                          <div class="stat-item-lbl">${st.label}</div>
+                        </div>
+                      `).join("")}
+                    </div>
+
+                    <p class="large-short-desc">${item.shortDesc}</p>
+                  </div>
+
+                  <button type="button" class="btn-open-detail-large metallic-sheen" data-open-project="${item.id}">
+                    <span class="zalo-btn-label">Xem chi tiết ↗</span>
+                  </button>
+                </article>
+              `;
+            }).join("");
 
             const controlsHtml = largeList.length > 1
               ? `<div class="carousel-controls">
@@ -1608,43 +1736,15 @@ html {
                     ${largeList.map((_, i) => `<button type="button" class="carousel-dot ${i === currentIdx ? 'active' : ''}" data-goto="${i}" data-group="${group.groupId}" aria-label="Trang ${i + 1}"></button>`).join("")}
                   </div>
                   <button type="button" class="carousel-arrow-btn" data-dir="1" data-group="${group.groupId}" aria-label="Sự kiện tiếp">›</button>
-                  <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-left: 4px;">${currentIdx + 1} / ${largeList.length}</span>
+                  <span class="carousel-counter">${currentIdx + 1} / ${largeList.length}</span>
                 </div>`
               : "";
 
             largeHtml = `
-              <div class="large-widget-wrapper">
-                <article class="large-card metallic-sheen ${isGold ? 'is-gold-tier' : ''}">
-                  <div class="sheen-clip"></div>
-                  <div class="large-tag-cluster">
-                    <span class="skew-tag ${tagMeta.className}">${tagMeta.label}</span>
-                    ${activeLarge.scaleTag ? `<span class="scale-pill-tag">${activeLarge.scaleTag}</span>` : ""}
-                  </div>
-
-                  <div class="arch-media-frame">
-                    ${mediaHtml}
-                  </div>
-
-                  <div class="large-info-col">
-                    <div class="large-partner-kicker">${activeLarge.partnerDate}</div>
-                    <h4 class="large-event-title">${activeLarge.title}</h4>
-
-                    <div class="three-stat-boxes">
-                      ${activeLarge.stats.map((st) => `
-                        <div class="stat-item-box">
-                          <div class="stat-item-val">${st.value}</div>
-                          <div class="stat-item-lbl">${st.label}</div>
-                        </div>
-                      `).join("")}
-                    </div>
-
-                    <p class="large-short-desc">${activeLarge.shortDesc}</p>
-                  </div>
-
-                  <button type="button" class="btn-open-detail-large" data-open-project="${activeLarge.id}">
-                    Xem chi tiết ↗
-                  </button>
-                </article>
+              <div class="large-widget-wrapper" data-widget-group="${group.groupId}">
+                <div class="large-cards-stack">
+                  ${cardsStackHtml}
+                </div>
                 ${controlsHtml}
               </div>
             `;
@@ -1684,6 +1784,34 @@ html {
         }).join("");
       }
 
+      function switchLargeSlide(groupId, newIdx, dir) {
+        const wrapper = projectsRoot.querySelector(`.large-widget-wrapper[data-widget-group="${groupId}"]`);
+        if (!wrapper) return;
+        const cards = wrapper.querySelectorAll(".large-card");
+        const dots = wrapper.querySelectorAll(".carousel-dot");
+        const counter = wrapper.querySelector(".carousel-counter");
+        if (!cards.length) return;
+
+        slideState[groupId] = newIdx;
+        const animClass = dir < 0 ? "anim-prev" : "anim-next";
+
+        cards.forEach((card, idx) => {
+          card.classList.remove("is-active", "anim-next", "anim-prev");
+          if (idx === newIdx) {
+            void card.offsetWidth;
+            card.classList.add("is-active", animClass);
+          }
+        });
+
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle("active", idx === newIdx);
+        });
+
+        if (counter) {
+          counter.textContent = `${newIdx + 1} / ${cards.length}`;
+        }
+      }
+
       yearSwitcher.addEventListener("click", (e) => {
         const btn = e.target.closest(".year-btn");
         if (!btn) return;
@@ -1698,8 +1826,8 @@ html {
           const group = (DATA.projectsByYear[activeYear] || []).find((g) => g.groupId === gId);
           if (group && group.largeWidgets.length > 1) {
             const len = group.largeWidgets.length;
-            slideState[gId] = (slideState[gId] + dir + len) % len;
-            renderProjects(activeYear);
+            const nextIdx = (slideState[gId] + dir + len) % len;
+            switchLargeSlide(gId, nextIdx, dir);
           }
           return;
         }
@@ -1707,16 +1835,12 @@ html {
         const dotBtn = e.target.closest(".carousel-dot");
         if (dotBtn) {
           const gId = dotBtn.dataset.group;
-          slideState[gId] = Number(dotBtn.dataset.goto);
-          renderProjects(activeYear);
+          const targetIdx = Number(dotBtn.dataset.goto);
+          const oldIdx = slideState[gId] || 0;
+          if (targetIdx !== oldIdx) {
+            switchLargeSlide(gId, targetIdx, targetIdx > oldIdx ? 1 : -1);
+          }
           return;
-        }
-
-        const openBtn = e.target.closest("[data-open-project]");
-        if (openBtn) {
-          const projectId = openBtn.dataset.openProject;
-          const projectObj = findProjectById(projectId);
-          if (projectObj) openWavyProjectModal(projectObj);
         }
       });
 

@@ -188,32 +188,39 @@ html {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 22px;
+      padding: 9px 22px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      background: linear-gradient(135deg, #F4EFDF 0%, #D5B370 100%);
       color: #1C1917;
       font-weight: 700;
       font-size: 0.9rem;
       text-decoration: none;
       letter-spacing: 0.3px;
       border: 1.5px solid #B8860B;
-      box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.65),
-        0 0 0 3.5px var(--neo-inset),
-        0 0 0 4.5px var(--neo-border),
-        var(--neo-shadow-out);
-      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      box-shadow: var(--neo-shadow-out);
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .zalo-btn-label {
+      position: relative;
+      z-index: 2;
+      color: #1C1917;
+      transition: color 0.25s ease;
     }
 
     .btn-zalo-cta:hover {
-      background: linear-gradient(135deg, #FFE066 0%, #F5C518 55%, #D4AF37 100%);
-      color: #0B0B0D;
+      background: linear-gradient(135deg, #101A2C 0%, #11284D 55%, #264B6F 100%);
+      border-color: #D5B370;
       transform: translateY(-2px);
-      box-shadow:
-        inset 0 1px 2px rgba(255, 255, 255, 0.85),
-        0 0 0 3.5px var(--neo-inset),
-        0 0 0 4.5px #C99A1E,
-        0 8px 20px rgba(184, 134, 11, 0.42);
+      box-shadow: 0 6px 18px rgba(16, 26, 44, 0.36);
+    }
+
+    .btn-zalo-cta:hover .zalo-btn-label {
+      background: linear-gradient(135deg, #F4EFDF 0%, #D5B370 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
     }
 
     /* =========================================================================
@@ -1406,7 +1413,7 @@ html {
  </nav>
 
 <a href="https://zalo.me" target="_blank" rel="noopener noreferrer" id="header-zalo-btn" class="btn-zalo-cta metallic-sheen">
-      Tư Vấn Zalo ↗
+      <span class="zalo-btn-label">Tư Vấn Zalo ↗</span>
     </a>
   </header>
 

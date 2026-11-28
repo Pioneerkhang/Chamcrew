@@ -12,9 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
 
-<style>
+  <style>
     :root {
-      /* Bảng màu Phương án A: Kem Ngà Ấm (Warm Ivory Light Neumorphism) */
+      /* Bảng màu Kem Ngà Ấm (Warm Ivory Light Neumorphism) */
       --neo-bg: #EAE5DC;
       --neo-surface: #F4F0E8;
       --neo-inset: #E1DBD0;
@@ -43,7 +43,7 @@
       box-sizing: border-box;
     }
 
-html {
+    html {
       scroll-behavior: smooth;
       background-color: var(--neo-bg);
       color: var(--text-main);
@@ -133,7 +133,7 @@ html {
       text-transform: uppercase;
     }
 
-.nav-links {
+    .nav-links {
       position: relative;
       display: inline-flex;
       align-items: center;
@@ -180,7 +180,7 @@ html {
       color: #1C1917;
     }
 
-.btn-zalo-cta {
+    .btn-zalo-cta {
       position: relative;
       overflow: hidden;
       white-space: nowrap;
@@ -241,7 +241,7 @@ html {
     /* =========================================================================
        MẶT 1: KHUNG BANNER ĐÓNG KHUNG SÂN KHẤU + KHỐI GIỚI THIỆU LIGHT NEUMORPHISM
        ========================================================================= */
-.hero-section {
+    .hero-section {
       padding: 82px 20px 18px;
       display: flex;
       flex-direction: column;
@@ -328,6 +328,7 @@ html {
       color: #1C1917;
       transform: translateY(-2px);
     }
+
     /* =========================================================================
        DẢI 4 CHỈ SỐ NĂNG LỰC (LIGHT NEUMORPHISM TĨNH)
        ========================================================================= */
@@ -600,9 +601,9 @@ html {
     }
 
     /* =========================================================================
-       TẦNG 1: WIDGET LỚN (LIGHT NEUMORPHISM KEM NGÀ ẤM)
+       TẦNG 1: WIDGET LỚN (GỐI MỜ ĐỒNG THỜI CROSS-DISSOLVE ÊM MẮT)
        ========================================================================= */
-.large-widget-wrapper {
+    .large-widget-wrapper {
       position: relative;
       margin-top: 18px;
       margin-bottom: 38px;
@@ -631,7 +632,7 @@ html {
       visibility: hidden;
       pointer-events: none;
       z-index: 1;
-      will-change: transform, opacity;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
     }
 
     .large-card.is-active {
@@ -639,36 +640,6 @@ html {
       visibility: visible;
       pointer-events: auto;
       z-index: 2;
-    }
-
-    @keyframes largeSlideFromRight {
-      from {
-        opacity: 0;
-        transform: translateX(26px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes largeSlideFromLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-26px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .large-card.anim-next {
-      animation: largeSlideFromRight 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    .large-card.anim-prev {
-      animation: largeSlideFromLeft 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     .large-card.is-gold-tier {
@@ -817,7 +788,13 @@ html {
       margin-top: 3px;
     }
 
-.btn-open-detail-large {
+    .large-short-desc {
+      font-size: 0.98rem;
+      color: var(--ink-body);
+      line-height: 1.6;
+    }
+
+    .btn-open-detail-large {
       position: absolute;
       bottom: -21px;
       right: 24px;
@@ -915,7 +892,7 @@ html {
       color: var(--text-muted);
       margin-left: 4px;
     }
-  
+
     /* =========================================================================
        TẦNG 2: THẺ NHỎ LIGHT NEUMORPHISM (CHỮ ĐEN TRÊN NỀN KEM SÁNG DỊU)
        ========================================================================= */
@@ -1012,7 +989,7 @@ html {
       font-size: 0.92rem;
       text-align: center;
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.14s ease, box-shadow 0.18s ease;
     }
 
     .small-card-footer-btn:hover {
@@ -1381,8 +1358,8 @@ html {
       margin-top: 14px;
     }
 
-  /* =========================================================================
-       HIỆU ỨNG NHẤN PHÍM CƠ + VÒNG SÁNG VÀNG ĐỒNG BỘ TOÀN BỘ NÚT (KIỂU A)
+    /* =========================================================================
+       HIỆU ỨNG NHẤN PHÍM CƠ GỌN SẠCH ĐỒNG BỘ TOÀN BỘ NÚT (KHÔNG VIỀN SÁNG)
        ========================================================================= */
     .btn-zalo-cta,
     .btn-outline-gold,
@@ -1408,7 +1385,7 @@ html {
     .btn-popup-close:active,
     .btn-popup-recap:active {
       transform: scale(0.95) !important;
-      box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.38), 0 3px 10px rgba(28, 25, 23, 0.22) !important;
+      box-shadow: 0 3px 10px rgba(28, 25, 23, 0.22) !important;
     }
 
     .popup-car-btn:active {
@@ -1420,11 +1397,11 @@ html {
     .carousel-dot:active {
       transform: scale(0.93);
     }
-  
+
     /* =========================================================================
        RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE - THUẦN CPU 100%)
        ========================================================================= */
-@media (max-width: 960px) {
+    @media (max-width: 960px) {
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1437,7 +1414,7 @@ html {
       }
     }
 
-@media (max-width: 680px) {
+    @media (max-width: 680px) {
       .nav-links {
         display: none;
       }
@@ -1474,9 +1451,10 @@ html {
       }
     }
   </style>
+</head>
 <body>
 
-  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT: BANNER TĨNH 100% -> GIẢM SÁNG CÒN 20% + QUẦNG SÁNG KHÚC XẠ -->
+  <!-- LỚP NỀN CỐ ĐỊNH 2 MẶT -->
   <div id="backdrop-stage" aria-hidden="true">
     <div id="static-backdrop"></div>
     <div class="ambient-glass-orbs">
@@ -1499,13 +1477,13 @@ html {
       </div>
     </a>
 
-<nav class="nav-links" id="header-nav-switcher" data-active-tab="projects" aria-label="Điều hướng chính">
-   <span class="nav-slider-pill" aria-hidden="true"></span>
-   <a href="#projects" data-tab="projects" class="active">Dự Án</a>
-   <a href="#contact" data-tab="contact">Liên Hệ</a>
- </nav>
+    <nav class="nav-links" id="header-nav-switcher" data-active-tab="projects" aria-label="Điều hướng chính">
+      <span class="nav-slider-pill" aria-hidden="true"></span>
+      <a href="#projects" data-tab="projects" class="active">Dự Án</a>
+      <a href="#contact" data-tab="contact">Liên Hệ</a>
+    </nav>
 
-<a href="https://zalo.me" target="_blank" rel="noopener noreferrer" id="header-zalo-btn" class="btn-zalo-cta metallic-sheen">
+    <a href="https://zalo.me" target="_blank" rel="noopener noreferrer" id="header-zalo-btn" class="btn-zalo-cta metallic-sheen">
       <span class="zalo-btn-label">Tư Vấn Zalo ↗</span>
     </a>
   </header>
@@ -1513,20 +1491,20 @@ html {
   <main>
     <!-- MẶT 1: HERO BANNER -->
     <section class="hero-section" id="hero-sentinel">
-<div class="hero-banner-frame">
-      <img src="banner.webp" alt="Chạm Crew — Event & Ops Solutions" />
-    </div>
+      <div class="hero-banner-frame">
+        <img src="banner.webp" alt="Chạm Crew — Event & Ops Solutions" />
+      </div>
 
       <div class="hero-bottom-anchor">
         <p class="hero-tagline" id="hero-tagline">“Chạm cảm xúc – Chạm trái tim”</p>
         <p class="hero-positioning">
           Đơn vị Giải pháp Vận hành Hiện trường, Quản trị Hậu cần Số &amp; Sản xuất Sự kiện Cộng đồng chuyên nghiệp tại TP. Hồ Chí Minh và các tỉnh lân cận.
         </p>
-<div class="hero-actions">
-     <a href="https://www.facebook.com/chamcrewne?locale=vi_VN" target="_blank" rel="noopener noreferrer" class="btn-outline-gold metallic-sheen">
-       Fanpage Chạm Crew ↗
-     </a>
-   </div>
+        <div class="hero-actions">
+          <a href="https://www.facebook.com/chamcrewne?locale=vi_VN" target="_blank" rel="noopener noreferrer" class="btn-outline-gold metallic-sheen">
+            Fanpage Chạm Crew ↗
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1568,7 +1546,7 @@ html {
   </footer>
 
   <!-- =======================================================================
-       POP-UP 1: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (HƯỚNG B - CHI TIẾT DỰ ÁN)
+       POP-UP 1: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (CHI TIẾT DỰ ÁN)
        ======================================================================= -->
   <div class="modal-backdrop" id="wavy-project-modal" role="dialog" aria-modal="true" aria-labelledby="wavy-modal-title">
     <div class="wavy-modal-shell" onclick="event.stopPropagation()">
@@ -1588,7 +1566,7 @@ html {
   </div>
 
   <!-- =======================================================================
-       POP-UP 2: THẺ NỔI THU GỌN GIẤY KEM ẤM (HƯỚNG B - CHỈ SỐ NĂNG LỰC)
+       POP-UP 2: THẺ NỔI THU GỌN GIẤY KEM ẤM
        ======================================================================= -->
   <div class="modal-backdrop" id="compact-info-modal" role="dialog" aria-modal="true" aria-labelledby="compact-modal-title">
     <div class="compact-modal-card" onclick="event.stopPropagation()" id="compact-modal-content"></div>
@@ -1609,13 +1587,13 @@ html {
 
       const DATA = CHAM_CREW_DATA;
 
-// 1. CẬP NHẬT THÔNG TIN CHUNG & FOOTER
+      // 1. CẬP NHẬT THÔNG TIN CHUNG & FOOTER
       document.getElementById("hero-tagline").textContent = `“${DATA.config.tagline}”`;
       const headerZaloBtn = document.getElementById("header-zalo-btn");
       if (headerZaloBtn) headerZaloBtn.href = DATA.config.zaloUrl;
       const staticBackdrop = document.getElementById("static-backdrop");
       if (staticBackdrop) staticBackdrop.style.backgroundImage = `url('${DATA.config.bannerImage}')`;
-      
+
       document.getElementById("footer-contacts").innerHTML = `
         <span><strong>Đại diện điều phối:</strong> ${DATA.config.coordinator}</span>
         <span><strong>Hotline / Zalo:</strong> <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer">${DATA.config.phoneDisplay}</a></span>
@@ -1624,7 +1602,7 @@ html {
         <span><strong>Địa bàn:</strong> ${DATA.config.location}</span>
       `;
 
-// 2. RENDER DẢI 4 CHỈ SỐ NĂNG LỰC (THẺ TRƯNG BÀY TĨNH)
+      // 2. RENDER DẢI 4 CHỈ SỐ NĂNG LỰC (THẺ TRƯNG BÀY TĨNH)
       const metricsContainer = document.getElementById("metrics-container");
       metricsContainer.innerHTML = DATA.metrics.map((m) => `
         <div class="metric-card metallic-sheen">
@@ -1658,7 +1636,7 @@ html {
           btn.classList.toggle("active", btn.dataset.year === year);
         });
 
-const groups = DATA.projectsByYear[year] || [];
+        const groups = DATA.projectsByYear[year] || [];
         if (groups.length === 0) {
           projectsRoot.innerHTML = `
             <div class="year-2027-empty-card metallic-sheen">
@@ -1784,7 +1762,7 @@ const groups = DATA.projectsByYear[year] || [];
         }).join("");
       }
 
-      function switchLargeSlide(groupId, newIdx, dir) {
+      function switchLargeSlide(groupId, newIdx) {
         const wrapper = projectsRoot.querySelector(`.large-widget-wrapper[data-widget-group="${groupId}"]`);
         if (!wrapper) return;
         const cards = wrapper.querySelectorAll(".large-card");
@@ -1793,14 +1771,9 @@ const groups = DATA.projectsByYear[year] || [];
         if (!cards.length) return;
 
         slideState[groupId] = newIdx;
-        const animClass = dir < 0 ? "anim-prev" : "anim-next";
 
         cards.forEach((card, idx) => {
-          card.classList.remove("is-active", "anim-next", "anim-prev");
-          if (idx === newIdx) {
-            void card.offsetWidth;
-            card.classList.add("is-active", animClass);
-          }
+          card.classList.toggle("is-active", idx === newIdx);
         });
 
         dots.forEach((dot, idx) => {
@@ -1827,7 +1800,7 @@ const groups = DATA.projectsByYear[year] || [];
           if (group && group.largeWidgets.length > 1) {
             const len = group.largeWidgets.length;
             const nextIdx = (slideState[gId] + dir + len) % len;
-            switchLargeSlide(gId, nextIdx, dir);
+            switchLargeSlide(gId, nextIdx);
           }
           return;
         }
@@ -1836,11 +1809,17 @@ const groups = DATA.projectsByYear[year] || [];
         if (dotBtn) {
           const gId = dotBtn.dataset.group;
           const targetIdx = Number(dotBtn.dataset.goto);
-          const oldIdx = slideState[gId] || 0;
-          if (targetIdx !== oldIdx) {
-            switchLargeSlide(gId, targetIdx, targetIdx > oldIdx ? 1 : -1);
+          if (targetIdx !== (slideState[gId] || 0)) {
+            switchLargeSlide(gId, targetIdx);
           }
           return;
+        }
+
+        const openBtn = e.target.closest("[data-open-project]");
+        if (openBtn) {
+          const projectId = openBtn.dataset.openProject;
+          const projectObj = findProjectById(projectId);
+          if (projectObj) openWavyProjectModal(projectObj);
         }
       });
 
@@ -1987,7 +1966,7 @@ const groups = DATA.projectsByYear[year] || [];
       // Khởi tạo render ban đầu
       renderProjects(activeYear);
 
-// TỰ ĐỘNG GẠT THANH TRƯỢT HEADER (DỰ ÁN <-> LIÊN HỆ) KHI CUỘN TRANG
+      // TỰ ĐỘNG GẠT THANH TRƯỢT HEADER (DỰ ÁN <-> LIÊN HỆ) KHI CUỘN TRANG
       const headerNav = document.getElementById("header-nav-switcher");
       const contactEl = document.getElementById("contact");
 

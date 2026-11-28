@@ -198,7 +198,7 @@
       letter-spacing: 0.3px;
       border: 1.5px solid #B8860B;
       box-shadow: var(--neo-shadow-out);
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.16s ease, box-shadow 0.2s ease;
     }
 
     .zalo-btn-label {
@@ -320,7 +320,7 @@
       letter-spacing: 0.3px;
       text-decoration: none;
       box-shadow: var(--neo-shadow-out);
-      transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.16s ease, box-shadow 0.2s ease;
     }
 
     .btn-outline-gold:hover {
@@ -601,7 +601,7 @@
     }
 
     /* =========================================================================
-       TẦNG 1: WIDGET LỚN (GỐI MỜ ĐỒNG THỜI CROSS-DISSOLVE ÊM MẮT)
+       TẦNG 1: WIDGET LỚN (GỐI MỜ ĐỒNG THỜI CROSS-DISSOLVE 0.48s ÊM MẮT)
        ========================================================================= */
     .large-widget-wrapper {
       position: relative;
@@ -632,7 +632,7 @@
       visibility: hidden;
       pointer-events: none;
       z-index: 1;
-      transition: opacity 0.28s ease, visibility 0.28s ease;
+      transition: opacity 0.48s ease, visibility 0.48s ease;
     }
 
     .large-card.is-active {
@@ -894,7 +894,7 @@
     }
 
     /* =========================================================================
-       TẦNG 2: THẺ NHỎ LIGHT NEUMORPHISM (CHỮ ĐEN TRÊN NỀN KEM SÁNG DỊU)
+       TẦNG 2: THẺ NHỎ LIGHT NEUMORPHISM (NHẤN NẢY NGUYÊN THẺ KHÔNG HỞ ĐÁY)
        ========================================================================= */
     .small-cards-grid {
       display: grid;
@@ -914,12 +914,18 @@
       justify-content: space-between;
       min-height: 265px;
       box-shadow: var(--neo-shadow-out);
-      transition: transform 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.18s ease, border-color 0.25s ease, box-shadow 0.18s ease;
     }
 
     .small-card:hover {
       transform: translateY(-4px);
       border-color: #B8860B;
+    }
+
+    .small-card:has(.small-card-footer-btn:active),
+    .small-card:active {
+      transform: scale(0.97) !important;
+      box-shadow: 0 3px 12px rgba(28, 25, 23, 0.2) !important;
     }
 
     .grad-dawn-gold {
@@ -989,7 +995,7 @@
       font-size: 0.92rem;
       text-align: center;
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease, transform 0.14s ease, box-shadow 0.18s ease;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     .small-card-footer-btn:hover {
@@ -1082,24 +1088,27 @@
     }
 
     /* =========================================================================
-       POP-UP: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (ĐỒNG BỘ 100% VỚI NỀN SÁNG)
+       POP-UP: BẢNG NGANG LƯỢN SÓNG GIẤY KEM ẤM (PHÓNG NHẸ TỪ TÂM 0.5s)
        ========================================================================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 2000;
       background: rgba(28, 25, 23, 0.72);
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px 0;
+      visibility: hidden;
       opacity: 0;
-      transition: opacity 0.25s ease;
+      pointer-events: none;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
     }
 
     .modal-backdrop.is-open {
-      display: flex;
+      visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
 
     .wavy-modal-shell {
@@ -1107,12 +1116,13 @@
       width: 100%;
       max-width: 920px;
       margin: 0 auto;
-      transform: translateY(14px);
-      transition: transform 0.28s ease;
+      transform: scale(0.93) translateY(16px);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
 
     .modal-backdrop.is-open .wavy-modal-shell {
-      transform: translateY(0);
+      transform: scale(1) translateY(0);
     }
 
     .wave-svg-top,
@@ -1359,7 +1369,7 @@
     }
 
     /* =========================================================================
-       HIỆU ỨNG NHẤN PHÍM CƠ GỌN SẠCH ĐỒNG BỘ TOÀN BỘ NÚT (KHÔNG VIỀN SÁNG)
+       HIỆU ỨNG NHẤN PHÍM CƠ GỌN SẠCH CHO CÁC NÚT ĐỘC LẬP (KHÔNG VIỀN SÁNG)
        ========================================================================= */
     .btn-zalo-cta,
     .btn-outline-gold,
@@ -1379,7 +1389,6 @@
     .btn-zalo-cta:active,
     .btn-outline-gold:active,
     .btn-open-detail-large:active,
-    .small-card-footer-btn:active,
     .carousel-arrow-btn:active,
     .popup-car-btn:active,
     .btn-popup-close:active,
@@ -1932,7 +1941,9 @@
           });
         }
 
-        wavyModal.classList.add("is-open");
+        requestAnimationFrame(() => {
+          wavyModal.classList.add("is-open");
+        });
         document.body.style.overflow = "hidden";
         document.getElementById("btn-close-wavy").addEventListener("click", closeAllModals);
       }
@@ -1947,7 +1958,9 @@
             <span class="compact-arrow-circle">›</span>
           </a>
         `;
-        compactModal.classList.add("is-open");
+        requestAnimationFrame(() => {
+          compactModal.classList.add("is-open");
+        });
         document.body.style.overflow = "hidden";
       }
 

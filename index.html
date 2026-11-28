@@ -1442,7 +1442,7 @@
       transform: scale(0.93);
     }
 
-    /* =========================================================================
+/* =========================================================================
        RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE - THUẦN CPU 100%)
        ========================================================================= */
     @media (max-width: 960px) {
@@ -1453,8 +1453,12 @@
         grid-template-columns: 1fr;
         padding: 32px 20px 42px;
       }
+    }
+
+    @media (max-width: 820px) {
       .small-cards-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 24px 14px;
       }
     }
 
@@ -1478,7 +1482,39 @@
       .metric-num {
         font-size: 1.75rem;
       }
-      .small-cards-grid,
+      .small-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px 10px;
+      }
+      .small-card {
+        min-height: 220px;
+        border-radius: 16px;
+      }
+      .small-card-tag {
+        top: -11px;
+        left: 8px;
+        padding: 4px 9px;
+        font-size: 0.62rem;
+      }
+      .small-card-body {
+        padding: 28px 10px 12px;
+        gap: 8px;
+      }
+      .small-card-title {
+        font-size: 0.98rem;
+        line-height: 1.28;
+      }
+      .small-card-specs {
+        padding: 9px 10px;
+        gap: 5px;
+        font-size: 0.78rem;
+        line-height: 1.42;
+      }
+      .small-card-footer-btn {
+        padding: 10px 8px;
+        font-size: 0.78rem;
+        border-radius: 16px 0 15px 15px;
+      }
       .popup-three-cards {
         grid-template-columns: 1fr;
       }

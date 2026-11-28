@@ -1397,7 +1397,8 @@ html {
    <a href="#contact" data-tab="contact">Liên Hệ</a>
  </nav>
 
-<a href="https://zalo.me" target="_blank" rel="noopener noreferrer" class="btn-zalo-cta metallic-sheen">      Tư Vấn Zalo ↗
+<a href="https://zalo.me" target="_blank" rel="noopener noreferrer" id="header-zalo-btn" class="btn-zalo-cta metallic-sheen">
+      Tư Vấn Zalo ↗
     </a>
   </header>
 
@@ -1500,11 +1501,13 @@ html {
 
       const DATA = CHAM_CREW_DATA;
 
-      // 1. CẬP NHẬT THÔNG TIN CHUNG & FOOTER
+// 1. CẬP NHẬT THÔNG TIN CHUNG & FOOTER
       document.getElementById("hero-tagline").textContent = `“${DATA.config.tagline}”`;
-      document.getElementById("header-zalo-btn").href = DATA.config.zaloUrl;
-      document.getElementById("static-backdrop").style.backgroundImage = `url('${DATA.config.bannerImage}')`;
-
+      const headerZaloBtn = document.getElementById("header-zalo-btn");
+      if (headerZaloBtn) headerZaloBtn.href = DATA.config.zaloUrl;
+      const staticBackdrop = document.getElementById("static-backdrop");
+      if (staticBackdrop) staticBackdrop.style.backgroundImage = `url('${DATA.config.bannerImage}')`;
+      
       document.getElementById("footer-contacts").innerHTML = `
         <span><strong>Đại diện điều phối:</strong> ${DATA.config.coordinator}</span>
         <span><strong>Hotline / Zalo:</strong> <a href="${DATA.config.zaloUrl}" target="_blank" rel="noopener noreferrer">${DATA.config.phoneDisplay}</a></span>

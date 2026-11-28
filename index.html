@@ -43,9 +43,9 @@
       box-sizing: border-box;
     }
 
-    html {
+html {
       scroll-behavior: smooth;
-      background-color: #070709;
+      background-color: var(--neo-bg);
       color: var(--text-main);
       font-family: var(--font-sans);
       font-weight: 600;
@@ -54,62 +54,14 @@
     body {
       min-height: 100vh;
       overflow-x: hidden;
-      background-color: #070709;
+      background-color: var(--neo-bg);
       font-family: var(--font-sans);
       font-weight: 600;
       line-height: 1.65;
-      transition: background-color 0.45s ease;
-    }
-
-    body.scrolled-face2 {
-      background-color: var(--neo-bg);
     }
 
     /* =========================================================================
-       LỚP NỀN 2 MẶT THUẦN CPU: BANNER ĐEN MẶT 1 -> NỀN KEM NGÀ ẤM MẶT 2
-       ========================================================================= */
-    #backdrop-stage {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background-color: #070709;
-      transition: background-color 0.45s ease;
-    }
-
-    body.scrolled-face2 #backdrop-stage {
-      background-color: var(--neo-bg);
-    }
-
-    #static-backdrop {
-      position: absolute;
-      inset: 0;
-      background-image: url('banner.webp');
-      background-size: contain;
-      background-position: center 38%;
-      background-repeat: no-repeat;
-      opacity: 1;
-      transition: opacity 0.45s ease;
-    }
-
-    body.scrolled-face2 #static-backdrop {
-      opacity: 0;
-    }
-
-    /* Dải chuyển tiếp êm mắt từ nền đen Mặt 1 sang nền kem #EAE5DC */
-    .backdrop-vignette {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(7, 7, 9, 0.35) 0%, transparent 18%, transparent 65%, #EAE5DC 100%);
-      transition: opacity 0.45s ease;
-    }
-
-    body.scrolled-face2 .backdrop-vignette {
-      opacity: 0;
-    }
-
-    /* =========================================================================
-       THANH ĐIỀU HƯỚNG (TỰ ĐỔI TỪ KÍNH TỐI SANG KEM SÁNG KHI CUỘN XUỐNG)
+       THANH ĐIỀU HƯỚNG (LIGHT NEUMORPHISM CỐ ĐỊNH ĐỒNG NHẤT TOÀN TRANG)
        ========================================================================= */
     .site-header {
       position: fixed;
@@ -121,16 +73,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 16, 0.45) 100%);
-      backdrop-filter: blur(16px) saturate(165%);
-      -webkit-backdrop-filter: blur(16px) saturate(165%);
-      border-bottom: 1px solid rgba(245, 197, 24, 0.38);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.14);
-      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    body.scrolled-face2 .site-header {
-      background: rgba(244, 240, 232, 0.94);
+      background-color: var(--neo-surface);
       border-bottom: 1px solid var(--neo-border);
       box-shadow: 0 4px 16px rgba(140, 132, 118, 0.22);
     }
@@ -140,7 +83,7 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: #F4F1EA;
+      color: var(--ink-dark);
     }
 
     .brand-logo-wrap {
@@ -179,25 +122,15 @@
       font-weight: 700;
       font-size: 1.15rem;
       letter-spacing: 2px;
-      color: var(--gold-bright);
-      line-height: 1.1;
-      transition: color 0.3s ease;
-    }
-
-    body.scrolled-face2 .brand-title {
       color: var(--gold-ink);
+      line-height: 1.1;
     }
 
     .brand-sub {
       font-size: 0.7rem;
-      color: #C2BCB0;
+      color: var(--text-muted);
       letter-spacing: 1.1px;
       text-transform: uppercase;
-      transition: color 0.3s ease;
-    }
-
-    body.scrolled-face2 .brand-sub {
-      color: var(--text-muted);
     }
 
     .nav-links {
@@ -207,7 +140,7 @@
     }
 
     .nav-links a {
-      color: #E5E0D6;
+      color: var(--ink-dark);
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 600;
@@ -216,14 +149,6 @@
     }
 
     .nav-links a:hover {
-      color: var(--gold-bright);
-    }
-
-    body.scrolled-face2 .nav-links a {
-      color: var(--ink-dark);
-    }
-
-    body.scrolled-face2 .nav-links a:hover {
       color: var(--gold-ink);
     }
 
@@ -265,53 +190,62 @@
     }
 
     /* =========================================================================
-       MẶT 1: HERO SECTION (GIỮ NGUYÊN LIQUID GLASS TRÊN NỀN BANNER ĐEN)
+       MẶT 1: KHUNG BANNER ĐÓNG KHUNG SÂN KHẤU + KHỐI GIỚI THIỆU LIGHT NEUMORPHISM
        ========================================================================= */
     .hero-section {
-      min-height: 92vh;
+      padding: 96px 20px 24px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
       align-items: center;
-      text-align: center;
-      padding: 96px 20px 36px;
+      gap: 24px;
     }
 
-    .hero-center-spacer {
-      flex: 1;
-      min-height: 340px;
+    .hero-banner-frame {
       width: 100%;
-      pointer-events: none;
+      max-width: 1200px;
+      aspect-ratio: 1696 / 608;
+      border-radius: 22px;
+      overflow: hidden;
+      background-color: #070709;
+      border: 2px solid #C99A1E;
+      box-shadow: var(--neo-shadow-out-lg);
+    }
+
+    .hero-banner-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .hero-bottom-anchor {
-      max-width: 780px;
+      width: 100%;
+      max-width: 1200px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
-      padding: 24px 28px;
+      text-align: center;
+      gap: 12px;
+      padding: 26px 28px;
       border-radius: 22px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 18, 0.52) 100%);
-      backdrop-filter: blur(16px) saturate(165%);
-      -webkit-backdrop-filter: blur(16px) saturate(165%);
-      border: 1px solid rgba(245, 197, 24, 0.42);
-      border-top-color: rgba(255, 248, 225, 0.42);
-      border-left-color: rgba(255, 248, 225, 0.32);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52), inset 0 1px 1.5px rgba(255, 255, 255, 0.36);
+      background-color: var(--neo-surface);
+      border: 1px solid var(--neo-border);
+      border-top-color: rgba(255, 255, 255, 0.9);
+      border-left-color: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--neo-shadow-out-lg);
     }
 
     .hero-tagline {
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: clamp(1.35rem, 3vw, 2rem);
-      color: var(--gold-bright);
+      font-size: clamp(1.4rem, 3vw, 2.05rem);
+      color: var(--gold-ink);
     }
 
     .hero-positioning {
-      font-size: clamp(0.96rem, 1.5vw, 1.06rem);
-      color: #F4F1EA;
-      max-width: 640px;
+      font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+      color: var(--ink-body);
+      max-width: 720px;
     }
 
     .hero-actions {
@@ -319,34 +253,36 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 14px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .btn-outline-gold {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 10px;
-      border: 1px solid var(--gold-burnished);
-      background: rgba(20, 20, 26, 0.68);
-      color: var(--gold-bright);
-      font-weight: 600;
-      font-size: 0.9rem;
+      border: 1.5px solid #9A6B12;
+      background-color: var(--neo-surface);
+      color: var(--ink-dark);
+      font-weight: 700;
+      font-size: 0.92rem;
       text-decoration: none;
+      box-shadow: var(--neo-shadow-out);
       transition: all 0.2s ease;
     }
 
     .btn-outline-gold:hover {
-      background: rgba(212, 175, 55, 0.22);
+      background: linear-gradient(135deg, #F5C518 0%, #D4AF37 100%);
+      color: #09090B;
       transform: translateY(-2px);
     }
 
     /* =========================================================================
-       DẢI 4 CHỈ SỐ NĂNG LỰC (THẺ TĨNH CHUYỂN TIẾP)
+       DẢI 4 CHỈ SỐ NĂNG LỰC (LIGHT NEUMORPHISM TĨNH)
        ========================================================================= */
     .metrics-section {
-      padding: 24px 0 64px;
+      padding: 12px 0 48px;
     }
 
     .metrics-grid {
@@ -357,11 +293,11 @@
 
     .metric-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(28, 28, 36, 0.82) 0%, rgba(14, 14, 18, 0.90) 100%);
-      backdrop-filter: blur(15px) saturate(165%);
-      -webkit-backdrop-filter: blur(15px) saturate(165%);
-      border: 1px solid rgba(245, 197, 24, 0.45);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.28);
+      background-color: var(--neo-surface);
+      border: 1px solid var(--neo-border);
+      border-top-color: rgba(255, 255, 255, 0.9);
+      border-left-color: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--neo-shadow-out);
       border-radius: 18px;
       padding: 24px 18px;
       text-align: center;
@@ -371,17 +307,17 @@
 
     .metric-num {
       font-family: var(--font-serif);
-      font-size: 2.2rem;
+      font-size: 2.25rem;
       font-weight: 700;
-      color: var(--gold-bright);
+      color: var(--gold-ink);
       line-height: 1.1;
       margin-bottom: 6px;
     }
 
     .metric-label {
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 600;
-      color: #F4F1EA;
+      color: var(--ink-dark);
     }
 
     /* =========================================================================
@@ -1343,7 +1279,7 @@
     /* =========================================================================
        RESPONSIVE TỰ CO GIÃN (TABLET & MOBILE - THUẦN CPU 100%)
        ========================================================================= */
-    @media (max-width: 960px) {
+@media (max-width: 960px) {
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1354,22 +1290,6 @@
       .small-cards-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-      .site-header,
-      .hero-bottom-anchor,
-      .metric-card {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-      }
-      .site-header {
-        background: rgba(14, 14, 18, 0.94);
-      }
-      body.scrolled-face2 .site-header {
-        background: rgba(244, 240, 232, 0.98);
-      }
-      .hero-bottom-anchor,
-      .metric-card {
-        background: linear-gradient(145deg, rgba(28, 28, 36, 0.88) 0%, rgba(14, 14, 18, 0.94) 100%);
-      }
     }
 
     @media (max-width: 680px) {
@@ -1377,11 +1297,8 @@
         display: none;
       }
       .hero-section {
-        min-height: 84vh;
-        padding-top: 84px;
-      }
-      .hero-center-spacer {
-        min-height: 220px;
+        padding: 82px 14px 18px;
+        gap: 16px;
       }
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1446,8 +1363,9 @@
   <main>
     <!-- MẶT 1: HERO BANNER -->
     <section class="hero-section" id="hero-sentinel">
-      <!-- Khoảng trống trung tâm giữ thoáng logo CHAM CREW trên banner.webp -->
-      <div class="hero-center-spacer"></div>
+<div class="hero-banner-frame">
+      <img src="banner.webp" alt="Chạm Crew — Event & Ops Solutions" />
+    </div>
 
       <div class="hero-bottom-anchor">
         <p class="hero-tagline" id="hero-tagline">“Chạm cảm xúc – Chạm trái tim”</p>
